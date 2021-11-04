@@ -81,4 +81,37 @@ For a fully working example see the examples section below
 
 For examples of usage with different UI frameworks such as Material UI & Bootstrap, see the [examples](https://github.com/alexn400/react-dialog-async/tree/main/examples) folder.
 
+# Usage with Typescript
+To define a dialog component with typescript use the `AsyncDialogProps` type. It is a generic type that accepts 2 parameters, the first specifies the type of the data passed to the `data` prop and the second specifies the type of the data returned by the dialog via the `handleClose` function.
+
+The below example demonstrates a simple dialog that gets the user to enter their name with a custom prompt
+
+```tsx
+...
+import { AsyncDialogProps } from "react-dialog-async";
+
+
+const InputDialog: React.FC<
+  AsyncDialogProps<string, string>
+> = ({ open, handleClose, data }) => {
+
+  const [value, setValue] = useState("");
+
+  return (
+    <Dialog open={open} onClose={() => handleClose()}>
+      <DialogTitle>{data.title}</DialogTitle>
+      <DialogContent>
+        <DialogContentText id="alert-dialog-description">
+          {data}
+        </DialogContentText>
+        <Input value={value} onChange={e => setValue(e.target.value)}>
+      </DialogContent>
+        <Button onClick={() => handleClose(value)} autoFocus>
+          Submit
+        </Button>
+    </Dialog>
+  );
+  ```
+# License
+
 MIT Licensed. Copyright (c) Alexander Nicholson 2021.
