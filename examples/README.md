@@ -7,5 +7,6 @@ If you're looking for an example use that isnt listed here, feel free to open an
 ## List of Examples
 | Name | Description |
 |------|-------------|
-|material-ui|Usage with MUI v5|
-|react-bootstrap|Usage with React Bootstrap v5|
+|[material-ui](https://github.com/alexn400/react-dialog-async/tree/main/examples/material-ui)|Usage with MUI v5| 
+|[react-bootstrap](https://github.com/alexn400/react-dialog-async/tree/main/examples/react-bootstrap)|Usage with React Bootstrap v5|
+|[tailwindcss](https://github.com/alexn400/react-dialog-async/tree/main/examples/tailwindcss)|Usage with Tailwind CSS|
