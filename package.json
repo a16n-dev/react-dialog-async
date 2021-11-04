@@ -1,0 +1,4 @@
+{
+  "private": "true",
+  "workspaces": ["react-dialog-async", "react-dialog-async-examples/*"]
+}
