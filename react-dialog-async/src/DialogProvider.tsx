@@ -19,7 +19,7 @@ const DialogProvider: React.FC = ({ children }) => {
      * @param component The component to use
      * @returns the id of the dialog
      */
-    register: function (component: DialogComponent<unknown, unknown>): string {
+    register: (component: DialogComponent<unknown, unknown>): string => {
       const dialog: dialogStateItem = {
         component,
         isOpen: false,
@@ -32,7 +32,7 @@ const DialogProvider: React.FC = ({ children }) => {
      * Removes a registerd dialog given its id
      * @param dialogId the id of the dialog
      */
-    unregister: function (dialogId: string): void {
+    unregister: (dialogId: string): void => {
       setDialogs(({ [dialogId]: _, ...d }) => d);
     },
     /**
@@ -40,7 +40,7 @@ const DialogProvider: React.FC = ({ children }) => {
      * @param dialogId the id of the dialog
      * @param data data to pass to the dialog component
      */
-    show: function (dialogId: string, data: unknown): Promise<unknown> {
+    show: (dialogId: string, data: unknown): Promise<unknown> => {
       return new Promise((resolve) => {
         setDialogs((d) => ({ ...d, [dialogId]: { ...d[dialogId], data, isOpen: true, resolve } }));
       });
@@ -49,12 +49,19 @@ const DialogProvider: React.FC = ({ children }) => {
      * Force closes the dialog with the given id
      * @param dialogId the id of the dialog
      */
-    hide: function (dialogId: string): void {
+    hide: (dialogId: string): void => {
       setDialogs((d) => ({ ...d, [dialogId]: { ...d[dialogId], isOpen: false } }));
     },
+    
+    /**
+     * Updates the data of the given dialog
+     * @param dialogId the id of the dialog to update
+     * @param data the new data to pass to the dialog
+     */
+    updateData: (dialogId: string, data: unknown): void => {
+      setDialogs((d) => ({ ...d, [dialogId]: { ...d[dialogId], data } }));
+    },
   };
-
-  console.log(dialogs)
 
   return (
     <>
