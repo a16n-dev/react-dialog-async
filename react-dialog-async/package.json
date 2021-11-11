@@ -1,6 +1,17 @@
 {
   "name": "react-dialog-async",
-  "version": "1.0.5",
+  "description": "A promise-based way to show dialogs in React",
+  "keywords": [
+    "react",
+    "dialog",
+    "promise",
+    "modal",
+    "async",
+    "hooks",
+    "headless",
+    "react-modal"
+  ],
+  "version": "1.0.6",
   "main": "dist/index.js",
   "module": "dist/index.esm.js",
   "types": "dist/index.d.ts",
