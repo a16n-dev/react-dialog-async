@@ -24,8 +24,12 @@ const DialogProvider: React.FC = ({ children }) => {
         component,
         isOpen: false,
       };
-      setDialogs((d) => ({ ...d, [id.current]: dialog }));
-      return String(id.current++);
+
+      const componentId = id.current;
+      id.current++;
+      
+      setDialogs((d) => ({ ...d, [componentId]: dialog }));
+      return String(componentId);
     },
 
     /**
@@ -67,6 +71,7 @@ const DialogProvider: React.FC = ({ children }) => {
     <>
       <DialogContext.Provider value={ctx}>
         {children}
+        <p>Running</p>
         {Object.entries(dialogs).map(([id, { component: C, isOpen, data, resolve }]) => {
           if (resolve) {
             const onClose = (value: unknown) => {
