@@ -71,7 +71,6 @@ const DialogProvider: React.FC = ({ children }) => {
     <>
       <DialogContext.Provider value={ctx}>
         {children}
-        <p>Running</p>
         {Object.entries(dialogs).map(([id, { component: C, isOpen, data, resolve }]) => {
           if (resolve) {
             const onClose = (value: unknown) => {
