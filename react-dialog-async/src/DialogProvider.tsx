@@ -1,4 +1,4 @@
-import React, { useRef } from 'react';
+import React, { PropsWithChildren, useRef } from 'react';
 import DialogContext, { dialogContextState } from './DialogContext';
 import { DialogComponent } from './types';
 
@@ -9,7 +9,7 @@ interface dialogStateItem {
   resolve?: (value: unknown) => void;
 }
 
-const DialogProvider: React.FC = ({ children }) => {
+const DialogProvider = ({ children }: PropsWithChildren<{}>) => {
   const [dialogs, setDialogs] = React.useState<{ [key: string]: dialogStateItem }>({});
   const id = useRef(0);
 
