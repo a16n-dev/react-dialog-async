@@ -4,16 +4,17 @@
 [![Types](https://img.shields.io/npm/types/react-dialog-async.svg)](https://www.npmjs.com/package/react-dialog-async)
 [![Downloads](https://img.shields.io/npm/dt/react-dialog-async.svg)](https://www.npmjs.com/package/react-dialog-async)
 
-Provides a way to show a dialog using hooks.
+A simple, more flexible approach to managing Dialogs in React using hooks.
 
-## Features:
+## Features
 
-- Headless - works with any styling approach and any dialog component
-- No direct dependencies
+- 📦 Framework agnostic - integrates seamlessly with any component library or styling approach
+- ☁ No direct dependencies
+- 📜 Written in TypeScript
 
-# Quick start
+Ready to jump in? See the [examples](https://github.com/alexn400/react-dialog-async/tree/main/examples) or read on for a quick start guide 
 
-To use react-dialog-async install it via npm or yarn
+# Installation
 
 ```sh
 # With npm
@@ -23,7 +24,8 @@ To use react-dialog-async install it via npm or yarn
 > yarn add react-dialog-async
 ```
 
-then wrap your application in the `DialogProvider` component:
+# Quick Start
+Start by wrapping your application in the `DialogProvider` component:
 
 ```js
 // src/index.js
@@ -76,7 +78,7 @@ const App = () => {
   );
 };
 ```
-For a fully working example see the examples section below 
+For fully working examples, see the examples section below 
 # Examples
 
 For examples of usage with different UI frameworks such as Material UI & Bootstrap, see the [examples](https://github.com/alexn400/react-dialog-async/tree/main/examples) folder.
@@ -91,9 +93,7 @@ The below example demonstrates a simple dialog that gets the user to enter their
 import { AsyncDialogProps } from "react-dialog-async";
 
 
-const InputDialog: React.FC<
-  AsyncDialogProps<string, string>
-> = ({ open, handleClose, data }) => {
+const InputDialog = ({ open, handleClose, data }: AsyncDialogProps<string, string>) => {
 
   const [value, setValue] = useState("");
 
