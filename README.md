@@ -112,6 +112,13 @@ const InputDialog = ({ open, handleClose, data }: AsyncDialogProps<string, strin
     </Dialog>
   );
   ```
+# Contributing
+
+Contributions are more than welcome!
+
+`react-dialog-async` is intentionally minimal, providing a base on which to build more complex hooks and dialog logic. I don't currently have any plans to release any new features, outside of maintenance and bug fixes.
+
+That being said, if you have a use-case that the library currently doesn't support please raise it in an issue or pull request 😄
 # License
 
 MIT Licensed. Copyright (c) Alexander Nicholson 2021.
