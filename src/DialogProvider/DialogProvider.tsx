@@ -1,25 +1,6 @@
 import { PropsWithChildren, useMemo, useRef, useState } from 'react';
 import DialogContext, { dialogContextState } from '../DialogContext';
-import { DialogComponent } from '../types';
-
-interface dialogStateItem {
-  /**
-   * The dialog component to render
-   */
-  Component: DialogComponent<unknown, unknown>;
-  /**
-   * Represents if the dialog is currently visible
-   */
-  isOpen: boolean;
-  /**
-   * The data that should be passed to the dialog
-   */
-  data?: unknown;
-  /**
-   * The function that should be called when the dialog is closed
-   */
-  resolve?: (value: unknown) => void;
-}
+import { DialogComponent, dialogStateItem } from '../types';
 
 const DialogProvider = ({ children }: PropsWithChildren) => {
   const [dialogs, setDialogs] = useState<{ [key: string]: dialogStateItem }>(

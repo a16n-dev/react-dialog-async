@@ -1,3 +1,13 @@
 // Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
 
+exports[`calling register() does not mount the dialog 1`] = `<DocumentFragment />`;
+
+exports[`calling register() followed by show() mounts the dialog in the DOM 1`] = `
+<DocumentFragment>
+  <div>
+    Hello World!
+  </div>
+</DocumentFragment>
+`;
+
 exports[`renders without error 1`] = `<DocumentFragment />`;
