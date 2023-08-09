@@ -7,13 +7,14 @@
 A simple, promise-based approach to managing Dialogs in React.
 
 - 📦 Framework agnostic *- works with any component library or styling approach*
-- ☁ No direct dependencies
-- 📜 Written in TypeScript *- Includes types*
+- ☁ Lightweight *- No dependencies*
+- 📜 Written in TypeScript *- Fully typed*
 
 ## Table of Contents
 * Docs
 * [Installation](#installation)
 * [Quick Start](#quick-start)
+* [Usage with Typescript](#typescript)
 * [Examples](https://github.com/alexn400/react-dialog-async/tree/main/examples)
 
 # Installation
@@ -29,9 +30,7 @@ A simple, promise-based approach to managing Dialogs in React.
 # Quick Start
 This example demonstrates how to create a simple dialog that asks the user a question and logs their response to the console
 ```js
-import { DialogProvider, useDialog } from "react-dialog-async";
-
-// 1. Wrap your app 
+// 1. Wrap your app with DialogProvider
 <DialogProvider>
   <App />
 </DialogProvider>
@@ -49,13 +48,13 @@ const QuestionDialog = ({ data, open, handleClose }) => {
   )
 };
 
-// Use the useDialog hook to show the dialog
+// 3. Use the useDialog hook to show the dialog
 const App = () => {
   const questionDialog = useDialog(QuestionDialog);
 
   const handleClick = async () => {
     const response = await questionDialog.show({
-      // pass data into the dialog 
+      // pass data to the dialog 
       question: "Do you like apples?" 
     }); 
     
