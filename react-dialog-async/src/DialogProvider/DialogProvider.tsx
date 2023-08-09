@@ -6,7 +6,7 @@ interface dialogStateItem {
   /**
    * The dialog component to render
    */
-  component: DialogComponent<unknown, unknown>;
+  Component: DialogComponent<unknown, unknown>;
   /**
    * Represents if the dialog is currently visible
    */
@@ -28,34 +28,33 @@ const DialogProvider = ({ children }: PropsWithChildren) => {
   const id = useRef(0);
 
   const dialogComponents = useMemo(() => {
-    return Object.entries(dialogs).map(([id, dialog]) => {
-      const resolve = dialog.resolve;
+    return Object.entries(dialogs).map(
+      ([id, { resolve, Component, isOpen, data }]) => {
+        if (!resolve) return;
 
-      if (!resolve) return;
-      const Component = dialog.component;
-      const onClose = (value: unknown) => {
-        ctx.hide(id);
-        resolve(value);
-      };
-      return (
-        <Component
-          key={id}
-          open={dialog.isOpen}
-          handleClose={onClose}
-          data={dialog.data}
-        />
-      );
-    });
+        return (
+          <Component
+            key={id}
+            open={isOpen}
+            handleClose={(value: unknown) => {
+              ctx.hide(id);
+              resolve(value);
+            }}
+            data={data}
+          />
+        );
+      },
+    );
   }, [dialogs]);
 
   /**
    * Registers a new dialog component and returns the assigned id of that dialog
-   * @param component The component to use
+   * @param Component The component to use
    * @returns the id of the dialog
    */
-  const register = (component: DialogComponent<unknown, unknown>): string => {
+  const register = (Component: DialogComponent<unknown, unknown>): string => {
     const dialog: dialogStateItem = {
-      component,
+      Component,
       isOpen: false,
     };
 
