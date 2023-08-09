@@ -8,7 +8,7 @@ const TestDialog = () => <div>Hello World!</div>;
 
 test('can be called without error', () => {
   const TestComponent = () => {
-    const dialog = useDialog(TestDialog);
+    useDialog(TestDialog);
 
     return null;
   };
