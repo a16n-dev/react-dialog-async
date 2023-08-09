@@ -11,7 +11,6 @@ A simple, promise-based approach to managing Dialogs in React.
 - 📜 Written in TypeScript *- Fully typed*
 
 ## Table of Contents
-* Docs
 * [Installation](#installation)
 * [Quick Start](#quick-start)
 * [Usage with Typescript](#typescript)
