@@ -4,15 +4,17 @@
 [![Types](https://img.shields.io/npm/types/react-dialog-async.svg)](https://www.npmjs.com/package/react-dialog-async)
 [![Downloads](https://img.shields.io/npm/dt/react-dialog-async.svg)](https://www.npmjs.com/package/react-dialog-async)
 
-A simple, more flexible approach to managing Dialogs in React using hooks.
+A simple, promise-based approach to managing Dialogs in React.
 
-## Features
+- 📦 Framework agnostic *- works with any component library or styling approach*
+- ☁ Lightweight *- No dependencies*
+- 📜 Written in TypeScript *- Fully typed*
 
-- 📦 Framework agnostic - integrates seamlessly with any component library or styling approach
-- ☁ No direct dependencies
-- 📜 Written in TypeScript
-
-Ready to jump in? See the [examples](https://github.com/alexn400/react-dialog-async/tree/main/examples) or read on for a quick start guide 
+## Table of Contents
+* [Installation](#installation)
+* [Quick Start](#quick-start)
+* [Usage with Typescript](#typescript)
+* [Examples](https://github.com/alexn400/react-dialog-async/tree/main/examples)
 
 # Installation
 
@@ -25,100 +27,100 @@ Ready to jump in? See the [examples](https://github.com/alexn400/react-dialog-as
 ```
 
 # Quick Start
-Start by wrapping your application in the `DialogProvider` component:
-
+This example demonstrates how to create a simple dialog that asks the user a question and logs their response to the console
 ```js
-// src/index.js
-...
-import { DialogProvider } from "react-dialog-async";
+// 1. Wrap your app with DialogProvider
+<DialogProvider>
+  <App />
+</DialogProvider>
 
-ReactDOM.render(
-  <React.StrictMode>
-    <DialogProvider>
-      <App />
-    </DialogProvider>
-  </React.StrictMode>,
-  document.getElementById("root")
-);
-```
+// 2. Create a dialog component
+const QuestionDialog = ({ data, open, handleClose }) => {
+  if (!open) return null; // Don't render if the dialog is closed
 
-Next define a dialog component:
-
-```js
-// src/components/MyDialog.jsx
-
-export default MyDialog = ({ open, handleClose }) => {
-  <Dialog open={open} onClose={() => handleClose(false)}>
-    <p>This is a dialog</p>
-  </Dialog>;
+  return (
+    <div className={'dialog'}>
+        <p>{data.question}</p>
+        <button onClick={() => handleClose("No")}>No</button>
+        <button onClick={() => handleClose("Yes")}>Yes</button>
+    </div>
+  )
 };
-```
 
-lastly use the `useDialog` hook to show the dialog:
-```js
-// src/App.jsx
-...
-import { useDialog } from "react-dialog-async";
-import MyDialog from "components/MyDialog";
-
+// 3. Use the useDialog hook to show the dialog
 const App = () => {
-  const myDialog = useDialog(MyDialog);
+  const questionDialog = useDialog(QuestionDialog);
 
   const handleClick = async () => {
-    await myDialog.show();
+    const response = await questionDialog.show({
+      // pass data to the dialog 
+      question: "Do you like apples?" 
+    }); 
+    
+    console.log(response) // Will be either "Yes" or "No"
   };
 
   return (
-    <div>
-      <h1>react-dialog-async</h1>
       <button onClick={handleClick}>
-        Open Dialog
+        Ask me a question
       </button>
-    </div>
   );
 };
 ```
-For fully working examples, see the examples section below 
-# Examples
+
 
 For examples of usage with different UI frameworks such as Material UI & Bootstrap, see the [examples](https://github.com/alexn400/react-dialog-async/tree/main/examples) folder.
 
-# Usage with Typescript
-To define a dialog component with typescript use the `AsyncDialogProps` type. It is a generic type that accepts 2 parameters, the first specifies the type of the data passed to the `data` prop and the second specifies the type of the data returned by the dialog via the `handleClose` function.
-
-The below example demonstrates a simple dialog that gets the user to enter their name with a custom prompt
-
+# Typescript
+Use the `AsyncDialogProps` type to define types for the data being passed into the dialog, as well as the value returned by the dialog.
 ```tsx
-...
 import { AsyncDialogProps } from "react-dialog-async";
 
+type QuestionDialogData = {
+  question: string;
+}
 
-const InputDialog = ({ open, handleClose, data }: AsyncDialogProps<string, string>) => {
+type QuestionDialogResponse = "Yes" | "No";
 
-  const [value, setValue] = useState("");
+const QuestionDialog = ({
+  data,       
+  open,       
+  handleClose 
+}: AsyncDialogProps<QuestionDialogData, QuestionDialogResponse>) => {
+  if (!open) return null; 
 
   return (
-    <Dialog open={open} onClose={() => handleClose()}>
-      <DialogTitle>{data.title}</DialogTitle>
-      <DialogContent>
-        <DialogContentText id="alert-dialog-description">
-          {data}
-        </DialogContentText>
-        <Input value={value} onChange={e => setValue(e.target.value)}>
-      </DialogContent>
-        <Button onClick={() => handleClose(value)} autoFocus>
-          Submit
-        </Button>
-    </Dialog>
+    <div className={'dialog'}>
+      <p>{data.question}</p>
+      <button onClick={() => handleClose("No")}>No</button>
+      <button onClick={() => handleClose("Yes")}>Yes</button>
+    </div>
+  )
+};
+
+const App = () => {
+  const questionDialog = useDialog(QuestionDialog);
+
+  const handleClick = async () => {
+    // .show() now expects QuestionDialogData
+    const response = await questionDialog.show({
+      question: "Do you like apples?" 
+    });
+    
+    // NOTE: response is of type QuestionDialogResponse | undefined
+    // it may be undefined if the dialog was force closed, or if no argument was passed to handleClose()
+    if(response !== undefined) {
+      console.log(response) 
+    }
+  };
+
+  return (
+    <button onClick={handleClick}>
+      Ask me a question
+    </button>
   );
-  ```
+};
+```
 # Contributing
-
 Contributions are more than welcome!
-
-`react-dialog-async` is intentionally minimal, providing a base on which to build more complex hooks and dialog logic. I don't currently have any plans to release any new features, outside of maintenance and bug fixes.
-
-That being said, if you have a use-case that the library currently doesn't support please raise it in an issue or pull request 😄
-# License
-
-MIT Licensed. Copyright (c) Alexander Nicholson 2021.
+If you have a use-case that the library currently doesn't support please raise it in an issue or pull request 😄
