@@ -1,4 +1,7 @@
 {
-  "private": "true",
-  "workspaces": ["react-dialog-async", "examples/*"]
+  "workspaces": [
+    "react-dialog-async",
+    "examples/*"
+  ],
+  "packageManager": "yarn@3.6.1"
 }
