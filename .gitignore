@@ -1,4 +1,6 @@
 node_modules
+.idea
+dist/
 
 .yarn/*
 !.yarn/patches
@@ -7,4 +9,3 @@ node_modules
 !.yarn/sdks
 !.yarn/versions
 
-.idea

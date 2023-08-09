@@ -6,11 +6,16 @@
 
 A simple, more flexible approach to managing Dialogs in React using hooks.
 
-## Features
-
 - 📦 Framework agnostic - integrates seamlessly with any component library or styling approach
 - ☁ No direct dependencies
 - 📜 Written in TypeScript
+
+## Table of Contents
+* Docs
+* [Installation](#installation)
+* [Quick Start](#quick-start)
+* Examples
+
 
 Ready to jump in? See the [examples](https://github.com/alexn400/react-dialog-async/tree/main/examples) or read on for a quick start guide 
 
@@ -116,9 +121,4 @@ const InputDialog = ({ open, handleClose, data }: AsyncDialogProps<string, strin
 
 Contributions are more than welcome!
 
-`react-dialog-async` is intentionally minimal, providing a base on which to build more complex hooks and dialog logic. I don't currently have any plans to release any new features, outside of maintenance and bug fixes.
-
-That being said, if you have a use-case that the library currently doesn't support please raise it in an issue or pull request 😄
-# License
-
-MIT Licensed. Copyright (c) Alexander Nicholson 2021.
+If you have a use-case that the library currently doesn't support please raise it in an issue or pull request 😄
