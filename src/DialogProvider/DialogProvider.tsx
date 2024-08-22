@@ -3,13 +3,14 @@ import DialogContext, { dialogContextState } from '../DialogContext';
 import { DialogComponent, dialogStateItem } from '../types';
 
 const DialogProvider = ({ children }: PropsWithChildren) => {
-  const [dialogs, setDialogs] = useState<{ [key: string]: dialogStateItem }>(
-    {},
-  );
+  const [dialogs, setDialogs] = useState<{
+    dialogs: Record<string, dialogStateItem>;
+    keyCounter: Record<string, number>;
+  }>({ dialogs: {}, keyCounter: {} });
   const id = useRef(0);
 
   const dialogComponents = useMemo(() => {
-    return Object.entries(dialogs).map(
+    return Object.entries(dialogs.dialogs).map(
       ([id, { resolve, Component, isOpen, data }]) => {
         if (!resolve) return;
 
@@ -39,11 +40,29 @@ const DialogProvider = ({ children }: PropsWithChildren) => {
       isOpen: false,
     };
 
-    const componentId = id.current;
-    id.current++;
+    let componentId: string;
 
-    setDialogs((d) => ({ ...d, [componentId]: dialog }));
-    return String(componentId);
+    // if the component defines a dialog key, use it as the key here, otherwise just use a numeric ID
+    if (Component.dialogKey) {
+      componentId = Component.dialogKey;
+    } else {
+      componentId = String(id.current);
+      id.current++;
+    }
+
+    setDialogs((d) => ({
+      dialogs: {
+        ...d.dialogs,
+        [componentId]: dialog,
+      },
+      keyCounter: {
+        ...d.keyCounter,
+        [componentId]: d.keyCounter[componentId]
+          ? d.keyCounter[componentId] + 1
+          : 1,
+      },
+    }));
+    return componentId;
   };
 
   /**
@@ -51,7 +70,27 @@ const DialogProvider = ({ children }: PropsWithChildren) => {
    * @param dialogId the id of the dialog
    */
   const unregister = (dialogId: string): void => {
-    setDialogs(({ [dialogId]: _, ...d }) => d);
+    setDialogs(
+      ({
+        dialogs: { [dialogId]: targetDialog, ...remainingDialogs },
+        keyCounter: { [dialogId]: targetCounter, ...remainingCounters },
+      }) => {
+        // only remove it if it's the last instance of the dialog
+        if (targetCounter && targetCounter > 1) {
+          // if there are multiple instances of the dialog, just decrement the counter
+          return {
+            dialogs: { [dialogId]: targetDialog, ...remainingDialogs },
+            keyCounter: { [dialogId]: targetCounter - 1, ...remainingCounters },
+          };
+        } else {
+          // otherwise remove both the dialog and the counter
+          return {
+            dialogs: remainingDialogs,
+            keyCounter: remainingCounters,
+          };
+        }
+      },
+    );
   };
 
   /**
@@ -63,7 +102,10 @@ const DialogProvider = ({ children }: PropsWithChildren) => {
     return new Promise((resolve) => {
       setDialogs((d) => ({
         ...d,
-        [dialogId]: { ...d[dialogId], data, isOpen: true, resolve },
+        dialogs: {
+          ...d.dialogs,
+          [dialogId]: { ...d.dialogs[dialogId], data, isOpen: true, resolve },
+        },
       }));
     });
   };
@@ -75,7 +117,10 @@ const DialogProvider = ({ children }: PropsWithChildren) => {
   const hide = (dialogId: string): void => {
     setDialogs((d) => ({
       ...d,
-      [dialogId]: { ...d[dialogId], isOpen: false },
+      dialogs: {
+        ...d.dialogs,
+        [dialogId]: { ...d.dialogs[dialogId], isOpen: false },
+      },
     }));
   };
 
