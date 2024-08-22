@@ -14,6 +14,7 @@ A simple, promise-based approach to managing Dialogs in React.
 * [Installation](#installation)
 * [Quick Start](#quick-start)
 * [Usage with Typescript](#typescript)
+* [Optimization](#optimization)
 * [Examples](https://github.com/alexn400/react-dialog-async/tree/main/examples)
 
 # Installation
@@ -124,3 +125,20 @@ const App = () => {
 # Contributing
 Contributions are more than welcome!
 If you have a use-case that the library currently doesn't support please raise it in an issue or pull request 😄
+
+# Optimization
+If you're using the same dialog across multiple components, you can optimize performance by assigning a `dialogKey` to your dialog component:
+```js
+const QuestionDialog = ({ open }) => {
+  if (!open) return null;
+
+  return (
+    <div className={'dialog'}>
+      ...
+    </div>
+  )
+};
+
+QuestionDialog.dialogKey = "QuestionDialog";
+```
+This allows the DialogProvider to reuse the same instance of the dialog, instead of maintaining separate instances of the dialog for each `useDialog()` hook

@@ -9,7 +9,7 @@ export interface AsyncDialogProps<Request = void, Response = undefined> {
 /**
  * Represents a dialog component that can be used with `useDialog`
  */
-export type DialogComponent<D, R> = ComponentType<AsyncDialogProps<D, R>>;
+export type DialogComponent<D, R> = ComponentType<AsyncDialogProps<D, R>> & { dialogKey?: string };
 
 /**
  * Used internally to store all info relating to a single dialog
