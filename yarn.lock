@@ -4044,11 +4044,13 @@ __metadata:
   linkType: hard
 
 "rollup-plugin-delete@npm:^2.0.0":
-  version: 2.0.0
-  resolution: "rollup-plugin-delete@npm:2.0.0"
+  version: 2.1.0
+  resolution: "rollup-plugin-delete@npm:2.1.0"
   dependencies:
     del: ^5.1.0
-  checksum: 8c05b55d0f454e8a487118edfc03aba78092b32fc0bd1fb061617bc7a2a9563a8e9ba64af34dcc0769ff75a89d113108fcc143c6b694901dfd7e1a9b254b106f
+  peerDependencies:
+    rollup: "*"
+  checksum: cff953a05b0fe962da8843eab721d0f61e546f08f3bb33d2c268aeaba329855dbd2a4ca467b026045d263ad4250cd875e64269b550987dad633648dc81437ced
   languageName: node
   linkType: hard
 
