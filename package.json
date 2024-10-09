@@ -1,7 +1,7 @@
 {
   "name": "react-dialog-async",
   "description": "A promise-based way to show dialogs in React",
-  "version": "1.3.1",
+  "version": "1.3.2",
   "main": "dist/index.js",
   "module": "dist/index.esm.js",
   "types": "dist/index.d.ts",
@@ -29,6 +29,7 @@
     "rollup-plugin-peer-deps-external": "^2.2.4",
     "rollup-plugin-typescript2": "^0.35.0",
     "typescript": "^4.3.4",
+    "rollup-plugin-delete": "^2.0.0",
     "vitest": "^0.34.1"
   },
   "peerDependencies": {
@@ -53,8 +54,5 @@
     "hooks",
     "headless",
     "react-modal"
-  ],
-  "dependencies": {
-    "rollup-plugin-delete": "^2.0.0"
-  }
+  ]
 }
