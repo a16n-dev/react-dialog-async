@@ -20,7 +20,7 @@
     "@vitejs/plugin-react": "^4.0.4",
     "babel-core": "^6.26.3",
     "babel-runtime": "^6.26.0",
-    "eslint": "^8.46.0",
+    "eslint": "^9.12.0",
     "jsdom": "^22.1.0",
     "prettier": "^3.0.1",
     "react": "^18.2.0",
