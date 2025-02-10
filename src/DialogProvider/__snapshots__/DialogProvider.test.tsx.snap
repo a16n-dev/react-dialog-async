@@ -12,7 +12,7 @@ exports[`calling register() followed by show() mounts the dialog in the DOM 1`] 
 </DocumentFragment>
 `;
 
-exports[`calling register() twice on a dialog a key results in only 1 dialog being mounted 1`] = `
+exports[`calling register() twice on a dialog with a key results in only 1 dialog being mounted 1`] = `
 <DocumentFragment>
   <div>
     Hello World!

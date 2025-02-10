@@ -38,7 +38,7 @@ test('calling register() does not mount the dialog', () => {
     const ctx = useContext(DialogContext);
 
     useEffect(() => {
-      ctx.register(TestDialog);
+      ctx.register('1', TestDialog);
     }, []);
 
     return null;
@@ -57,7 +57,7 @@ test('calling register() followed by show() mounts the dialog in the DOM', () =>
     const ctx = useContext(DialogContext);
 
     useEffect(() => {
-      const id = ctx.register(TestDialog);
+      const id = ctx.register('1', TestDialog);
 
       ctx.show(id, {});
     }, []);
@@ -79,7 +79,7 @@ test('calling register() followed by show() followed by hide() unmounts the dial
     const ctx = useContext(DialogContext);
 
     useEffect(() => {
-      const id = ctx.register(TestDialog);
+      const id = ctx.register('1', TestDialog);
 
       ctx.show(id, {});
 
@@ -103,11 +103,11 @@ test('calling register() twice on a dialog with no key results in two dialogs be
     const ctx = useContext(DialogContext);
 
     useEffect(() => {
-      const id1 = ctx.register(TestDialog);
-      const id2 = ctx.register(TestDialog);
+      ctx.register('1', TestDialog);
+      ctx.register('2', TestDialog);
 
-      ctx.show(id1, {});
-      ctx.show(id2, {});
+      ctx.show('1', {});
+      ctx.show('2', {});
     }, []);
 
     return null;
@@ -122,13 +122,13 @@ test('calling register() twice on a dialog with no key results in two dialogs be
   expect(screen.getAllByText('Hello World!')).toHaveLength(2);
 });
 
-test('calling register() twice on a dialog a key results in only 1 dialog being mounted', () => {
+test('calling register() twice on a dialog with a key results in only 1 dialog being mounted', () => {
   const InnerComponent = () => {
     const ctx = useContext(DialogContext);
 
     useEffect(() => {
-      const id1 = ctx.register(TestDialogWithKey);
-      const id2 = ctx.register(TestDialogWithKey);
+      const id1 = ctx.register('1', TestDialogWithKey);
+      const id2 = ctx.register('2', TestDialogWithKey);
 
       ctx.show(id1, {});
       ctx.show(id2, {});

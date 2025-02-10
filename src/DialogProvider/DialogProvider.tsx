@@ -1,4 +1,4 @@
-import { PropsWithChildren, useMemo, useRef, useState } from 'react';
+import { PropsWithChildren, useMemo, useState } from 'react';
 import DialogContext, { dialogContextState } from '../DialogContext';
 import { DialogComponent, dialogStateItem } from '../types';
 
@@ -7,7 +7,6 @@ const DialogProvider = ({ children }: PropsWithChildren) => {
     dialogs: Record<string, dialogStateItem>;
     keyCounter: Record<string, number>;
   }>({ dialogs: {}, keyCounter: {} });
-  const id = useRef(0);
 
   const dialogComponents = useMemo(() => {
     return Object.entries(dialogs.dialogs).map(
@@ -31,10 +30,14 @@ const DialogProvider = ({ children }: PropsWithChildren) => {
 
   /**
    * Registers a new dialog component and returns the assigned id of that dialog
+   * @Param id A unique id for the dialog being registered
    * @param Component The component to use
    * @returns the id of the dialog
    */
-  const register = (Component: DialogComponent<unknown, unknown>): string => {
+  const register = (
+    id: string,
+    Component: DialogComponent<unknown, unknown>,
+  ): string => {
     const dialog: dialogStateItem = {
       Component,
       isOpen: false,
@@ -46,8 +49,7 @@ const DialogProvider = ({ children }: PropsWithChildren) => {
     if (Component.dialogKey) {
       componentId = Component.dialogKey;
     } else {
-      componentId = String(id.current);
-      id.current++;
+      componentId = id;
     }
 
     setDialogs((d) => ({
@@ -130,7 +132,10 @@ const DialogProvider = ({ children }: PropsWithChildren) => {
    * @param data the new data to pass to the dialog
    */
   const updateData = (dialogId: string, data: unknown): void => {
-    setDialogs((d) => ({ ...d, [dialogId]: { ...d[dialogId], data } }));
+    setDialogs((d) => ({
+      ...d,
+      dialogs: { ...d.dialogs, [dialogId]: { ...d.dialogs[dialogId], data } },
+    }));
   };
 
   const ctx: dialogContextState = {
