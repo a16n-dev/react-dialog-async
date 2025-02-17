@@ -31,7 +31,7 @@ const config = [
         rootDir: import.meta.dirname,
       }),
       commonjs(),
-      typescript({ tsconfig: `${import.meta.dirname}/tsconfig.build.json`, clean: true, useTsconfigDeclarationDir: true }),
+      typescript({ tsconfig: `${import.meta.dirname}/tsconfig.json`, clean: true, useTsconfigDeclarationDir: true }),
       del({ targets: 'dist' }),
     ],
   },
