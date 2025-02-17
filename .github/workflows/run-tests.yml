@@ -2,8 +2,6 @@ name: Run Tests
 on:
   pull_request:
     types: [opened, synchronize]
-    branches:
-      - main
 jobs:
   run-tests:
     runs-on: ubuntu-latest
