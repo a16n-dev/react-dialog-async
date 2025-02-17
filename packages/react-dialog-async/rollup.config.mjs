@@ -2,7 +2,7 @@ import typescript from 'rollup-plugin-typescript2';
 import peerDepsExternal from 'rollup-plugin-peer-deps-external';
 import resolve from '@rollup/plugin-node-resolve';
 import commonjs from '@rollup/plugin-commonjs';
-import pkg from './package.json';
+import pkg from './package.json' with { type: "json" };
 import { dts } from 'rollup-plugin-dts';
 import del from 'rollup-plugin-delete';
 
@@ -24,10 +24,14 @@ const config = [
       },
     ],
     plugins: [
-      peerDepsExternal(),
-      resolve(),
+      peerDepsExternal({
+        packageJsonPath: `${import.meta.dirname}/package.json`,
+      }),
+      resolve({
+        rootDir: import.meta.dirname,
+      }),
       commonjs(),
-      typescript({ clean: true, useTsconfigDeclarationDir: true }),
+      typescript({ tsconfig: `${import.meta.dirname}/tsconfig.build.json`, clean: true, useTsconfigDeclarationDir: true }),
       del({ targets: 'dist' }),
     ],
   },
@@ -36,9 +40,6 @@ const config = [
     output: [{ file: 'dist/index.d.ts', format: 'es' }],
     plugins: [dts(), del({ targets: 'dist/types', hook: 'buildEnd' })],
   },
-  // {
-  //   plugins: [del({ targets: 'dist/types' })],
-  // },
 ];
 
 export default config;

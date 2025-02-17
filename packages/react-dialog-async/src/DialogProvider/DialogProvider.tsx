@@ -130,7 +130,12 @@ const DialogProvider = ({ children }: PropsWithChildren) => {
    * @param data the new data to pass to the dialog
    */
   const updateData = (dialogId: string, data: unknown): void => {
-    setDialogs((d) => ({ ...d, [dialogId]: { ...d[dialogId], data } }));
+    setDialogs((d) => ({
+      ...d,
+      dialogs: {
+        [dialogId]: { ...d.dialogs[dialogId], data }
+      }
+    }));
   };
 
   const ctx: dialogContextState = {
