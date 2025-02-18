@@ -1,0 +1,60 @@
+---
+sidebar_position: 1
+---
+
+
+# Introduction
+
+React Dialog Async provides a simple hook-based API for managing dialog state in React apps.
+It keeps dialogs out of component rendering, and lets you easily
+
+## Benefits
+
+
+
+* ✅ CSS Framework agnostic - works with any component library or CSS setup
+
+* ✅ Lightweight with zero dependencies
+
+* ✅ Written in Typescript
+
+* ✅ Supports both React and React Native
+
+## Why use React Dialog Async?
+
+Consider this simple scenario that shows a dialog when a button is pressed:
+
+```tsx
+import { useState } from 'react';
+
+function MyComponent() {
+  const [open, setOpen] = useState(false);
+
+  return (
+    <>
+      <MyDialog open={open} onClose={() => setOpen(false)} />
+      <button onClick={() => setOpen(true)}>
+        Show dialog
+      </button>
+    </>
+  );
+}
+```
+
+✅ We can easily rewrite this using React Dialog Async:
+
+```tsx
+import { useDialog } from 'react-dialog-async';
+
+function MyComponent() {
+  const dialog = useDialog(MyDialog);
+
+  return (
+    <button onClick={() => dialog.show()}>
+      Show dialog
+    </button>
+  );
+}
+```
+
+```tsx
