@@ -2,6 +2,11 @@ name: Run Tests
 on:
   pull_request:
     types: [opened, synchronize]
+    paths:
+      - packages/**
+  push:
+    paths:
+      - packages/**
 jobs:
   run-tests:
     runs-on: ubuntu-latest
