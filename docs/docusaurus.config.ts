@@ -77,7 +77,6 @@ const config: Config = {
           position: 'left',
           label: 'Docs',
         },
-        { to: '/releases', label: 'Releases', position: 'left' },
         {
           href: 'https://www.npmjs.com/package/react-dialog-async',
           label: 'NPM',
