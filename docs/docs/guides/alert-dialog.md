@@ -1,5 +1,5 @@
 ---
-sidebar_position: 1
+sidebar_position: 2
 ---
 
 # Creating an alert dialog
@@ -9,12 +9,13 @@ Create a simple alert dialog that displays a message to the user.
 React Dialog Async does not provide a `Modal` component.
 You will need to use a modal from a component library or write your own.
 
-See the [Examples](./category/examples) section for more details.
+See the [Examples](/category/examples) section for more details.
 :::
 
 
 Define the `AlertDialog` component:
 ```tsx title="components/AlertDialog.tsx"
+import { AsyncDialogProps } from 'react-dialog-async';
 import { Modal, ModalTitle, ModalContent } from '@components/Modal';
 
 interface AlertDialogProps {

@@ -1,5 +1,5 @@
 ---
-sidebar_position: 1
+sidebar_position: 3
 ---
 
 # Creating a confirmation dialog
@@ -9,12 +9,13 @@ Create a confirmation dialog that prompts the user to confirm an action.
 React Dialog Async does not provide a `Modal` component.
 You will need to use a modal from a component library or write your own.
 
-See the [Examples](./category/examples) section for more details.
+See the [Examples](/category/examples) section for more details.
 :::
 
 
 Define the `ConfirmationDialog` component:
 ```tsx title="components/ConfirmationDialog.tsx"
+import { AsyncDialogProps } from 'react-dialog-async';
 import { Modal, ModalTitle, ModalFooter } from '@components/Modal';
 
 export function ConfirmationDialog({ open, handleClose, data }: AsyncDialogProps<string, boolean>) {
