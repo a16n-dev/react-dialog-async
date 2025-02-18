@@ -1,5 +1,6 @@
 ---
 sidebar_position: 5
+slug: /typescript
 ---
 
 # Typescript
@@ -27,8 +28,9 @@ export function ConfirmationDialog({
 If you use the above dialog, you'll notice the result returned is of type `boolean | undefined` rather than `boolean`.
 
 ```tsx
+// result has type "boolean | undefined"
 const result = await confirmationDialog.show('Are you sure?');
 ```
-This is because we can never be sure the dialog is closed with a result, and you should always handle this case
+This is because we can never be sure the dialog is closed with a result, and you should always handle this case in your code.
 
-See the definition of [useDialog](https://github.com/a16n-dev/react-dialog-async/blob/main/src/useDialog.ts) for more details
+See the definition of [useDialog](https://github.com/a16n-dev/react-dialog-async/blob/main/src/useDialog.ts) for more details.
