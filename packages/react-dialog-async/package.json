@@ -10,9 +10,11 @@
     "url": "https://github.com/alexn400/react-dialog-async.git"
   },
   "license": "MIT",
+  "dependencies": {
+    "immer": "^10.1.1"
+  },
   "peerDependencies": {
-    "react": "*",
-    "react-dom": "*"
+    "react": "^16"
   },
   "files": [
     "dist"
