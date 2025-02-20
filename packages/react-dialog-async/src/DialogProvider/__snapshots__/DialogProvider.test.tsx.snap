@@ -12,23 +12,4 @@ exports[`calling register() followed by show() mounts the dialog in the DOM 1`] 
 </DocumentFragment>
 `;
 
-exports[`calling register() twice on a dialog a key results in only 1 dialog being mounted 1`] = `
-<DocumentFragment>
-  <div>
-    Hello World!
-  </div>
-</DocumentFragment>
-`;
-
-exports[`calling register() twice on a dialog with no key results in two dialogs being mounted 1`] = `
-<DocumentFragment>
-  <div>
-    Hello World!
-  </div>
-  <div>
-    Hello World!
-  </div>
-</DocumentFragment>
-`;
-
 exports[`renders without error 1`] = `<DocumentFragment />`;

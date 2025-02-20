@@ -2,16 +2,14 @@ import { createContext } from 'react';
 import { DialogComponent } from './types';
 
 export interface dialogContextState {
-  register: (obj: DialogComponent<any, any>) => string;
-  unregister: (dialogId: string) => void;
+  register: (id: string, obj: DialogComponent<any, any>) => () => void;
   show: (dialogId: string, data: unknown) => Promise<any>;
   hide: (dialogId: string) => void;
   updateData: (dialogId: string, data: unknown) => void;
 }
 
 const DialogContext = createContext<dialogContextState>({
-  register: () => '',
-  unregister: () => {},
+  register: () => () => {},
   show: async () => {},
   hide: () => {},
   updateData: () => {},
