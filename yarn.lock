@@ -2571,13 +2571,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"immer@npm:^10.1.1":
-  version: 10.1.1
-  resolution: "immer@npm:10.1.1"
-  checksum: 10/9dacf1e8c201d69191ccd88dc5d733bafe166cd45a5a360c5d7c88f1de0dff974a94114d72b35f3106adfe587fcfb131c545856184a2247d89d735ad25589863
-  languageName: node
-  linkType: hard
-
 "import-fresh@npm:^3.2.1":
   version: 3.3.1
   resolution: "import-fresh@npm:3.3.1"
@@ -3577,8 +3570,6 @@ __metadata:
 "react-dialog-async@workspace:packages/react-dialog-async":
   version: 0.0.0-use.local
   resolution: "react-dialog-async@workspace:packages/react-dialog-async"
-  dependencies:
-    immer: "npm:^10.1.1"
   peerDependencies:
     react: ^16
   languageName: unknown

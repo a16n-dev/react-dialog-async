@@ -3,7 +3,6 @@
 import { PropsWithChildren, useCallback, useMemo, useState } from 'react';
 import DialogContext, { dialogContextState } from '../DialogContext';
 import { DialogComponent } from '../types';
-import { produce } from 'immer';
 
 interface DialogProviderProps extends PropsWithChildren {}
 
@@ -31,20 +30,15 @@ const DialogProvider = ({ children }: DialogProviderProps) => {
       setDialogs((dialogs) => ({ ...dialogs, [id]: Component }));
 
       return () => {
-        setDialogs((dialogs) =>
-          produce(dialogs, (draft) => {
-            delete draft[id];
-          }),
-        );
+        setDialogs((dialogs) => removeKey(dialogs, id));
 
-        setDialogState((state) =>
-          produce(state, (draft) => {
-            if (draft[id]) {
-              draft[id].resolve(undefined);
-              delete draft[id];
-            }
-          }),
-        );
+        setDialogState((state) => {
+          if (state[id]) {
+            state[id].resolve(undefined);
+            return removeKey(state, id);
+          }
+          return state;
+        });
       };
     },
     [setDialogs, setDialogState],
@@ -53,11 +47,10 @@ const DialogProvider = ({ children }: DialogProviderProps) => {
   const show = useCallback(
     (id: string, data: unknown): Promise<unknown> => {
       return new Promise((resolve) => {
-        setDialogState((state) =>
-          produce(state, (draft) => {
-            draft[id] = { data, resolve };
-          }),
-        );
+        setDialogState((state) => ({
+          ...state,
+          [id]: { data, resolve },
+        }));
       });
     },
     [setDialogState],
@@ -67,14 +60,13 @@ const DialogProvider = ({ children }: DialogProviderProps) => {
    * Force closes the dialog with the given id. This only works if this same
    */
   const hide = (id: string): void => {
-    setDialogState((state) =>
-      produce(state, (draft) => {
-        if (draft[id]) {
-          draft[id].resolve(undefined);
-          delete draft[id];
-        }
-      }),
-    );
+    setDialogState((state) => {
+      if (state[id]) {
+        state[id].resolve(undefined);
+        return removeKey(state, id);
+      }
+      return state;
+    });
   };
 
   /**
@@ -82,13 +74,15 @@ const DialogProvider = ({ children }: DialogProviderProps) => {
    */
   const updateData = useCallback(
     (id: string, data: unknown): void => {
-      setDialogState((state) =>
-        produce(state, (draft) => {
-          if (draft[id]) {
-            draft[id].data = data;
-          }
-        }),
-      );
+      setDialogState((state) => {
+        if (state[id]) {
+          return {
+            ...state,
+            [id]: { ...state[id], data },
+          };
+        }
+        return state;
+      });
     },
     [setDialogState],
   );
@@ -127,3 +121,11 @@ const DialogProvider = ({ children }: DialogProviderProps) => {
 };
 
 export default DialogProvider;
+
+function removeKey<
+  S extends string | number | symbol,
+  T extends Record<S, unknown>,
+>(data: T, key: S): Omit<T, S> {
+  const { [key]: _, ...rest } = data;
+  return rest;
+}
