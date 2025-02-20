@@ -50,7 +50,10 @@ jobs:
       - name: Run tests
         run: yarn test
 
-      - name: Publish to npm
-        run: npm publish
+      - name: Copy package.json and LICENSE to dist
+        run: cp package.json LICENSE dist/
+
+      - name: Publish the dist folder to npm
+        run: cd dist && npm publish
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
