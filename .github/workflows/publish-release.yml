@@ -18,7 +18,7 @@ jobs:
       - name: Automatic GitHub Release
         uses: justincy/github-action-npm-release@2.0.2
         with:
-          path [${{ github.workspace }}/packages/react-dialog-async]
+          path: ${{ github.workspace }}/packages/react-dialog-async
         id: release
       - name: Print release output
         if: ${{ steps.release.outputs.released == 'true' }}
