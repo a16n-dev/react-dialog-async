@@ -10,22 +10,7 @@ A simple, promise-based approach to managing Dialogs in React.
 - ☁ Lightweight *- No dependencies*
 - 📜 Written in TypeScript *- Fully typed*
 
-## Table of Contents
-* [Installation](#installation)
-* [Quick Start](#quick-start)
-* [Usage with Typescript](#typescript)
-* [Optimization](#optimization)
-* [Examples](https://github.com/alexn400/react-dialog-async/tree/main/examples)
-
-# Installation
-
-```sh
-# With npm
-> npm i react-dialog-async
-
-# With yarn
-> yarn add react-dialog-async
-```
+[✨ Read the docs here ✨](https://react-dialog-async.a16n.dev)
 
 # Quick Start
 This example demonstrates how to create a simple dialog that asks the user a question and logs their response to the console
@@ -69,76 +54,6 @@ const App = () => {
 };
 ```
 
-
-For examples of usage with different UI frameworks such as Material UI & Bootstrap, see the [examples](https://github.com/alexn400/react-dialog-async/tree/main/examples) folder.
-
-# Typescript
-Use the `AsyncDialogProps` type to define types for the data being passed into the dialog, as well as the value returned by the dialog.
-```tsx
-import { AsyncDialogProps } from "react-dialog-async";
-
-type QuestionDialogData = {
-  question: string;
-}
-
-type QuestionDialogResponse = "Yes" | "No";
-
-const QuestionDialog = ({
-  data,       
-  open,       
-  handleClose 
-}: AsyncDialogProps<QuestionDialogData, QuestionDialogResponse>) => {
-  if (!open) return null; 
-
-  return (
-    <div className={'dialog'}>
-      <p>{data.question}</p>
-      <button onClick={() => handleClose("No")}>No</button>
-      <button onClick={() => handleClose("Yes")}>Yes</button>
-    </div>
-  )
-};
-
-const App = () => {
-  const questionDialog = useDialog(QuestionDialog);
-
-  const handleClick = async () => {
-    // .show() now expects QuestionDialogData
-    const response = await questionDialog.show({
-      question: "Do you like apples?" 
-    });
-    
-    // NOTE: response is of type QuestionDialogResponse | undefined
-    // it may be undefined if the dialog was force closed, or if no argument was passed to handleClose()
-    if(response !== undefined) {
-      console.log(response) 
-    }
-  };
-
-  return (
-    <button onClick={handleClick}>
-      Ask me a question
-    </button>
-  );
-};
-```
 # Contributing
 Contributions are more than welcome!
 If you have a use-case that the library currently doesn't support please raise it in an issue or pull request 😄
-
-# Optimization
-If you're using the same dialog across multiple components, you can optimize performance by assigning a `dialogKey` to your dialog component:
-```js
-const QuestionDialog = ({ open }) => {
-  if (!open) return null;
-
-  return (
-    <div className={'dialog'}>
-      ...
-    </div>
-  )
-};
-
-QuestionDialog.dialogKey = "QuestionDialog";
-```
-This allows the DialogProvider to reuse the same instance of the dialog, instead of maintaining separate instances of the dialog for each `useDialog()` hook
