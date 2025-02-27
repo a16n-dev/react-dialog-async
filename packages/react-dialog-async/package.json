@@ -1,7 +1,9 @@
 {
   "name": "react-dialog-async",
   "description": "A promise-based way to show dialogs in React",
+  "type": "module",
   "version": "2.0.1",
+  "sideEffects": false,
   "main": "index.js",
   "module": "index.esm.js",
   "types": "index.d.ts",
