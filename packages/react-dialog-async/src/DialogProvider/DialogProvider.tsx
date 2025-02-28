@@ -1,3 +1,4 @@
+import React from 'react';
 import { PropsWithChildren, useCallback, useMemo, useState } from 'react';
 import DialogContext, { dialogContextState } from '../DialogContext';
 import { DialogComponent } from '../types';

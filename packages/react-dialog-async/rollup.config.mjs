@@ -14,6 +14,7 @@ const PKG_DIR = './packages/react-dialog-async';
 const config = [
   {
     input: 'src/index.ts',
+    external: ['react'],
     output: [
       {
         file: join(OUT_DIR, pkg.main),
