@@ -21,7 +21,7 @@ function useDialog<D, R, DE extends D | undefined, M extends boolean = false>(
   }, [id]);
 
   const show = async (data?: D): Promise<R | undefined> => {
-    return ctx.show(id, data || options.defaultData);
+    return ctx.show(id, data ?? options.defaultData);
   };
 
   const hide = () => {
