@@ -15,7 +15,7 @@ export type DialogComponent<D, R> = ComponentType<AsyncDialogProps<D, R>>;
  * Used internally to store all info relating to a single dialog
  */
 
-export type useDialogReturn<D, R> = {
+export type useDialogReturn<D, R, DE extends D | undefined> = {
   /**
    * Shows the dialog, and passes the provided data as props to the dialog
    * component. Returns a promise that resolves when the dialog is closed.
@@ -23,7 +23,9 @@ export type useDialogReturn<D, R> = {
    * The resolved value is the value passed to `handleClose` in the dialog
    * component.
    */
-  show: (data: D) => Promise<R | undefined>;
+  show: DE extends undefined
+    ? (data: D) => Promise<R | undefined>
+    : (data?: D) => Promise<R | undefined>;
   /**
    * Hides the dialog
    */
@@ -36,9 +38,36 @@ export type useDialogReturn<D, R> = {
   /**
    * Alias for `show`
    */
-  open: (data: D) => Promise<R | undefined>;
+  open: DE extends undefined
+    ? (data: D) => Promise<R | undefined>
+    : () => Promise<R | undefined>;
   /**
    * Alias for `hide`
    */
   close: () => void;
 };
+
+export type useDialogOptions<
+  D,
+  DE extends D | undefined,
+  M extends boolean = false,
+> = {
+  /**
+   * Default data to pass to the dialog when .show() is called
+   */
+  defaultData?: DE;
+  /**
+   * By default, only open dialogs will be rendered. Set this to true if you
+   * want react-dialog-async to always render the dialog
+   */
+  keepMounted?: boolean;
+} & (
+  | {
+      defaultData: DE;
+      keepMounted: M extends true ? M : never;
+    }
+  | {
+      defaultData?: DE;
+      keepMounted?: M extends false ? M : never;
+    }
+);
