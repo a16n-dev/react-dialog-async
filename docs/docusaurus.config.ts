@@ -78,6 +78,11 @@ const config: Config = {
           label: 'Docs',
         },
         {
+          to: 'blog',
+          position: 'left',
+          label: 'Blog',
+        },
+        {
           href: 'https://www.npmjs.com/package/react-dialog-async',
           label: 'NPM',
           position: 'right',
