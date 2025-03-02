@@ -30,7 +30,7 @@ test('calling register() does not mount the dialog', () => {
     const id = useId();
 
     useEffect(() => {
-      ctx.register(id, TestDialog);
+      ctx.register(id, 'test', TestDialog);
     }, [id]);
 
     return null;
@@ -50,7 +50,7 @@ test('calling register() followed by show() mounts the dialog in the DOM', () =>
     const id = useId();
 
     useEffect(() => {
-      ctx.register(id, TestDialog);
+      ctx.register(id, 'test', TestDialog);
 
       ctx.show(id, {});
     }, [id]);
@@ -73,7 +73,7 @@ test('calling register() followed by show() followed by hide() unmounts the dial
     const id = useId();
 
     useEffect(() => {
-      ctx.register(id, TestDialog);
+      ctx.register(id, 'test', TestDialog);
 
       ctx.show(id, {});
 

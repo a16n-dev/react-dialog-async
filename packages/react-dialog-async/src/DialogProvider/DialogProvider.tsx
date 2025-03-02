@@ -2,20 +2,25 @@ import React from 'react';
 import { PropsWithChildren, useCallback, useMemo, useState } from 'react';
 import DialogContext, { dialogContextState } from '../DialogContext';
 import { DialogComponent } from '../types';
+import { hashComponent } from '../utils';
 
 interface DialogProviderProps extends PropsWithChildren {}
 
 const DialogProvider = ({ children }: DialogProviderProps) => {
-  const [dialogs, setDialogs] = useState<
-    Record<string, DialogComponent<unknown, unknown>>
-  >({});
+  // maps keys to components
+  const [dialogs, setDialogs] = useState<{
+    dialogs: Record<string, DialogComponent<unknown, unknown>>;
+    lookup: Record<string, string>;
+    idsList: Record<string, string[]>;
+  }>({ dialogs: {}, lookup: {}, idsList: {} });
 
   const [dialogState, setDialogState] = useState<
     Record<
       string,
       {
         data: unknown;
-        resolve: (value: unknown) => void;
+        open: boolean;
+        resolve?: (value: unknown) => void;
       }
     >
   >({});
@@ -23,17 +28,51 @@ const DialogProvider = ({ children }: DialogProviderProps) => {
   const register = useCallback(
     (
       id: string,
+      key: string,
       Component: DialogComponent<unknown, unknown>,
     ): (() => void) => {
-      console.log('registering', id);
-      setDialogs((dialogs) => ({ ...dialogs, [id]: Component }));
+      if (
+        dialogs.dialogs[key] !== undefined &&
+        hashComponent(dialogs.dialogs[key]) !== hashComponent(Component)
+      ) {
+        throw new Error(
+          `Attempted to register ${Component} against key ${key}, but a different component (${dialogs.dialogs[key]}) is already registered against that key. If you're assigning a key manually, make sure it's unique.`,
+        );
+      }
+      setDialogs((dialogs) => ({
+        dialogs: { ...dialogs.dialogs, [key]: Component },
+        lookup: { ...dialogs.lookup, [id]: key },
+        idsList: {
+          ...dialogs.idsList,
+          [key]: [...(dialogs.idsList[key] || []), id],
+        },
+      }));
 
       return () => {
-        setDialogs((dialogs) => removeKey(dialogs, id));
+        setDialogs((dialogs) => {
+          const newIds = dialogs.idsList[key].filter((i) => i !== id);
+
+          if (newIds.length === 0) {
+            return {
+              dialogs: removeKey(dialogs.dialogs, key),
+              lookup: removeKey(dialogs.lookup, id),
+              idsList: removeKey(dialogs.idsList, key),
+            };
+          }
+
+          return {
+            dialogs: dialogs.dialogs,
+            lookup: removeKey(dialogs.lookup, id),
+            idsList: {
+              ...dialogs.idsList,
+              [key]: newIds,
+            },
+          };
+        });
 
         setDialogState((state) => {
           if (state[id]) {
-            state[id].resolve(undefined);
+            state[id].resolve?.(undefined);
             return removeKey(state, id);
           }
           return state;
@@ -48,7 +87,7 @@ const DialogProvider = ({ children }: DialogProviderProps) => {
       return new Promise((resolve) => {
         setDialogState((state) => ({
           ...state,
-          [id]: { data, resolve },
+          [id]: { open: true, data, resolve },
         }));
       });
     },
@@ -61,7 +100,7 @@ const DialogProvider = ({ children }: DialogProviderProps) => {
   const hide = (id: string): void => {
     setDialogState((state) => {
       if (state[id]) {
-        state[id].resolve(undefined);
+        state[id].resolve?.(undefined);
         return removeKey(state, id);
       }
       return state;
@@ -87,16 +126,16 @@ const DialogProvider = ({ children }: DialogProviderProps) => {
   );
 
   const dialogComponents = useMemo(() => {
-    return Object.entries(dialogState).map(([id, { data, resolve }]) => {
-      const Component = dialogs[id];
+    return Object.entries(dialogState).map(([id, { data, open, resolve }]) => {
+      const Component = dialogs.dialogs[dialogs.lookup[id]];
 
       return (
         <Component
           key={id}
-          open
+          open={open}
           data={data}
           handleClose={(value) => {
-            resolve(value);
+            resolve?.(value);
             hide(id);
           }}
         />
