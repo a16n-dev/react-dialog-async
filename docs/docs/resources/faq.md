@@ -14,3 +14,5 @@ return (
 )
 ```
 
+## Q: Does react-dialog-async use `createPortal`?
+No, react-dialog-async renders dialogs directly as children of the `DialogProvider`. This is because most UI libraries already handle portal behaviour, so doing it again would be redundant.

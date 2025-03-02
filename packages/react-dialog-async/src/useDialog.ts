@@ -1,14 +1,18 @@
 import { useContext, useEffect, useId, useMemo } from 'react';
 import DialogContext from './DialogContext';
-import { DialogComponent, useDialogReturn } from './types';
 import { hashComponent } from './utils';
+import { DialogComponent, useDialogOptions, useDialogReturn } from './types';
 
-const useDialog = <D, R>(
+function useDialog<D, R, DE extends D | undefined>(
   component: DialogComponent<D, R>,
-): useDialogReturn<D, R> => {
+  options: useDialogOptions<D, DE> = {},
+): useDialogReturn<D, R, DE> {
   const id = useId();
 
-  const key = useMemo(() => hashComponent(component), [component]);
+  const key = useMemo(
+    () => options?.customKey ?? hashComponent(component),
+    [component, options?.customKey],
+  );
 
   const ctx = useContext(DialogContext);
 
@@ -19,8 +23,8 @@ const useDialog = <D, R>(
     };
   }, [id]);
 
-  const show = async (data: D): Promise<R | undefined> => {
-    return ctx.show(id, data);
+  const show = async (data?: D): Promise<R | undefined> => {
+    return ctx.show(id, data ?? options.defaultData);
   };
 
   const hide = () => {
@@ -38,6 +42,6 @@ const useDialog = <D, R>(
     open: show,
     close: hide,
   };
-};
+}
 
 export default useDialog;

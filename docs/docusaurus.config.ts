@@ -38,7 +38,8 @@ const config: Config = {
         docs: {
           routeBasePath: '/',
           sidebarPath: './sidebars.ts',
-          editUrl: 'https://github.com/a16n-dev/react-dialog-async/tree/main/',
+          editUrl:
+            'https://github.com/a16n-dev/react-dialog-async/tree/main/docs',
         },
         blog: {
           showReadingTime: true,
