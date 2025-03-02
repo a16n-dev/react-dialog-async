@@ -52,4 +52,8 @@ export type useDialogOptions<D, DE extends D | undefined> = {
    * Default data to pass to the dialog when .show() is called
    */
   defaultData?: DE;
+  /**
+   * A custom key to register this dialog against
+   */
+  customKey?: string;
 };

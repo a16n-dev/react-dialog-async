@@ -9,7 +9,10 @@ function useDialog<D, R, DE extends D | undefined>(
 ): useDialogReturn<D, R, DE> {
   const id = useId();
 
-  const key = useMemo(() => hashComponent(component), [component]);
+  const key = useMemo(
+    () => options?.customKey ?? hashComponent(component),
+    [component, options?.customKey],
+  );
 
   const ctx = useContext(DialogContext);
 
