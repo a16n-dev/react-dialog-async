@@ -36,3 +36,7 @@ To avoid having to specify it every time, you can pass a `defaultUnmountDelayInM
 <DialogProvider defaultUnmountDelayInMs={500}>
   {...}
 </DialogProvider>
+
+:::tip
+Generally, there is little to no downside to having a delayed unmount so we recommend setting a global value of `1000` or similar, even if not all of your dialogs need it
+:::
