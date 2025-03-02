@@ -1,16 +1,19 @@
-import { useContext, useEffect, useId } from 'react';
+import { useContext, useEffect, useId, useMemo } from 'react';
 import DialogContext from './DialogContext';
 import { DialogComponent, useDialogReturn } from './types';
+import { hashComponent } from './utils';
 
 const useDialog = <D, R>(
   component: DialogComponent<D, R>,
 ): useDialogReturn<D, R> => {
   const id = useId();
 
+  const key = useMemo(() => hashComponent(component), [component]);
+
   const ctx = useContext(DialogContext);
 
   useEffect(() => {
-    const unregister = ctx.register(id, component);
+    const unregister = ctx.register(id, key, component);
     return () => {
       unregister();
     };

@@ -4,6 +4,7 @@ import { render } from '@testing-library/react';
 import DialogProvider from './DialogProvider/DialogProvider';
 
 import useDialog from './useDialog';
+import { hashComponent } from './utils';
 
 const TestDialog = () => <div>Hello World!</div>;
 
@@ -21,3 +22,5 @@ test('can be called without error', () => {
 
   expect(result.asFragment()).toMatchSnapshot();
 });
+
+console.log(hashComponent(TestDialog));
