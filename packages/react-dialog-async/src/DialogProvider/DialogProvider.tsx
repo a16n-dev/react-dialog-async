@@ -11,8 +11,8 @@ const DialogProvider = ({ children }: DialogProviderProps) => {
   const [dialogs, setDialogs] = useState<{
     dialogs: Record<string, DialogComponent<unknown, unknown>>;
     lookup: Record<string, string>;
-    idsList: Record<string, string[]>;
-  }>({ dialogs: {}, lookup: {}, idsList: {} });
+    idsCount: Record<string, number>;
+  }>({ dialogs: {}, lookup: {}, idsCount: {} });
 
   const [dialogState, setDialogState] = useState<
     Record<
@@ -42,30 +42,30 @@ const DialogProvider = ({ children }: DialogProviderProps) => {
       setDialogs((dialogs) => ({
         dialogs: { ...dialogs.dialogs, [key]: Component },
         lookup: { ...dialogs.lookup, [id]: key },
-        idsList: {
-          ...dialogs.idsList,
-          [key]: [...(dialogs.idsList[key] || []), id],
+        idsCount: {
+          ...dialogs.idsCount,
+          [key]: (dialogs.idsCount[key] || 0) + 1,
         },
       }));
 
       return () => {
         setDialogs((dialogs) => {
-          const newIds = dialogs.idsList[key].filter((i) => i !== id);
+          const newCount = dialogs.idsCount[key] - 1;
 
-          if (newIds.length === 0) {
+          if (newCount === 0) {
             return {
               dialogs: removeKey(dialogs.dialogs, key),
               lookup: removeKey(dialogs.lookup, id),
-              idsList: removeKey(dialogs.idsList, key),
+              idsCount: removeKey(dialogs.idsCount, key),
             };
           }
 
           return {
             dialogs: dialogs.dialogs,
             lookup: removeKey(dialogs.lookup, id),
-            idsList: {
-              ...dialogs.idsList,
-              [key]: newIds,
+            idsCount: {
+              ...dialogs.idsCount,
+              [key]: newCount,
             },
           };
         });
