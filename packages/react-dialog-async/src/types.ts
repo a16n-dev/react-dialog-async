@@ -47,27 +47,9 @@ export type useDialogReturn<D, R, DE extends D | undefined> = {
   close: () => void;
 };
 
-export type useDialogOptions<
-  D,
-  DE extends D | undefined,
-  M extends boolean = false,
-> = {
+export type useDialogOptions<D, DE extends D | undefined> = {
   /**
    * Default data to pass to the dialog when .show() is called
    */
   defaultData?: DE;
-  /**
-   * By default, only open dialogs will be rendered. Set this to true if you
-   * want react-dialog-async to always render the dialog
-   */
-  keepMounted?: boolean;
-} & (
-  | {
-      defaultData: DE;
-      keepMounted: M extends true ? M : never;
-    }
-  | {
-      defaultData?: DE;
-      keepMounted?: M extends false ? M : never;
-    }
-);
+};

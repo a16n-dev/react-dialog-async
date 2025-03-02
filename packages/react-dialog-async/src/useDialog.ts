@@ -3,9 +3,9 @@ import DialogContext from './DialogContext';
 import { hashComponent } from './utils';
 import { DialogComponent, useDialogOptions, useDialogReturn } from './types';
 
-function useDialog<D, R, DE extends D | undefined, M extends boolean = false>(
+function useDialog<D, R, DE extends D | undefined>(
   component: DialogComponent<D, R>,
-  options: useDialogOptions<D, DE, M> = {},
+  options: useDialogOptions<D, DE> = {},
 ): useDialogReturn<D, R, DE> {
   const id = useId();
 
