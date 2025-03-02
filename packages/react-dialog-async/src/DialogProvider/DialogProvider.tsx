@@ -8,11 +8,11 @@ interface DialogProviderProps extends PropsWithChildren {
   /**
    * The default delay in milliseconds to wait before unmounting a dialog after it's closed.
    */
-  defaultUnmountDelay?: number;
+  defaultUnmountDelayInMs?: number;
 }
 
 const DialogProvider = ({
-  defaultUnmountDelay,
+  defaultUnmountDelayInMs,
   children,
 }: DialogProviderProps) => {
   // maps keys to components
@@ -102,12 +102,12 @@ const DialogProvider = ({
             open: true,
             data,
             resolve,
-            unmountDelay: unmountDelay ?? defaultUnmountDelay,
+            unmountDelay: unmountDelay ?? defaultUnmountDelayInMs,
           },
         }));
       });
     },
-    [setDialogState, defaultUnmountDelay],
+    [setDialogState, defaultUnmountDelayInMs],
   );
 
   /**
