@@ -13,7 +13,11 @@ export interface dialogContextState {
     key: string,
     obj: DialogComponent<any, any>,
   ) => () => void;
-  show: (dialogId: string, data: unknown) => Promise<any>;
+  show: (
+    dialogId: string,
+    data: unknown,
+    unmountDelay?: number,
+  ) => Promise<any>;
   hide: (dialogId: string) => void;
   updateData: (dialogId: string, data: unknown) => void;
 }

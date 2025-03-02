@@ -31,6 +31,7 @@ const myDialog = useDialog(MyDialog, {
 Available options are:
 
 * `defaultData` - Default data to pass to the dialog component. Specifying this makes passing data to `.show()` optional, but data passed to `.show()` will still override the default data.
+* `unmountDelayInMs` - Specify a delay in milliseconds to wait before unmounting the dialog component after it is closed. See the [animations](/animations) section for more information.
 * `customKey` - By default, only one instance of a dialog component is stored internally, regardless of how many places it is used with `useDialog`. If this behaviour is not desired, a `customKey` can be specified to create a new instance of the dialog component.
 
 ## Return Type

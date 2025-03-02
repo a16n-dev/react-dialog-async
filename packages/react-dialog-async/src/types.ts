@@ -56,4 +56,9 @@ export type useDialogOptions<D, DE extends D | undefined> = {
    * A custom key to register this dialog against
    */
   customKey?: string;
+  /**
+   * If specified, the dialog will remain mounted for this many milliseconds.
+   * Useful for allowing a close animation to play before unmounting the dialog.
+   */
+  unmountDelayInMs?: number;
 };

@@ -1,0 +1,43 @@
+---
+sidebar_position: 4
+slug: /animations
+---
+
+import Tabs from '@theme/Tabs';
+import TabItem from '@theme/TabItem';
+
+
+# Animations
+It's a common UI pattern for dialogs to have entry and exit animations. By default, exit animations won't work with
+`react-dialog-async` because the dialog is unmounted immediately after it's closed.
+
+## Unmount Delay
+
+To give your animations time to play,
+`useDialog` exposes an `unmountDelayInMs` option:
+
+
+```tsx
+const myDialog = useDialog(AnimatedDialog, {
+  unmountDelayInMs: 500, // wait 500ms after the dialog is closed
+});
+```
+
+:::note
+Note that the promise returned by `show` will resolve immediately after the dialog is closed and is not affected by the delay.
+:::
+
+## Global Unmount Delay
+If your app has a common dialog component, you'll likely want the same unmount delay across all dialogs.
+
+To avoid having to specify it every time, you can pass a `defaultUnmountDelayInMs` prop to `DialogProvider` to set a default unmount delay for all dialogs:
+
+```tsx
+<DialogProvider defaultUnmountDelayInMs={500}>
+  {...}
+</DialogProvider>
+```
+
+:::tip
+Generally, there is little to no downside to having a delayed unmount so we recommend setting a global value of `1000` or similar, even if not all of your dialogs need it
+:::
