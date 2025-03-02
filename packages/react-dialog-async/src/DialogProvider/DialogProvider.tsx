@@ -113,29 +113,32 @@ const DialogProvider = ({
   /**
    * Force closes the dialog with the given id.
    */
-  const hide = (id: string): void => {
-    setDialogState((state) => {
-      if (!state[id]) return state;
+  const hide = useCallback(
+    (id: string) => {
+      setDialogState((state) => {
+        if (!state[id]) return state;
 
-      if (!state[id].open) return state; // don't do anything if the dialog is already closed
+        if (!state[id].open) return state; // don't do anything if the dialog is already closed
 
-      state[id].resolve?.(undefined);
+        state[id].resolve?.(undefined);
 
-      if (state[id].unmountDelay) {
-        if (unmountDelayTimeoutRefs.current[id] !== undefined) {
-          clearTimeout(unmountDelayTimeoutRefs.current[id]);
+        if (state[id].unmountDelay) {
+          if (unmountDelayTimeoutRefs.current[id] !== undefined) {
+            clearTimeout(unmountDelayTimeoutRefs.current[id]);
+          }
+
+          // start the delay
+          unmountDelayTimeoutRefs.current[id] = setTimeout(() => {
+            setDialogState((state) => removeKey(state, id));
+          }, state[id].unmountDelay);
+
+          return { ...state, [id]: { open: false, data: state[id].data } };
         }
-
-        // start the delay
-        unmountDelayTimeoutRefs.current[id] = setTimeout(() => {
-          setDialogState((state) => removeKey(state, id));
-        }, state[id].unmountDelay);
-
-        return { ...state, [id]: { open: false, data: state[id].data } };
-      }
-      return removeKey(state, id);
-    });
-  };
+        return removeKey(state, id);
+      });
+    },
+    [setDialogState],
+  );
 
   /**
    * Updates the data of the given dialog
