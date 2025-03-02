@@ -4,9 +4,17 @@ import DialogContext, { dialogContextState } from '../DialogContext';
 import { DialogComponent } from '../types';
 import { hashComponent } from '../utils';
 
-interface DialogProviderProps extends PropsWithChildren {}
+interface DialogProviderProps extends PropsWithChildren {
+  /**
+   * The default delay in milliseconds to wait before unmounting a dialog after it's closed.
+   */
+  defaultUnmountDelay?: number;
+}
 
-const DialogProvider = ({ children }: DialogProviderProps) => {
+const DialogProvider = ({
+  defaultUnmountDelay,
+  children,
+}: DialogProviderProps) => {
   // maps keys to components
   const [dialogs, setDialogs] = useState<{
     dialogs: Record<string, DialogComponent<unknown, unknown>>;
@@ -90,11 +98,16 @@ const DialogProvider = ({ children }: DialogProviderProps) => {
       return new Promise((resolve) => {
         setDialogState((state) => ({
           ...state,
-          [id]: { open: true, data, resolve, unmountDelay },
+          [id]: {
+            open: true,
+            data,
+            resolve,
+            unmountDelay: unmountDelay ?? defaultUnmountDelay,
+          },
         }));
       });
     },
-    [setDialogState],
+    [setDialogState, defaultUnmountDelay],
   );
 
   /**
