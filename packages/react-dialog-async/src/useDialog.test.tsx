@@ -1,6 +1,6 @@
-import React from 'react';
+import React, { act } from 'react';
 import { expect, test } from 'vitest';
-import { render, screen } from '@testing-library/react';
+import { render, renderHook, screen } from '@testing-library/react';
 import DialogProvider from './DialogProvider/DialogProvider';
 
 import useDialog from './useDialog';
@@ -92,4 +92,25 @@ test('default data is overridden when data is provided', () => {
   );
 
   expect(screen.queryByText(message)).toBeNull();
+});
+
+test('unmount delay does not delay the promise being resolved', async () => {
+  const result = renderHook(() =>
+    useDialog(TestDialog, { unmountDelayInMs: Infinity }),
+  );
+
+  let value = false;
+  let promise: Promise<void> | undefined;
+
+  act(() => {
+    promise = result.result.current.show().then(() => {
+      value = true;
+    });
+
+    result.result.current.hide();
+  });
+
+  await promise;
+
+  expect(value).toBe(true);
 });
