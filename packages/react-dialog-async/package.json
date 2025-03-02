@@ -2,10 +2,11 @@
   "name": "react-dialog-async",
   "description": "A promise-based way to show dialogs in React",
   "type": "module",
-  "version": "2.0.2",
+  "version": "2.1.0",
   "sideEffects": false,
   "main": "index.js",
   "module": "index.esm.js",
+  "react-native": "index.esm.js",
   "types": "index.d.ts",
   "homepage": "https://react-dialog-async.a16n.dev",
   "repository": {
