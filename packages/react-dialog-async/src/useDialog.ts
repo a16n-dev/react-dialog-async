@@ -5,7 +5,7 @@ import { DialogComponent, useDialogOptions, useDialogReturn } from './types';
 
 function useDialog<D, R, DE extends D | undefined>(
   component: DialogComponent<D, R>,
-  options: useDialogOptions<D, DE> = {},
+  options?: useDialogOptions<D, DE>,
 ): useDialogReturn<D, R, DE> {
   const id = useId();
 
@@ -19,10 +19,14 @@ function useDialog<D, R, DE extends D | undefined>(
   useEffect(() => {
     const unregister = ctx.register(id, key, component);
     return () => unregister();
-  }, [id, key, options]);
+  }, [id, key]);
 
   const show = async (data?: D): Promise<R | undefined> => {
-    return ctx.show(id, data ?? options?.defaultData, options?.unmountDelayInMs);
+    return ctx.show(
+      id,
+      data ?? options?.defaultData,
+      options?.unmountDelayInMs,
+    );
   };
 
   const hide = () => {
