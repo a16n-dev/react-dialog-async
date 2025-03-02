@@ -18,13 +18,11 @@ function useDialog<D, R, DE extends D | undefined>(
 
   useEffect(() => {
     const unregister = ctx.register(id, key, component);
-    return () => {
-      unregister();
-    };
-  }, [id]);
+    return () => unregister();
+  }, [id, key, options]);
 
   const show = async (data?: D): Promise<R | undefined> => {
-    return ctx.show(id, data ?? options?.defaultData);
+    return ctx.show(id, data ?? options?.defaultData, options?.unmountDelayInMs);
   };
 
   const hide = () => {
