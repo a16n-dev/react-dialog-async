@@ -30,6 +30,8 @@ jobs:
     if: needs.create-release.outputs.released == 'true'
     runs-on: ubuntu-latest
     steps:
+      - name: Setup PNPM
+        uses: pnpm/action-setup@v4
       - name: Checkout project
         uses: actions/checkout@v4
         with:
