@@ -24,7 +24,7 @@
     "babel-runtime": "^6.26.0",
     "eslint": "^9.21.0",
     "jsdom": "^26.0.0",
-    "prettier": "^3.5.2",
+    "prettier": "^3.5.3",
     "react": "^19",
     "react-dom": "^19",
     "rollup": "^4.34.8",
