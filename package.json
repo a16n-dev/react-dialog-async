@@ -1,14 +1,10 @@
 {
   "name": "react-dialog-async-monorepo",
-  "packageManager": "yarn@4.6.0",
-  "workspaces": [
-    "packages/*",
-    "docs"
-  ],
+  "packageManager": "pnpm@9.15.4",
   "scripts": {
-    "build": "yarn rollup -c packages/react-dialog-async/rollup.config.mjs",
+    "build": "pnpm rollup -c packages/react-dialog-async/rollup.config.mjs",
     "start": "rollup -w -c packages/react-dialog-async/rollup.config.mjs",
-    "docs:start": "yarn workspace docs start",
+    "docs:start": "pnpm -F docs start",
     "release": "yarn build && npm publish",
     "test": "vitest"
   },

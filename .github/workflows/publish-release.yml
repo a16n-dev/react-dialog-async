@@ -30,6 +30,10 @@ jobs:
     if: needs.create-release.outputs.released == 'true'
     runs-on: ubuntu-latest
     steps:
+      - name: Setup PNPM
+        uses: pnpm/action-setup@v4
+        with:
+          version: 9.15.4
       - name: Checkout project
         uses: actions/checkout@v4
         with:
@@ -39,18 +43,18 @@ jobs:
       - name: Setup node
         uses: actions/setup-node@v4
         with:
-          cache: 'yarn'
+          cache: 'pnpm'
           node-version: 18
           registry-url: https://registry.npmjs.org
 
       - name: Install dependencies
-        run: yarn
+        run: pnpm i
 
       - name: Build project
-        run: yarn build
+        run: pnpm build
 
       - name: Run tests
-        run: yarn test
+        run: pnpm test
 
       - name: Publish the dist folder to npm
         run: cd dist && npm publish

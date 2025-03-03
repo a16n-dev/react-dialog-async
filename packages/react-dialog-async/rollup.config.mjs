@@ -2,7 +2,7 @@ import typescript from 'rollup-plugin-typescript2';
 import peerDepsExternal from 'rollup-plugin-peer-deps-external';
 import resolve from '@rollup/plugin-node-resolve';
 import commonjs from '@rollup/plugin-commonjs';
-import pkg from './package.json' with { type: 'json' };
+import pkg from './package.json' assert { type: 'json' };
 import { dts } from 'rollup-plugin-dts';
 import del from 'rollup-plugin-delete';
 import { join } from 'path';
