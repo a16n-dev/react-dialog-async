@@ -1,5 +1,6 @@
 {
   "name": "react-dialog-async-monorepo",
+  "packageManager": "pnpm@9.15.4",
   "scripts": {
     "build": "pnpm rollup -c packages/react-dialog-async/rollup.config.mjs",
     "start": "rollup -w -c packages/react-dialog-async/rollup.config.mjs",
@@ -31,6 +32,5 @@
     "tslib": "^2.8.1",
     "typescript": "~5.8",
     "vitest": "^3.0.7"
-  },
-  "packageManager": "pnpm@9.15.4"
+  }
 }
