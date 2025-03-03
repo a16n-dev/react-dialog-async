@@ -59,8 +59,6 @@ const config: Config = {
         theme: {
           customCss: './src/css/custom.css',
         },
-      } satisfies Preset.Options,
-      {
         sitemap: {
           lastmod: 'date',
           changefreq: 'weekly',
