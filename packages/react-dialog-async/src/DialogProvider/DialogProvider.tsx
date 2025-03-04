@@ -96,6 +96,10 @@ const DialogProvider = ({
   const show = useCallback(
     (id: string, data: unknown, unmountDelay?: number): Promise<unknown> => {
       return new Promise((resolve) => {
+        if (unmountDelayTimeoutRefs.current[id] !== undefined) {
+          clearTimeout(unmountDelayTimeoutRefs.current[id]);
+        }
+
         setDialogState((state) => ({
           ...state,
           [id]: {
@@ -167,6 +171,7 @@ const DialogProvider = ({
           key={id}
           open={open}
           data={data}
+          mounted={true} // Dialog is always mounted when it's being rendered
           handleClose={(value) => {
             resolve?.(value);
             hide(id);
