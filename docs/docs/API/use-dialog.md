@@ -43,4 +43,4 @@ The object returned by `useDialog` has the following properties:
 * `close` - Alias for `hide`
 
 ## Source
-[Source for `useDialog` on GitHub](https://github.com/a16n-dev/react-dialog-async/blob/main/src/useDialog.ts)
+[Source for `useDialog` on GitHub](https://github.com/a16n-dev/react-dialog-async/tree/main/packages/react-dialog-async/src/useDialog.ts)

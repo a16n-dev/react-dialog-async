@@ -47,15 +47,16 @@ Install the package using your package manager of choice.
 
 ### Wrap your app with `DialogProvider`
 
-Add the provider `DialogProvider` to the root of your app
+Add the provider `DialogProvider` to the root of your app, and render a `DialogOutlet`
 
 ``` tsx
-import { DialogProvider } from 'react-dialog-async';
+import { DialogProvider, DialogOutlet } from 'react-dialog-async';
 
 export default function Layout() {
   return (
     <DialogProvider>
       <App />
+      <DialogOutlet/>
     </DialogProvider>
   );
 }

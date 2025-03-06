@@ -23,4 +23,4 @@ Provides a react context for rendering dialogs. The dialogs themselves will also
 | `defaultUnmountDelayInMs` | `number?`         |               | Sets a default for the unmount delay for all dialogs |
 
 ## Source
-[Source for `DialogProvider` on GitHub](https://github.com/a16n-dev/react-dialog-async/blob/main/src/DialogProvider/DialogProvider.tsx)
+[Source for `DialogProvider` on GitHub](https://github.com/a16n-dev/react-dialog-async/tree/main/packages/react-dialog-async/src/DialogProvider/DialogProvider.tsx)

@@ -95,8 +95,14 @@ test('default data is overridden when data is provided', () => {
 });
 
 test('unmount delay does not delay the promise being resolved', async () => {
-  const result = renderHook(() =>
-    useDialog(TestDialog, { unmountDelayInMs: Infinity }),
+  const result = renderHook(
+    () =>
+      useDialog(TestDialog, {
+        unmountDelayInMs: 100,
+      }),
+    {
+      wrapper: DialogProvider,
+    },
   );
 
   let value = false;

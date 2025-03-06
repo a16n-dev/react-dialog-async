@@ -1,8 +1,9 @@
 import React, { useEffect, useRef } from 'react';
-import { PropsWithChildren, useCallback, useMemo, useState } from 'react';
+import { PropsWithChildren, useCallback, useState } from 'react';
 import DialogContext, { dialogContextState } from '../DialogContext';
 import { DialogComponent } from '../types';
-import { hashComponent } from '../utils';
+import DialogStateContext, { dialogsStateData } from '../DialogStateContext';
+import useRenderDialogs from '../useRenderDialogs';
 
 interface DialogProviderProps extends PropsWithChildren {
   /**
@@ -15,104 +16,10 @@ const DialogProvider = ({
   defaultUnmountDelayInMs,
   children,
 }: DialogProviderProps) => {
-  // maps keys to components
-  const [dialogs, setDialogs] = useState<{
-    dialogs: Record<string, DialogComponent<unknown, unknown>>;
-    lookup: Record<string, string>;
-    idsCount: Record<string, number>;
-  }>({ dialogs: {}, lookup: {}, idsCount: {} });
-
   const unmountDelayTimeoutRefs = useRef<{ [key: string]: any }>({});
 
-  const [dialogState, setDialogState] = useState<
-    Record<
-      string,
-      {
-        data: unknown;
-        open: boolean;
-        resolve?: (value: unknown) => void;
-        unmountDelay?: number;
-      }
-    >
-  >({});
-
-  const register = useCallback(
-    (
-      id: string,
-      key: string,
-      Component: DialogComponent<unknown, unknown>,
-    ): (() => void) => {
-      if (
-        dialogs.dialogs[key] !== undefined &&
-        hashComponent(dialogs.dialogs[key]) !== hashComponent(Component)
-      ) {
-        throw new Error(
-          `Attempted to register ${Component} against key ${key}, but a different component (${dialogs.dialogs[key]}) is already registered against that key. If you're assigning a key manually, make sure it's unique.`,
-        );
-      }
-      setDialogs((dialogs) => ({
-        dialogs: { ...dialogs.dialogs, [key]: Component },
-        lookup: { ...dialogs.lookup, [id]: key },
-        idsCount: {
-          ...dialogs.idsCount,
-          [key]: (dialogs.idsCount[key] || 0) + 1,
-        },
-      }));
-
-      return () => {
-        setDialogs((dialogs) => {
-          const newCount = dialogs.idsCount[key] - 1;
-
-          if (newCount === 0) {
-            return {
-              dialogs: removeKey(dialogs.dialogs, key),
-              lookup: removeKey(dialogs.lookup, id),
-              idsCount: removeKey(dialogs.idsCount, key),
-            };
-          }
-
-          return {
-            dialogs: dialogs.dialogs,
-            lookup: removeKey(dialogs.lookup, id),
-            idsCount: {
-              ...dialogs.idsCount,
-              [key]: newCount,
-            },
-          };
-        });
-
-        setDialogState((state) => {
-          if (state[id]) {
-            state[id].resolve?.(undefined);
-            return removeKey(state, id);
-          }
-          return state;
-        });
-      };
-    },
-    [setDialogs, setDialogState],
-  );
-
-  const show = useCallback(
-    (id: string, data: unknown, unmountDelay?: number): Promise<unknown> => {
-      return new Promise((resolve) => {
-        if (unmountDelayTimeoutRefs.current[id] !== undefined) {
-          clearTimeout(unmountDelayTimeoutRefs.current[id]);
-        }
-
-        setDialogState((state) => ({
-          ...state,
-          [id]: {
-            open: true,
-            data,
-            resolve,
-            unmountDelay: unmountDelay ?? defaultUnmountDelayInMs,
-          },
-        }));
-      });
-    },
-    [setDialogState, defaultUnmountDelayInMs],
-  );
+  const [dialogState, setDialogState] = useState<dialogsStateData>({});
+  const [usingOutlet, setUsingOutlet] = useState(false);
 
   /**
    * Force closes the dialog with the given id.
@@ -136,12 +43,51 @@ const DialogProvider = ({
             setDialogState((state) => removeKey(state, id));
           }, state[id].unmountDelay);
 
-          return { ...state, [id]: { open: false, data: state[id].data } };
+          return {
+            ...state,
+            [id]: {
+              open: false,
+              dialog: state[id].dialog,
+              data: state[id].data,
+            },
+          };
         }
         return removeKey(state, id);
       });
     },
     [setDialogState],
+  );
+
+  const show = useCallback(
+    (
+      id: string,
+      dialog: DialogComponent<any, any>,
+      data: unknown,
+      unmountDelay?: number,
+    ): Promise<unknown> => {
+      return new Promise((resolve) => {
+        if (unmountDelayTimeoutRefs.current[id] !== undefined) {
+          clearTimeout(unmountDelayTimeoutRefs.current[id]);
+        }
+
+        const resolveFn = (value: any) => {
+          resolve?.(value);
+          hide(id);
+        };
+
+        setDialogState((state) => ({
+          ...state,
+          [id]: {
+            dialog: dialog,
+            open: true,
+            data,
+            resolve: resolveFn,
+            unmountDelay: unmountDelay ?? defaultUnmountDelayInMs,
+          },
+        }));
+      });
+    },
+    [setDialogState, hide, defaultUnmountDelayInMs],
   );
 
   /**
@@ -162,24 +108,7 @@ const DialogProvider = ({
     [setDialogState],
   );
 
-  const dialogComponents = useMemo(() => {
-    return Object.entries(dialogState).map(([id, { data, open, resolve }]) => {
-      const Component = dialogs.dialogs[dialogs.lookup[id]];
-
-      return (
-        <Component
-          key={id}
-          open={open}
-          data={data}
-          mounted={true} // Dialog is always mounted when it's being rendered
-          handleClose={(value) => {
-            resolve?.(value);
-            hide(id);
-          }}
-        />
-      );
-    });
-  }, [dialogState]);
+  const dialogComponents = useRenderDialogs(dialogState);
 
   useEffect(() => {
     return () => {
@@ -188,17 +117,20 @@ const DialogProvider = ({
   }, []);
 
   const ctx: dialogContextState = {
-    register,
     show,
     hide,
     updateData,
   };
 
   return (
-    <DialogContext.Provider value={ctx}>
-      {children}
-      {dialogComponents}
-    </DialogContext.Provider>
+    <DialogStateContext.Provider
+      value={{ dialogs: dialogState, setIsUsingOutlet: setUsingOutlet }}
+    >
+      <DialogContext.Provider value={ctx}>
+        {children}
+        {!usingOutlet && dialogComponents}
+      </DialogContext.Provider>
+    </DialogStateContext.Provider>
   );
 };
 
