@@ -3,8 +3,16 @@ import { expect, test } from 'vitest';
 import { render, screen } from '@testing-library/react';
 import DialogProvider from './DialogProvider';
 import { useContext, useEffect, useId } from 'react';
-import DialogContext from '../DialogContext';
+import DialogContext, { dialogContextState } from '../DialogContext';
 import { AsyncDialogProps } from '../types';
+
+function ctxNotNull(ctx: dialogContextState | null): asserts ctx {
+  if (!ctx) {
+    throw new Error(
+      'Dialog context not found. You likely forgot to wrap your app in a <DialogProvider/> (https://react-dialog-async.a16n.dev/installation)',
+    );
+  }
+}
 
 const TestDialog = ({ open }: AsyncDialogProps) => {
   if (!open) return null;
@@ -24,35 +32,14 @@ test('renders children', () => {
   expect(screen.findByText('Hello world!')).toBeDefined();
 });
 
-test('calling register() does not mount the dialog', () => {
+test('calling  show() mounts the dialog in the DOM', () => {
   const InnerComponent = () => {
     const ctx = useContext(DialogContext);
+    ctxNotNull(ctx);
     const id = useId();
 
     useEffect(() => {
-      ctx.register(id, 'test', TestDialog);
-    }, [id]);
-
-    return null;
-  };
-  const result = render(
-    <DialogProvider>
-      <InnerComponent />
-    </DialogProvider>,
-  );
-
-  expect(result.asFragment()).toMatchSnapshot();
-});
-
-test('calling register() followed by show() mounts the dialog in the DOM', () => {
-  const InnerComponent = () => {
-    const ctx = useContext(DialogContext);
-    const id = useId();
-
-    useEffect(() => {
-      ctx.register(id, 'test', TestDialog);
-
-      ctx.show(id, {});
+      ctx.show(id, TestDialog, {});
     }, [id]);
 
     return null;
@@ -70,12 +57,11 @@ test('calling register() followed by show() mounts the dialog in the DOM', () =>
 test('calling register() followed by show() followed by hide() unmounts the dialog in the DOM', () => {
   const InnerComponent = () => {
     const ctx = useContext(DialogContext);
+    ctxNotNull(ctx);
     const id = useId();
 
     useEffect(() => {
-      ctx.register(id, 'test', TestDialog);
-
-      ctx.show(id, {});
+      ctx.show(id, TestDialog, {});
 
       ctx.hide(id);
     }, [id]);

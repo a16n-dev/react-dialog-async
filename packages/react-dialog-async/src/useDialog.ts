@@ -1,4 +1,4 @@
-import { useContext, useEffect, useId, useMemo } from 'react';
+import { useCallback, useContext, useEffect, useId, useMemo } from 'react';
 import DialogContext from './DialogContext';
 import { hashComponent } from './utils';
 import { DialogComponent, useDialogOptions, useDialogReturn } from './types';
@@ -16,18 +16,29 @@ function useDialog<D, R, DE extends D | undefined>(
 
   const ctx = useContext(DialogContext);
 
-  useEffect(() => {
-    const unregister = ctx.register(id, key, component);
-    return () => unregister();
-  }, [id, key]);
-
-  const show = async (data?: D): Promise<R | undefined> => {
-    return ctx.show(
-      id,
-      data ?? options?.defaultData,
-      options?.unmountDelayInMs,
+  if (!ctx) {
+    throw new Error(
+      'Dialog context not found. You likely forgot to wrap your app in a <DialogProvider/> (https://react-dialog-async.a16n.dev/installation)',
     );
-  };
+  }
+
+  useEffect(() => {
+    return () => {
+      ctx.hide(id);
+    };
+  }, [id]);
+
+  const show = useCallback(
+    async (data?: D): Promise<R | undefined> => {
+      return ctx.show(
+        id,
+        component,
+        data ?? options?.defaultData,
+        options?.unmountDelayInMs,
+      );
+    },
+    [key, component, options?.defaultData, options?.unmountDelayInMs],
+  );
 
   const hide = () => {
     return ctx.hide(id);
