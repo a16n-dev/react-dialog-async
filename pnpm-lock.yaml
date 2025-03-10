@@ -190,8 +190,8 @@ importers:
   examples/tailwindcss:
     dependencies:
       '@craco/craco':
-        specifier: ^6.4.0
-        version: 6.4.5(@types/node@12.20.55)(react-scripts@4.0.3(@types/webpack@4.41.40)(eslint@9.21.0(jiti@1.21.7))(react@17.0.2)(sockjs-client@1.6.1)(ts-node@10.9.2(@types/node@12.20.55)(typescript@4.8.4))(typescript@4.8.4))(typescript@4.8.4)
+        specifier: ^7.1.0
+        version: 7.1.0(@types/node@12.20.55)(postcss@7.0.39)(react-scripts@4.0.3(@types/webpack@4.41.40)(eslint@9.21.0(jiti@1.21.7))(react@17.0.2)(sockjs-client@1.6.1)(ts-node@10.9.2(@types/node@12.20.55)(typescript@4.8.4))(typescript@4.8.4))(typescript@4.8.4)
       '@types/node':
         specifier: ^12.0.0
         version: 12.20.55
@@ -1050,12 +1050,12 @@ packages:
     resolution: {integrity: sha512-ooWCrlZP11i8GImSjTHYHLkvFDP48nS4+204nGb1RiX/WXYHmJA2III9/e2DWVabCESdW7hBAEzHRqUn9OUVvQ==}
     engines: {node: '>=0.1.90'}
 
-  '@craco/craco@6.4.5':
-    resolution: {integrity: sha512-8F2rIAao8sEh0FPP52ViEvDM9GjJ7acq0knu1c8UgI+EuZMD5/ZB270ol6jV4iNY7it9Umg/RoGBvNRUNr8U8w==}
+  '@craco/craco@7.1.0':
+    resolution: {integrity: sha512-oRAcPIKYrfPXp9rSzlsDNeOaVtDiKhoyqSXUoqiK24jCkHr4T8m/a2f74yXIzCbIheoUWDOIfWZyRgFgT+cpqA==}
     engines: {node: '>=6'}
     hasBin: true
     peerDependencies:
-      react-scripts: ^4.0.0
+      react-scripts: ^5.0.0
 
   '@cspotcode/source-map-support@0.8.1':
     resolution: {integrity: sha512-IchNf6dN4tHoMFIn/7OE8LWZ19Y6q/67Bmf6vnGREv8RSbBVb9LPJxEcnwrcwX6ixSvaiGoomAUvu4YSxXrVgw==}
@@ -2940,6 +2940,11 @@ packages:
     engines: {node: '>=0.4.0'}
     hasBin: true
 
+  acorn@8.14.1:
+    resolution: {integrity: sha512-OvQ/2pUDKmgfCg++xsTX1wGxfTaszcHVcTctW4UJB4hibJx2HXxxO5UmVgyjMa+ZDsiaf5wWLXYpRWMmBI0QHg==}
+    engines: {node: '>=0.4.0'}
+    hasBin: true
+
   address@1.1.2:
     resolution: {integrity: sha512-aT6camzM4xEA54YVJYSqxz1kv4IHnQZRtThJJHhUMRExaU5spC7jX5ugSwTaTgJliIgs4VhZOk7htClvQ/LmRA==}
     engines: {node: '>= 0.12.0'}
@@ -3217,8 +3222,8 @@ packages:
     engines: {node: '>= 4.5.0'}
     hasBin: true
 
-  autoprefixer@10.4.20:
-    resolution: {integrity: sha512-XY25y5xSv/wEoqzDyXXME4AFfkZI0P23z6Fs3YgymDnKJkCGOnkL0iTxCa85UTqaSgfcqyf3UA6+c7wUvx/16g==}
+  autoprefixer@10.4.21:
+    resolution: {integrity: sha512-O+A6LWV5LDHSJD3LjHYoNi4VLsj/Whi7k6zG12xTYaU4cQ8oxQGckXNX8cRHK5yOZ/ppVHe0ZBXGzSV9jXdVbQ==}
     engines: {node: ^10 || ^12 || >=14}
     hasBin: true
     peerDependencies:
@@ -3589,6 +3594,9 @@ packages:
 
   caniuse-lite@1.0.30001701:
     resolution: {integrity: sha512-faRs/AW3jA9nTwmJBSO1PQ6L/EOgsB5HMQQq4iCu5zhPgVVgO/pZRHlmatwijZKetFw8/Pr4q6dEN8sJuq8qTw==}
+
+  caniuse-lite@1.0.30001703:
+    resolution: {integrity: sha512-kRlAGTRWgPsOj7oARC9m1okJEXdL/8fekFVcxA8Hl7GH4r/sN4OJn/i6Flde373T50KS7Y37oFbMwlE8+F42kQ==}
 
   capture-exit@2.0.0:
     resolution: {integrity: sha512-PiT/hQmTonHhl/HFGN+Lx3JJUznrVYJ3+AQsnthneZbvW7x+f08Tk7yLJTLEOUvBTbduLeeBkxEaYXUOUrRq6g==}
@@ -10214,9 +10222,6 @@ packages:
     peerDependencies:
       webpack: 2 || 3 || 4
 
-  webpack-merge@4.2.2:
-    resolution: {integrity: sha512-TUE1UGoTX2Cd42j3krGYqObZbOD+xF7u28WB7tfUordytSjbWTIjK/8V0amkBfTYN4/pB/GIDlJZZ657BGG19g==}
-
   webpack-merge@5.10.0:
     resolution: {integrity: sha512-+4zXKdx7UnO+1jaN4l2lHVD+mFvnlZQP/6ljaJVb4SZiwIKeUnrT5l0gkT8z+n4hKpC+jpOv6O9R+gLtag7pSA==}
     engines: {node: '>=10.0.0'}
@@ -11657,19 +11662,21 @@ snapshots:
   '@colors/colors@1.5.0':
     optional: true
 
-  '@craco/craco@6.4.5(@types/node@12.20.55)(react-scripts@4.0.3(@types/webpack@4.41.40)(eslint@9.21.0(jiti@1.21.7))(react@17.0.2)(sockjs-client@1.6.1)(ts-node@10.9.2(@types/node@12.20.55)(typescript@4.8.4))(typescript@4.8.4))(typescript@4.8.4)':
+  '@craco/craco@7.1.0(@types/node@12.20.55)(postcss@7.0.39)(react-scripts@4.0.3(@types/webpack@4.41.40)(eslint@9.21.0(jiti@1.21.7))(react@17.0.2)(sockjs-client@1.6.1)(ts-node@10.9.2(@types/node@12.20.55)(typescript@4.8.4))(typescript@4.8.4))(typescript@4.8.4)':
     dependencies:
+      autoprefixer: 10.4.21(postcss@7.0.39)
       cosmiconfig: 7.1.0
       cosmiconfig-typescript-loader: 1.0.9(@types/node@12.20.55)(cosmiconfig@7.1.0)(typescript@4.8.4)
       cross-spawn: 7.0.6
       lodash: 4.17.21
       react-scripts: 4.0.3(@types/webpack@4.41.40)(eslint@9.21.0(jiti@1.21.7))(react@17.0.2)(sockjs-client@1.6.1)(ts-node@10.9.2(@types/node@12.20.55)(typescript@4.8.4))(typescript@4.8.4)
       semver: 7.7.1
-      webpack-merge: 4.2.2
+      webpack-merge: 5.10.0
     transitivePeerDependencies:
       - '@swc/core'
       - '@swc/wasm'
       - '@types/node'
+      - postcss
       - typescript
 
   '@cspotcode/source-map-support@0.8.1':
@@ -14418,6 +14425,8 @@ snapshots:
 
   acorn@8.14.0: {}
 
+  acorn@8.14.1: {}
+
   address@1.1.2: {}
 
   address@1.2.2: {}
@@ -14695,10 +14704,20 @@ snapshots:
 
   atob@2.1.2: {}
 
-  autoprefixer@10.4.20(postcss@8.5.3):
+  autoprefixer@10.4.21(postcss@7.0.39):
     dependencies:
       browserslist: 4.24.4
-      caniuse-lite: 1.0.30001701
+      caniuse-lite: 1.0.30001703
+      fraction.js: 4.3.7
+      normalize-range: 0.1.2
+      picocolors: 1.1.1
+      postcss: 7.0.39
+      postcss-value-parser: 4.2.0
+
+  autoprefixer@10.4.21(postcss@8.5.3):
+    dependencies:
+      browserslist: 4.24.4
+      caniuse-lite: 1.0.30001703
       fraction.js: 4.3.7
       normalize-range: 0.1.2
       picocolors: 1.1.1
@@ -15207,7 +15226,7 @@ snapshots:
 
   browserslist@4.14.2:
     dependencies:
-      caniuse-lite: 1.0.30001701
+      caniuse-lite: 1.0.30001703
       electron-to-chromium: 1.5.109
       escalade: 3.2.0
       node-releases: 1.1.77
@@ -15355,11 +15374,13 @@ snapshots:
   caniuse-api@3.0.0:
     dependencies:
       browserslist: 4.24.4
-      caniuse-lite: 1.0.30001701
+      caniuse-lite: 1.0.30001703
       lodash.memoize: 4.1.2
       lodash.uniq: 4.5.0
 
   caniuse-lite@1.0.30001701: {}
+
+  caniuse-lite@1.0.30001703: {}
 
   capture-exit@2.0.0:
     dependencies:
@@ -15970,7 +15991,7 @@ snapshots:
 
   cssnano-preset-advanced@6.1.2(postcss@8.5.3):
     dependencies:
-      autoprefixer: 10.4.20(postcss@8.5.3)
+      autoprefixer: 10.4.21(postcss@8.5.3)
       browserslist: 4.24.4
       cssnano-preset-default: 6.1.2(postcss@8.5.3)
       postcss: 8.5.3
@@ -16633,7 +16654,7 @@ snapshots:
   esast-util-from-js@2.0.1:
     dependencies:
       '@types/estree-jsx': 1.0.5
-      acorn: 8.14.0
+      acorn: 8.14.1
       esast-util-from-estree: 2.0.0
       vfile-message: 4.0.2
 
@@ -18894,7 +18915,7 @@ snapshots:
   jsdom@16.7.0:
     dependencies:
       abab: 2.0.6
-      acorn: 8.14.0
+      acorn: 8.14.1
       acorn-globals: 6.0.0
       cssom: 0.4.4
       cssstyle: 2.3.0
@@ -21061,7 +21082,7 @@ snapshots:
       '@csstools/postcss-text-decoration-shorthand': 4.0.2(postcss@8.5.3)
       '@csstools/postcss-trigonometric-functions': 4.0.7(postcss@8.5.3)
       '@csstools/postcss-unset-value': 4.0.0(postcss@8.5.3)
-      autoprefixer: 10.4.20(postcss@8.5.3)
+      autoprefixer: 10.4.21(postcss@8.5.3)
       browserslist: 4.24.4
       css-blank-pseudo: 7.0.1(postcss@8.5.3)
       css-has-pseudo: 7.0.2(postcss@8.5.3)
@@ -23027,7 +23048,7 @@ snapshots:
 
   terser@4.8.1:
     dependencies:
-      acorn: 8.14.0
+      acorn: 8.14.1
       commander: 2.20.3
       source-map: 0.6.1
       source-map-support: 0.5.21
@@ -23149,7 +23170,7 @@ snapshots:
       '@tsconfig/node14': 1.0.3
       '@tsconfig/node16': 1.0.4
       '@types/node': 12.20.55
-      acorn: 8.14.0
+      acorn: 8.14.1
       acorn-walk: 8.3.4
       arg: 4.1.3
       create-require: 1.1.1
@@ -23754,10 +23775,6 @@ snapshots:
       object.entries: 1.1.8
       tapable: 1.1.3
       webpack: 4.44.2
-
-  webpack-merge@4.2.2:
-    dependencies:
-      lodash: 4.17.21
 
   webpack-merge@5.10.0:
     dependencies:
