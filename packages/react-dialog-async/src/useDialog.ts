@@ -24,9 +24,11 @@ function useDialog<D, R, DE extends D | undefined>(
 
   useEffect(() => {
     return () => {
-      ctx.hide(id);
+      if (options?.hideOnHookUnmount !== false) {
+        ctx.hide(id);
+      }
     };
-  }, [id]);
+  }, [id, options?.hideOnHookUnmount]);
 
   const show = useCallback(
     async (data?: D): Promise<R | undefined> => {

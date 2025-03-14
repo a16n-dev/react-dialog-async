@@ -62,4 +62,10 @@ export type useDialogOptions<D, DE extends D | undefined> = {
    * Useful for allowing a close animation to play before unmounting the dialog.
    */
   unmountDelayInMs?: number;
+  /**
+   * By default, the dialog will be hidden if the hook is unmounted. Set this to
+   * false if you want the dialog to remain open even when the hook is unmounted.
+   * @default true
+   */
+  hideOnHookUnmount?: boolean;
 };
