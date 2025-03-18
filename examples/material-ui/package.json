@@ -12,7 +12,7 @@
     "react": "^17.0.2",
     "react-dialog-async": "1.0.7",
     "react-dom": "^17.0.2",
-    "react-scripts": "4.0.3",
+    "react-scripts": "5.0.1",
     "typescript": "^4.1.2"
   },
   "scripts": {
