@@ -1,4 +1,4 @@
-import { useCallback, useContext, useEffect, useId, useMemo } from 'react';
+import { useCallback, useContext, useEffect, useMemo } from 'react';
 import DialogContext from './DialogContext';
 import { hashComponent } from './utils';
 import { DialogComponent, useDialogOptions, useDialogReturn } from './types';
@@ -7,9 +7,8 @@ function useDialog<D, R, DE extends D | undefined>(
   component: DialogComponent<D, R>,
   options?: useDialogOptions<D, DE>,
 ): useDialogReturn<D, R, DE> {
-  const id = useId();
-
-  const key = useMemo(
+  // use a custom key if it's provided, otherwise generate a key from the component used
+  const id = useMemo(
     () => options?.customKey ?? hashComponent(component),
     [component, options?.customKey],
   );
@@ -39,7 +38,7 @@ function useDialog<D, R, DE extends D | undefined>(
         options?.unmountDelayInMs,
       );
     },
-    [key, component, options?.defaultData, options?.unmountDelayInMs],
+    [id, component, options?.defaultData, options?.unmountDelayInMs],
   );
 
   const hide = () => {
