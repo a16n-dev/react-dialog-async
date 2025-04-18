@@ -8,10 +8,10 @@
     "@mui/material": "^7.0.1",
     "@types/node": "^22.14.0",
     "@types/react": "^17.0.0",
-    "@types/react-dom": "^17.0.0",
+    "@types/react-dom": "^19.1.2",
     "react": "^17.0.2",
     "react-dialog-async": "1.0.7",
-    "react-dom": "^17.0.2",
+    "react-dom": "^19.1.0",
     "react-scripts": "5.0.1",
     "typescript": "^5.8.2"
   },
