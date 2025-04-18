@@ -1,6 +1,7 @@
 import { useCallback, useContext, useEffect, useId, useMemo } from 'react';
 import DialogContext from './DialogContext';
 import { DialogComponent, useDialogOptions, useDialogReturn } from './types';
+import { hashComponent } from './utils';
 
 function useDialog<D, R, DE extends D | undefined>(
   component: DialogComponent<D, R>,
@@ -8,10 +9,13 @@ function useDialog<D, R, DE extends D | undefined>(
 ): useDialogReturn<D, R, DE> {
   const internalId = useId();
 
-  const id = useMemo(
-    () => options?.customKey ?? internalId,
-    [internalId, options?.customKey],
-  );
+  const id = useMemo(() => {
+    if (options?.customKey !== undefined) {
+      return `${hashComponent(component)}-${options.customKey}`;
+    }
+
+    return internalId;
+  }, [internalId, component, options?.customKey]);
 
   const ctx = useContext(DialogContext);
 
