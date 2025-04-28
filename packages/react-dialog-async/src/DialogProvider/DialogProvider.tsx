@@ -78,6 +78,7 @@ const DialogProvider = ({
         setDialogState((state) => ({
           ...state,
           [id]: {
+            key: state[id]?.key ?? Date.now().toString(16),
             dialog: dialog,
             open: true,
             data,
