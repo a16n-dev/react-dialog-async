@@ -23,7 +23,7 @@
     "prettier": "^3.5.3",
     "react": "^19",
     "react-dom": "^19",
-    "rollup": "^4.38.0",
+    "rollup": "^4.40.2",
     "rollup-plugin-copy": "^3.5.0",
     "rollup-plugin-delete": "^3.0.1",
     "rollup-plugin-dts": "^6.2.1",
