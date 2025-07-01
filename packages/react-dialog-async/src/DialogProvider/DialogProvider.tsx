@@ -26,10 +26,11 @@ const DialogProvider = ({
    */
   const hide = useCallback(
     (id: string) => {
-      setDialogState((state) => {
-        if (!state[id]) return state;
+      // Do this check here to avoid unnecessary state updates
+      if (!dialogState[id]?.open) return;
 
-        if (!state[id].open) return state; // don't do anything if the dialog is already closed
+      setDialogState((state) => {
+        if (!state[id]?.open) return state; // don't do anything if the dialog is already closed
 
         state[id].resolve?.(undefined);
 
