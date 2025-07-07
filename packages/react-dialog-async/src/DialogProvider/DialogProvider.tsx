@@ -65,6 +65,9 @@ const DialogProvider = ({
       data: unknown,
       unmountDelay?: number,
     ): Promise<unknown> => {
+      // if already open, do nothing
+      if (dialogState[id]?.open) return Promise.resolve();
+
       return new Promise((resolve) => {
         if (unmountDelayTimeoutRefs.current[id] !== undefined) {
           clearTimeout(unmountDelayTimeoutRefs.current[id]);
