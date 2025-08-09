@@ -2,7 +2,8 @@ import type { ComponentType } from 'react';
 
 export interface AsyncDialogProps<Request = void, Response = undefined> {
   open: boolean;
-  mounted: boolean;
+  focused: boolean;
+  mounted: true;
   handleClose: (data?: Response) => void;
   data: Request;
 }

@@ -3,8 +3,10 @@ import React, { useMemo } from 'react';
 
 const useRenderDialogs = (state: dialogsStateData) => {
   return useMemo(() => {
-    return Object.entries(state).map(
-      ([id, { dialog: Component, data, open, resolve }]) => {
+    const entries = Object.entries(state);
+
+    return entries.map(
+      ([id, { dialog: Component, data, open, resolve }], index) => {
         return (
           <Component
             key={id}
@@ -12,6 +14,7 @@ const useRenderDialogs = (state: dialogsStateData) => {
             data={data}
             mounted={true} // Dialog is always mounted when it's being rendered
             handleClose={(value) => resolve?.(value)}
+            focused={index === entries.length - 1} // Focus the last dialog in the list
           />
         );
       },
