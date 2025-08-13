@@ -69,3 +69,15 @@ export type useDialogOptions<D, DE extends D | undefined> = {
    */
   hideOnHookUnmount?: boolean;
 };
+
+export type useDialogStateReturn = {
+  /**
+   * Information about all currently open dialogs
+   */
+  openDialogs: Array<{
+    dialog: DialogComponent<any, any>;
+    id: string;
+    data: any;
+    open: boolean;
+  }>;
+};
