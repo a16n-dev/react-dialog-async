@@ -33,7 +33,7 @@ test('data is used when default data is not provided', () => {
     const testDialog = useDialog(TestDialogWithData);
 
     useEffect(() => {
-      testDialog.show(message);
+      testDialog.open(message);
     }, []);
 
     return null;
@@ -56,7 +56,7 @@ test('default data is used when data is not provided', () => {
     });
 
     useEffect(() => {
-      testDialog.show();
+      testDialog.open();
     }, []);
 
     return null;
@@ -79,7 +79,7 @@ test('default data is overridden when data is provided', () => {
     });
 
     useEffect(() => {
-      testDialog.show('Hello World!');
+      testDialog.open('Hello World!');
     }, []);
 
     return null;
@@ -109,11 +109,11 @@ test('unmount delay does not delay the promise being resolved', async () => {
   let promise: Promise<void> | undefined;
 
   act(() => {
-    promise = result.result.current.show().then(() => {
+    promise = result.result.current.open().then(() => {
       value = true;
     });
 
-    result.result.current.hide();
+    result.result.current.close();
   });
 
   await promise;

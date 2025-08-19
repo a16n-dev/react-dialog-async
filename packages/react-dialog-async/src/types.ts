@@ -22,17 +22,13 @@ export type DialogComponent<D, R> = ComponentType<AsyncDialogProps<D, R>>;
 
 export type useDialogReturn<D, R, DE extends D | undefined> = {
   /**
-   * Shows the dialog, and passes the provided data as props to the dialog
-   * component. Returns a promise that resolves when the dialog is closed.
-   *
-   * The resolved value is the value passed to `handleClose` in the dialog
-   * component.
+   * @Deprecated - use `dialog.open()` instead. Read more here: https://react-dialog-async.a16n.dev/blog/2025/08/19/deprecating-show-hide
    */
   show: DE extends undefined
     ? (data: D) => Promise<R | undefined>
     : (data?: D) => Promise<R | undefined>;
   /**
-   * Hides the dialog
+   * @Deprecated - use `dialog.close()` instead. Read more here: https://react-dialog-async.a16n.dev/blog/2025/08/19/deprecating-show-hide
    */
   hide: () => void;
   /**
@@ -41,20 +37,25 @@ export type useDialogReturn<D, R, DE extends D | undefined> = {
    */
   updateData: (data: D) => void;
   /**
-   * Alias for `show`
+   * opens the dialog, and passes the provided data as props to the dialog
+   * component. Returns a promise that resolves when the dialog is closed.
+   *
+   * The promise will resolve to the value that is passed to `handleClose`
+   * within the dialog component.
    */
   open: DE extends undefined
     ? (data: D) => Promise<R | undefined>
     : () => Promise<R | undefined>;
   /**
-   * Alias for `hide`
+   * Force closes the dialog. Generally avoid calling this method as it can
+   * lead to poor user experience
    */
   close: () => void;
 };
 
 export type useDialogOptions<D, DE extends D | undefined> = {
   /**
-   * Default data to pass to the dialog when .show() is called
+   * Default data to pass to the dialog when .open() is called
    */
   defaultData?: DE;
   /**

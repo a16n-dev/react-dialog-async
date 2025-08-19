@@ -43,7 +43,7 @@ export function Page() {
   
   const handleClick = async () => {
     // Data will be passed to props.data in the dialog
-    await alertDialog.show({ 
+    await alertDialog.open({ 
       title: 'Alert', 
       message: 'Hello, world!' 
     });
