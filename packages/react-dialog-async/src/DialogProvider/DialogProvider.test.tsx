@@ -39,7 +39,7 @@ test('calling  show() mounts the dialog in the DOM', () => {
     const id = useId();
 
     useEffect(() => {
-      ctx.open(id, TestDialog, {});
+      ctx.show(id, TestDialog, {});
     }, [id]);
 
     return null;
@@ -61,9 +61,9 @@ test('calling register() followed by show() followed by hide() unmounts the dial
     const id = useId();
 
     useEffect(() => {
-      ctx.open(id, TestDialog, {});
+      ctx.show(id, TestDialog, {});
 
-      ctx.close(id);
+      ctx.hide(id);
     }, [id]);
 
     return null;
