@@ -3,6 +3,9 @@ import type { ComponentType } from 'react';
 export interface AsyncDialogProps<Request = void, Response = undefined> {
   open: boolean;
   focused: boolean;
+  /**
+   * @deprecated - This prop will always be set to true. It will be removed in the next major version
+   */
   mounted: true;
   handleClose: (data?: Response) => void;
   data: Request;
