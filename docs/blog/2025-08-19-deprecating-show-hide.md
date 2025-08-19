@@ -1,5 +1,5 @@
 ---
-title: Deprecating `show()`/`hide()` in favour of `open()`/`close()`
+title: Deprecating show/hide in favour of open/close
 description: Notice for a breaking change in the next major release
 tags: [Other]
 ---
