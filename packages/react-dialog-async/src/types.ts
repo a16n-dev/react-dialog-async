@@ -45,7 +45,7 @@ export type useDialogReturn<D, R, DE extends D | undefined> = {
    */
   open: DE extends undefined
     ? (data: D) => Promise<R | undefined>
-    : () => Promise<R | undefined>;
+    : (data?: D) => Promise<R | undefined>;
   /**
    * Force closes the dialog. Generally avoid calling this method as it can
    * lead to poor user experience
