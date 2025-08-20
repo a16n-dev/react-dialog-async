@@ -40,7 +40,7 @@ export function Page() {
   const confirmationDialog = useDialog(ConfirmationDialog);
   
   const handleClick = async () => {
-    const response = await confirmationDialog.show('Are you sure?');
+    const response = await confirmationDialog.open('Are you sure?');
     
     if(response === undefined) {
       console.log('Userclosed the dialog')

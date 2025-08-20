@@ -39,7 +39,7 @@ const App = () => {
   const questionDialog = useDialog(QuestionDialog);
 
   const handleClick = async () => {
-    const response = await questionDialog.show({
+    const response = await questionDialog.open({
       // pass data to the dialog 
       question: "Do you like apples?" 
     }); 

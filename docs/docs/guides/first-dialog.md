@@ -37,7 +37,7 @@ export function Page() {
   const simpleDialog = useDialog(SimpleDialog);
   
   const handleClick = async () => {
-    await simpleDialog.show();
+    await simpleDialog.open();
     
     // This code will run after the dialog is closed
     console.log('User closed the dialog');

@@ -29,7 +29,7 @@ If you use the above dialog, you'll notice the result returned is of type `boole
 
 ```tsx
 // result has type "boolean | undefined"
-const result = await confirmationDialog.show('Are you sure?');
+const result = await confirmationDialog.open('Are you sure?');
 ```
 This is because we can never be sure the dialog is closed with a result, and you should always handle this case in your code.
 
