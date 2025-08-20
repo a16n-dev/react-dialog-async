@@ -1,5 +1,6 @@
 import { dialogsStateData } from './DialogStateContext';
 import React, { useMemo } from 'react';
+import IndividualDialogContext from './IndividualDialogContext';
 
 const useRenderDialogs = (state: dialogsStateData) => {
   return useMemo(() => {
@@ -13,15 +14,23 @@ const useRenderDialogs = (state: dialogsStateData) => {
     });
 
     return entries.map(([id, { dialog: Component, data, open, resolve }]) => {
+      const dialogProps = {
+        open,
+        data,
+        mounted: true as const, // Dialog is always mounted when it's being rendered
+        handleClose: (value: any) => resolve?.(value),
+        focused: id === lastOpenDialog, // Focus the last dialog in the list
+      };
+
+      const contextValue = {
+        ...dialogProps,
+        isInsideDialogContext: true,
+      };
+
       return (
-        <Component
-          key={id}
-          open={open}
-          data={data}
-          mounted={true} // Dialog is always mounted when it's being rendered
-          handleClose={(value) => resolve?.(value)}
-          focused={id === lastOpenDialog} // Focus the last dialog in the list
-        />
+        <IndividualDialogContext.Provider key={id} value={contextValue}>
+          <Component {...dialogProps} />
+        </IndividualDialogContext.Provider>
       );
     });
   }, [state]);
