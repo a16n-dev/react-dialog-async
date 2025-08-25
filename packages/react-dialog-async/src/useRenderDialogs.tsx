@@ -13,26 +13,31 @@ const useRenderDialogs = (state: dialogsStateData) => {
       if (open) lastOpenDialog = id;
     });
 
-    return entries.map(([id, { dialog: Component, data, open, resolve }]) => {
-      const dialogProps = {
-        open,
-        data,
-        mounted: true as const, // Dialog is always mounted when it's being rendered
-        handleClose: (value: any) => resolve?.(value),
-        focused: id === lastOpenDialog, // Focus the last dialog in the list
-      };
+    return entries.map(
+      ([id, { dialog: Component, data, hash, open, resolve }]) => {
+        const dialogProps = {
+          open,
+          data,
+          mounted: true as const, // Dialog is always mounted when it's being rendered
+          handleClose: (value: any) => resolve?.(value),
+          focused: id === lastOpenDialog, // Focus the last dialog in the list
+        };
 
-      const contextValue = {
-        ...dialogProps,
-        isInsideDialogContext: true,
-      };
+        const contextValue = {
+          ...dialogProps,
+          isInsideDialogContext: true,
+        };
 
-      return (
-        <IndividualDialogContext.Provider key={id} value={contextValue}>
-          <Component {...dialogProps} />
-        </IndividualDialogContext.Provider>
-      );
-    });
+        return (
+          <IndividualDialogContext.Provider
+            key={id + hash}
+            value={contextValue}
+          >
+            <Component {...dialogProps} />
+          </IndividualDialogContext.Provider>
+        );
+      },
+    );
   }, [state]);
 };
 

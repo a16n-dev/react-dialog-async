@@ -1,4 +1,11 @@
-import { useCallback, useContext, useEffect, useId, useMemo } from 'react';
+import {
+  useCallback,
+  useContext,
+  useEffect,
+  useId,
+  useMemo,
+  useRef,
+} from 'react';
 import DialogContext from './DialogContext';
 import { DialogComponent, useDialogOptions, useDialogReturn } from './types';
 import { hashComponent } from './utils';
@@ -7,6 +14,7 @@ function useDialog<D, R, DE extends D | undefined>(
   component: DialogComponent<D, R>,
   options?: useDialogOptions<D, DE>,
 ): useDialogReturn<D, R, DE> {
+  let idCount = useRef(0);
   const internalId = useId();
 
   const id = useMemo(() => {
@@ -37,6 +45,7 @@ function useDialog<D, R, DE extends D | undefined>(
     async (data?: D): Promise<R | undefined> => {
       return ctx.show(
         id,
+        idCount.current++,
         component,
         data ?? options?.defaultData,
         options?.unmountDelayInMs,

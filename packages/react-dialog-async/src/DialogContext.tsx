@@ -4,6 +4,7 @@ import { DialogComponent } from './types';
 export interface dialogContextState {
   show: (
     dialogId: string,
+    hash: number,
     dialog: DialogComponent<any, any>,
     data: unknown,
     unmountDelay?: number,

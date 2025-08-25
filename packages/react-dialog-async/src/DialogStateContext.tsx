@@ -5,6 +5,7 @@ export type dialogsStateData = Record<
   string,
   {
     dialog: DialogComponent<any, any>;
+    hash: number;
     data: unknown;
     open: boolean;
     resolve?: (value?: unknown) => void;
