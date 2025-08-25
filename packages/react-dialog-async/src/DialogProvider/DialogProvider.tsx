@@ -61,6 +61,7 @@ const DialogProvider = ({
   const show = useCallback(
     (
       id: string,
+      hash: number,
       dialog: DialogComponent<any, any>,
       data: unknown,
       unmountDelay?: number,
@@ -83,6 +84,7 @@ const DialogProvider = ({
           [id]: {
             dialog: dialog,
             open: true,
+            hash,
             data,
             resolve: resolveFn,
             unmountDelay: unmountDelay ?? defaultUnmountDelayInMs,
