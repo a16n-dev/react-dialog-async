@@ -2,7 +2,7 @@
 sidebar_position: 1
 ---
 
-# UseDialog
+# useDialog
 ```tsx
 import { useDialog } from 'react-dialog-async';
 ```
