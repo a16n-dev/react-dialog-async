@@ -1,12 +1,12 @@
 import React, { act, PropsWithChildren } from 'react';
 import { expect, test } from 'vitest';
 import { render, renderHook, screen } from '@testing-library/react';
-import DialogProvider from './DialogProvider/DialogProvider';
 
 import useDialog from './useDialog';
-import { AsyncDialogProps } from './types';
 import { useEffect } from 'react';
-import DialogOutlet from './DialogOutlet';
+import { AsyncDialogProps } from '../types';
+import DialogProvider from '../DialogProvider/DialogProvider';
+import DialogOutlet from '../DialogOutlet/DialogOutlet';
 
 const TestWrapper = ({ children }: PropsWithChildren) => (
   <DialogProvider>

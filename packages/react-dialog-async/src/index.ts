@@ -1,6 +1,11 @@
-export { type AsyncDialogProps, type AsyncDialogComponent } from './types';
+// Hooks
+export { default as useDialog } from './useDialog/useDialog';
+export { useDialogContext } from './context/IndividualDialogContext';
 
-export * from './context';
-export * from './useDialog';
-export * from './DialogProvider';
-export * from './DialogOutlet';
+// Components
+export { default as DialogProvider } from './DialogProvider/DialogProvider';
+export { default as DialogOutlet } from './DialogOutlet/DialogOutlet';
+
+// Types
+export { type DialogProviderProps } from './DialogProvider/types';
+export { type AsyncDialogProps, type AsyncDialogComponent } from './types';
