@@ -2,6 +2,9 @@ import { dialogsStateData } from './DialogStateContext';
 import React, { useMemo } from 'react';
 import IndividualDialogContext from './IndividualDialogContext';
 
+/**
+ * Given the current dialog state, outputs an array of `Element`s to be rendered.
+ */
 const useRenderDialogs = (state: dialogsStateData) => {
   return useMemo(() => {
     const entries = Object.entries(state);
@@ -28,11 +31,11 @@ const useRenderDialogs = (state: dialogsStateData) => {
           isInsideDialogContext: true,
         };
 
+        // This key will be unique for each open of the dialog, ensuring that the dialog always resets its internal state.
+        const key = id + hash;
+
         return (
-          <IndividualDialogContext.Provider
-            key={id + hash}
-            value={contextValue}
-          >
+          <IndividualDialogContext.Provider key={key} value={contextValue}>
             <Component {...dialogProps} />
           </IndividualDialogContext.Provider>
         );

@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect, useMemo, useRef } from 'react';
 import { PropsWithChildren, useCallback, useState } from 'react';
 import DialogContext, { dialogContextState } from '../DialogContext';
 import { DialogComponent } from '../types';
@@ -16,6 +16,7 @@ const DialogProvider = ({
   defaultUnmountDelayInMs,
   children,
 }: DialogProviderProps) => {
+  // This ref tracks timers for unmount dialogs after they're closed
   const unmountDelayTimeoutRefs = useRef<{ [key: string]: any }>({});
 
   const [dialogState, setDialogState] = useState<dialogsStateData>({});
@@ -24,39 +25,36 @@ const DialogProvider = ({
   /**
    * Force closes the dialog with the given id.
    */
-  const hide = useCallback(
-    (id: string) => {
-      setDialogState((state) => {
-        if (!state[id]) return state;
+  const hide = useCallback((id: string) => {
+    setDialogState((state) => {
+      if (!state[id]) return state;
 
-        if (!state[id].open) return state; // don't do anything if the dialog is already closed
+      if (!state[id].open) return state; // don't do anything if the dialog is already closed
 
-        state[id].resolve?.(undefined);
+      state[id].resolve?.(undefined);
 
-        if (state[id].unmountDelay) {
-          if (unmountDelayTimeoutRefs.current[id] !== undefined) {
-            clearTimeout(unmountDelayTimeoutRefs.current[id]);
-          }
-
-          // start the delay
-          unmountDelayTimeoutRefs.current[id] = setTimeout(() => {
-            setDialogState((state) => removeKey(state, id));
-          }, state[id].unmountDelay);
-
-          return {
-            ...state,
-            [id]: {
-              open: false,
-              dialog: state[id].dialog,
-              data: state[id].data,
-            },
-          };
+      if (state[id].unmountDelay) {
+        if (unmountDelayTimeoutRefs.current[id] !== undefined) {
+          clearTimeout(unmountDelayTimeoutRefs.current[id]);
         }
-        return removeKey(state, id);
-      });
-    },
-    [setDialogState],
-  );
+
+        // start the delay
+        unmountDelayTimeoutRefs.current[id] = setTimeout(() => {
+          setDialogState((state) => removeKey(state, id));
+        }, state[id].unmountDelay);
+
+        return {
+          ...state,
+          [id]: {
+            open: false,
+            dialog: state[id].dialog,
+            data: state[id].data,
+          },
+        };
+      }
+      return removeKey(state, id);
+    });
+  }, []);
 
   const show = useCallback(
     (
@@ -66,9 +64,6 @@ const DialogProvider = ({
       data: unknown,
       unmountDelay?: number,
     ): Promise<unknown> => {
-      // if already open, do nothing
-      if (dialogState[id]?.open) return Promise.resolve();
-
       return new Promise((resolve) => {
         if (unmountDelayTimeoutRefs.current[id] !== undefined) {
           clearTimeout(unmountDelayTimeoutRefs.current[id]);
@@ -79,39 +74,43 @@ const DialogProvider = ({
           hide(id);
         };
 
-        setDialogState((state) => ({
-          ...state,
-          [id]: {
-            dialog: dialog,
-            open: true,
-            hash,
-            data,
-            resolve: resolveFn,
-            unmountDelay: unmountDelay ?? defaultUnmountDelayInMs,
-          },
-        }));
+        setDialogState((state) => {
+          if (state[id]?.open) {
+            resolve(undefined);
+            return state;
+          }
+
+          return {
+            ...state,
+            [id]: {
+              dialog: dialog,
+              open: true,
+              hash,
+              data,
+              resolve: resolveFn,
+              unmountDelay: unmountDelay ?? defaultUnmountDelayInMs,
+            },
+          };
+        });
       });
     },
-    [setDialogState, hide, defaultUnmountDelayInMs],
+    [hide, defaultUnmountDelayInMs],
   );
 
   /**
    * Updates the data of the given dialog
    */
-  const updateData = useCallback(
-    (id: string, data: unknown): void => {
-      setDialogState((state) => {
-        if (state[id]) {
-          return {
-            ...state,
-            [id]: { ...state[id], data },
-          };
-        }
-        return state;
-      });
-    },
-    [setDialogState],
-  );
+  const updateData = useCallback((id: string, data: unknown): void => {
+    setDialogState((state) => {
+      if (state[id]) {
+        return {
+          ...state,
+          [id]: { ...state[id], data },
+        };
+      }
+      return state;
+    });
+  }, []);
 
   const dialogComponents = useRenderDialogs(dialogState);
 
@@ -131,11 +130,14 @@ const DialogProvider = ({
     };
   }, []);
 
-  const ctx: dialogContextState = {
-    show,
-    hide,
-    updateData,
-  };
+  const ctx: dialogContextState = useMemo(
+    () => ({
+      show,
+      hide,
+      updateData,
+    }),
+    [show, hide, updateData],
+  );
 
   return (
     <DialogStateContext.Provider
