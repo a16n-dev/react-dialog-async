@@ -1,4 +1,4 @@
-import React, { act } from 'react';
+import React, { act, PropsWithChildren } from 'react';
 import { expect, test } from 'vitest';
 import { render, renderHook, screen } from '@testing-library/react';
 import DialogProvider from './DialogProvider/DialogProvider';
@@ -6,6 +6,14 @@ import DialogProvider from './DialogProvider/DialogProvider';
 import useDialog from './useDialog';
 import { AsyncDialogProps } from './types';
 import { useEffect } from 'react';
+import DialogOutlet from './DialogOutlet';
+
+const TestWrapper = ({ children }: PropsWithChildren) => (
+  <DialogProvider>
+    {children}
+    <DialogOutlet />
+  </DialogProvider>
+);
 
 const TestDialog = () => <div>Hello World!</div>;
 const TestDialogWithData = ({ data }: AsyncDialogProps<string>) => (
@@ -19,9 +27,9 @@ test('can be called without error', () => {
     return null;
   };
   const result = render(
-    <DialogProvider>
+    <TestWrapper>
       <TestComponent />
-    </DialogProvider>,
+    </TestWrapper>,
   );
 
   expect(result.asFragment()).toMatchSnapshot();
@@ -40,9 +48,9 @@ test('data is used when default data is not provided', () => {
   };
 
   render(
-    <DialogProvider>
+    <TestWrapper>
       <TestComponent />
-    </DialogProvider>,
+    </TestWrapper>,
   );
 
   expect(screen.getByText(message)).toBeDefined();
@@ -63,9 +71,9 @@ test('default data is used when data is not provided', () => {
   };
 
   render(
-    <DialogProvider>
+    <TestWrapper>
       <TestComponent />
-    </DialogProvider>,
+    </TestWrapper>,
   );
 
   expect(screen.getByText(message)).toBeDefined();
@@ -86,9 +94,9 @@ test('default data is overridden when data is provided', () => {
   };
 
   render(
-    <DialogProvider>
+    <TestWrapper>
       <TestComponent />
-    </DialogProvider>,
+    </TestWrapper>,
   );
 
   expect(screen.queryByText(message)).toBeNull();
@@ -101,7 +109,7 @@ test('unmount delay does not delay the promise being resolved', async () => {
         unmountDelayInMs: 100,
       }),
     {
-      wrapper: DialogProvider,
+      wrapper: TestWrapper,
     },
   );
 
@@ -119,4 +127,30 @@ test('unmount delay does not delay the promise being resolved', async () => {
   await promise;
 
   expect(value).toBe(true);
+});
+
+test('consumer does not rerender when dialog is opened', async () => {
+  // Track the number of renders
+  let renderCount = 0;
+
+  const TestComponent = () => {
+    renderCount++;
+    const testDialog = useDialog(TestDialog);
+
+    return <button onClick={() => testDialog.open()}>Open dialog</button>;
+  };
+
+  render(
+    <TestWrapper>
+      <TestComponent />
+    </TestWrapper>,
+  );
+
+  // Press the button to open the dialog
+  await act(async () => {
+    screen.getByText('Open dialog').click();
+  });
+
+  // Expect only the initial render
+  expect(renderCount).toBe(1);
 });
