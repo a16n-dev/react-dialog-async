@@ -15,12 +15,12 @@ interface DialogProviderProps extends PropsWithChildren {
    * This lets you call the preload function at some point before the lazy component is required
    * Consult the docs for some sensible functions to provide here for different environments
    */
-  lazyLoaderFn?: (preload: () => Promise<void>) => Promise<void>;
+  onRegisterLazyDialog?: (preload: () => Promise<void>) => Promise<void>;
 }
 
 const DialogProvider = ({
   defaultUnmountDelayInMs,
-  lazyLoaderFn,
+  onRegisterLazyDialog,
   children,
 }: DialogProviderProps) => {
   // This ref tracks timers for unmount dialogs after they're closed
@@ -134,7 +134,7 @@ const DialogProvider = ({
       show,
       hide,
       updateData,
-      lazyLoaderFn,
+      lazyLoaderFn: onRegisterLazyDialog,
     }),
     [show, hide, updateData],
   );
