@@ -11,6 +11,7 @@ export interface dialogContextState {
   ) => Promise<any>;
   hide: (dialogId: string) => void;
   updateData: (dialogId: string, data: unknown) => void;
+  lazyLoaderFn?: (loaderFn: () => Promise<void>) => Promise<void>;
 }
 
 const DialogContext = createContext<dialogContextState | null>(null);
