@@ -1,16 +1,12 @@
 import React, { useContext, useEffect, useMemo, useRef } from 'react';
-import { PropsWithChildren, useCallback, useState } from 'react';
-import DialogContext, { dialogContextState } from '../DialogContext';
-import { DialogComponent } from '../types';
-import DialogStateContext, { dialogsStateData } from '../DialogStateContext';
-import useRenderDialogs from '../useRenderDialogs';
-
-interface DialogProviderProps extends PropsWithChildren {
-  /**
-   * The default delay in milliseconds to wait before unmounting a dialog after it's closed.
-   */
-  defaultUnmountDelayInMs?: number;
-}
+import { useCallback, useState } from 'react';
+import { AsyncDialogComponent } from '../types';
+import { DialogProviderProps } from './types';
+import DialogStateContext, {
+  dialogsStateData,
+} from '../context/DialogStateContext';
+import DialogContext, { dialogContextState } from '../context/DialogContext';
+import useRenderDialogs from '../DialogOutlet/useRenderDialogs';
 
 const DialogProvider = ({
   defaultUnmountDelayInMs,
@@ -59,7 +55,7 @@ const DialogProvider = ({
     (
       id: string,
       hash: number,
-      dialog: DialogComponent<any, any>,
+      dialog: AsyncDialogComponent<any, any>,
       data: unknown,
       unmountDelay?: number,
     ): Promise<unknown> => {

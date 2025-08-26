@@ -6,12 +6,12 @@ import {
   useMemo,
   useRef,
 } from 'react';
-import DialogContext from './DialogContext';
-import { DialogComponent, useDialogOptions, useDialogReturn } from './types';
-import { hashComponent } from './utils';
+import { AsyncDialogComponent } from '../types';
+import { useDialogOptions, useDialogReturn } from './types';
+import DialogContext from '../context/DialogContext';
 
 function useDialog<D, R, DE extends D | undefined>(
-  component: DialogComponent<D, R>,
+  component: AsyncDialogComponent<D, R>,
   options?: useDialogOptions<D, DE>,
 ): useDialogReturn<D, R, DE> {
   let idCount = useRef(0);
@@ -19,7 +19,7 @@ function useDialog<D, R, DE extends D | undefined>(
 
   const id = useMemo(() => {
     if (options?.customKey !== undefined) {
-      return `${hashComponent(component)}-${options.customKey}`;
+      return options.customKey;
     }
 
     return internalId;

@@ -1,10 +1,10 @@
 import { createContext } from 'react';
-import { DialogComponent } from './types';
+import { AsyncDialogComponent } from '../types';
 
 export type dialogsStateData = Record<
   string,
   {
-    dialog: DialogComponent<any, any>;
+    dialog: AsyncDialogComponent<any, any>;
     hash: number;
     data: unknown;
     open: boolean;
