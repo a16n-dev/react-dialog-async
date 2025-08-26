@@ -1,4 +1,4 @@
-import React, { useMemo } from 'react';
+import { useMemo } from 'react';
 import { dialogsStateData } from '../context/DialogStateContext';
 import IndividualDialogContext from '../context/IndividualDialogContext';
 

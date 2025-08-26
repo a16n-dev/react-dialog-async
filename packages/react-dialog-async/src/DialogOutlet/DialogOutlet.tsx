@@ -1,4 +1,4 @@
-import React, { useContext, useEffect } from 'react';
+import { useContext, useEffect } from 'react';
 import useRenderDialogs from './useRenderDialogs';
 import DialogStateContext from '../context/DialogStateContext';
 

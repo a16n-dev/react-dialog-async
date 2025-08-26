@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useMemo, useRef } from 'react';
+import { useContext, useEffect, useMemo, useRef } from 'react';
 import { useCallback, useState } from 'react';
 import { AsyncDialogComponent } from '../types';
 import { DialogProviderProps } from './types';
