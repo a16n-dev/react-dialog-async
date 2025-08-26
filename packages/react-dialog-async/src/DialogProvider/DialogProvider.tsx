@@ -118,6 +118,10 @@ const DialogProvider = ({
     };
   }, []);
 
+  /**
+   * To prevent unnecessary re-renders, be careful to ensure that this state has
+   * no transitive dependencies to `dialogState`
+   */
   const ctx: dialogContextState = useMemo(
     () => ({
       show,
