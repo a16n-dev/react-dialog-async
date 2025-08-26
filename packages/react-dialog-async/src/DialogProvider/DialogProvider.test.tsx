@@ -1,10 +1,9 @@
-import React from 'react';
 import { expect, test } from 'vitest';
 import { render, screen } from '@testing-library/react';
 import DialogProvider from './DialogProvider';
 import { useContext, useEffect, useId } from 'react';
-import DialogContext, { dialogContextState } from '../DialogContext';
 import { AsyncDialogProps } from '../types';
+import DialogContext, { dialogContextState } from '../context/DialogContext';
 
 function ctxNotNull(ctx: dialogContextState | null): asserts ctx {
   if (!ctx) {
