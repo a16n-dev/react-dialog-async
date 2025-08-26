@@ -14,7 +14,7 @@
     "url": "https://github.com/alexn400/react-dialog-async.git"
   },
   "scripts": {
-    "build": "tsup --tsconfig tsconfig.build.json",
+    "build": "tsdown",
     "test": "vitest"
   },
   "license": "MIT",
