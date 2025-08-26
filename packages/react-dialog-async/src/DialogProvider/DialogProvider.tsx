@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo, useRef } from 'react';
+import React, { useContext, useEffect, useMemo, useRef } from 'react';
 import { PropsWithChildren, useCallback, useState } from 'react';
 import DialogContext, { dialogContextState } from '../DialogContext';
 import { DialogComponent } from '../types';
@@ -112,18 +112,6 @@ const DialogProvider = ({
     });
   }, []);
 
-  const dialogComponents = useRenderDialogs(dialogState);
-
-  if (
-    process.env.NODE_ENV !== 'production' &&
-    !usingOutlet &&
-    dialogComponents.length > 0
-  ) {
-    console.warn(
-      'Rendering a dialog without a <DialogOutlet/>. Please include a <DialogOutlet/> as a child of <DialogProvider/> to ensure dialogs are rendered within the correct contexts - this will be required in the next major version of react-dialog-async. See https://react-dialog-async.a16n.dev/API/dialog-outlet for more details. This warning is only present in development',
-    );
-  }
-
   useEffect(() => {
     return () => {
       Object.values(unmountDelayTimeoutRefs.current).forEach(clearTimeout);
@@ -145,7 +133,7 @@ const DialogProvider = ({
     >
       <DialogContext.Provider value={ctx}>
         {children}
-        {!usingOutlet && dialogComponents}
+        {!usingOutlet && <InternalDialogOutlet />}
       </DialogContext.Provider>
     </DialogStateContext.Provider>
   );
@@ -160,3 +148,23 @@ function removeKey<
   const { [key]: _, ...rest } = data;
   return rest;
 }
+
+const InternalDialogOutlet = () => {
+  const dialogState = useContext(DialogStateContext);
+
+  if (!dialogState) {
+    throw new Error(
+      'Dialog context not found. You likely forgot to wrap your app in a <DialogProvider/> (https://react-dialog-async.a16n.dev/installation)',
+    );
+  }
+
+  const dialogComponents = useRenderDialogs(dialogState.dialogs);
+
+  if (process.env.NODE_ENV !== 'production' && dialogComponents.length > 0) {
+    console.warn(
+      'Rendering a dialog without a <DialogOutlet/>. Please include a <DialogOutlet/> as a child of <DialogProvider/> to ensure dialogs are rendered within the correct contexts - this will be required in the next major version of react-dialog-async. See https://react-dialog-async.a16n.dev/API/dialog-outlet for more details. This warning is only present in development',
+    );
+  }
+
+  return <>{dialogComponents}</>;
+};
