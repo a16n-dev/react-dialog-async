@@ -25,22 +25,21 @@ const DialogProvider = ({
   /**
    * Force closes the dialog with the given id.
    */
-  const hide = useCallback((id: string) => {
+  const hide = useCallback((id: string, data?: any) => {
     setDialogState((state) => {
       if (!state[id]) return state;
 
       if (!state[id].open) return state; // don't do anything if the dialog is already closed
 
-      state[id].resolve?.(undefined);
+      state[id].resolve?.(data);
 
       if (state[id].unmountDelay) {
         if (unmountDelayTimeoutRefs.current[id] !== undefined) {
           clearTimeout(unmountDelayTimeoutRefs.current[id]);
         }
 
-        // start the delay
         unmountDelayTimeoutRefs.current[id] = setTimeout(() => {
-          setDialogState((state) => removeKey(state, id));
+          setDialogState((state2) => removeKey(state2, id));
         }, state[id].unmountDelay);
 
         return {
@@ -51,8 +50,9 @@ const DialogProvider = ({
             data: state[id].data,
           },
         };
+      } else {
+        return removeKey(state, id);
       }
-      return removeKey(state, id);
     });
   }, []);
 
@@ -69,11 +69,6 @@ const DialogProvider = ({
           clearTimeout(unmountDelayTimeoutRefs.current[id]);
         }
 
-        const resolveFn = (value: any) => {
-          resolve?.(value);
-          hide(id);
-        };
-
         setDialogState((state) => {
           if (state[id]?.open) {
             resolve(undefined);
@@ -87,7 +82,10 @@ const DialogProvider = ({
               open: true,
               hash,
               data,
-              resolve: resolveFn,
+              resolve: (value: any) => {
+                resolve?.(value);
+                hide(id);
+              },
               unmountDelay: unmountDelay ?? defaultUnmountDelayInMs,
             },
           };

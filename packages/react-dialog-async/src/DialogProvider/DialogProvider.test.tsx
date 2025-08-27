@@ -32,7 +32,7 @@ test('renders children', () => {
   expect(screen.findByText('Hello world!')).toBeDefined();
 });
 
-test('calling  show() mounts the dialog in the DOM', () => {
+test('calling show() mounts the dialog in the DOM', () => {
   const InnerComponent = () => {
     const ctx = useContext(DialogContext);
     ctxNotNull(ctx);
@@ -54,7 +54,7 @@ test('calling  show() mounts the dialog in the DOM', () => {
   expect(screen.getByText('Hello World!')).toBeDefined();
 });
 
-test('calling register() followed by show() followed by hide() unmounts the dialog in the DOM', () => {
+test('calling show() followed by hide() unmounts the dialog in the DOM', () => {
   const InnerComponent = () => {
     const ctx = useContext(DialogContext);
     ctxNotNull(ctx);
