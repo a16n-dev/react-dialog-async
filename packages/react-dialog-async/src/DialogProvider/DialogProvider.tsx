@@ -23,19 +23,6 @@ const DialogProvider = ({
   const [usingOutlet, setUsingOutlet] = useState(false);
 
   /**
-   * Schedules a dialog to be unmounted after a given delay
-   */
-  const scheduleUnmount = (id: string, delay: number) => {
-    if (unmountDelayTimeoutRefs.current[id] !== undefined) {
-      clearTimeout(unmountDelayTimeoutRefs.current[id]);
-    }
-
-    unmountDelayTimeoutRefs.current[id] = setTimeout(() => {
-      setDialogState((state) => removeKey(state, id));
-    }, delay);
-  };
-
-  /**
    * Force closes the dialog with the given id.
    */
   const hide = useCallback((id: string, data?: any) => {
@@ -47,7 +34,13 @@ const DialogProvider = ({
       state[id].resolve?.(data);
 
       if (state[id].unmountDelay) {
-        scheduleUnmount(id, state[id].unmountDelay);
+        if (unmountDelayTimeoutRefs.current[id] !== undefined) {
+          clearTimeout(unmountDelayTimeoutRefs.current[id]);
+        }
+
+        unmountDelayTimeoutRefs.current[id] = setTimeout(() => {
+          setDialogState((state2) => removeKey(state2, id));
+        }, state[id].unmountDelay);
 
         return {
           ...state,
@@ -89,7 +82,10 @@ const DialogProvider = ({
               open: true,
               hash,
               data,
-              resolve: (value: any) => hide(id, value),
+              resolve: (value: any) => {
+                resolve?.(value);
+                hide(id);
+              },
               unmountDelay: unmountDelay ?? defaultUnmountDelayInMs,
             },
           };
