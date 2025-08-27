@@ -10,4 +10,14 @@ exports[`calling  show() mounts the dialog in the DOM 1`] = `
 
 exports[`calling register() followed by show() followed by hide() unmounts the dialog in the DOM 1`] = `<DocumentFragment />`;
 
+exports[`calling show() followed by hide() unmounts the dialog in the DOM 1`] = `<DocumentFragment />`;
+
+exports[`calling show() mounts the dialog in the DOM 1`] = `
+<DocumentFragment>
+  <div>
+    Hello World!
+  </div>
+</DocumentFragment>
+`;
+
 exports[`renders without error 1`] = `<DocumentFragment />`;
