@@ -9,7 +9,7 @@ export interface dialogContextState {
     data: unknown,
     unmountDelay?: number,
   ) => Promise<any>;
-  hide: (dialogId: string) => void;
+  hide: (dialogId: string, data?: any) => void;
   updateData: (dialogId: string, data: unknown) => void;
 }
 

@@ -23,25 +23,31 @@ const DialogProvider = ({
   const [usingOutlet, setUsingOutlet] = useState(false);
 
   /**
+   * Schedules a dialog to be unmounted after a given delay
+   */
+  const scheduleUnmount = (id: string, delay: number) => {
+    if (unmountDelayTimeoutRefs.current[id] !== undefined) {
+      clearTimeout(unmountDelayTimeoutRefs.current[id]);
+    }
+
+    unmountDelayTimeoutRefs.current[id] = setTimeout(() => {
+      setDialogState((state) => removeKey(state, id));
+    }, delay);
+  };
+
+  /**
    * Force closes the dialog with the given id.
    */
-  const hide = useCallback((id: string) => {
+  const hide = useCallback((id: string, data?: any) => {
     setDialogState((state) => {
       if (!state[id]) return state;
 
       if (!state[id].open) return state; // don't do anything if the dialog is already closed
 
-      state[id].resolve?.(undefined);
+      state[id].resolve?.(data);
 
       if (state[id].unmountDelay) {
-        if (unmountDelayTimeoutRefs.current[id] !== undefined) {
-          clearTimeout(unmountDelayTimeoutRefs.current[id]);
-        }
-
-        // start the delay
-        unmountDelayTimeoutRefs.current[id] = setTimeout(() => {
-          setDialogState((state) => removeKey(state, id));
-        }, state[id].unmountDelay);
+        scheduleUnmount(id, state[id].unmountDelay);
 
         return {
           ...state,
@@ -51,8 +57,9 @@ const DialogProvider = ({
             data: state[id].data,
           },
         };
+      } else {
+        return removeKey(state, id);
       }
-      return removeKey(state, id);
     });
   }, []);
 
@@ -69,11 +76,6 @@ const DialogProvider = ({
           clearTimeout(unmountDelayTimeoutRefs.current[id]);
         }
 
-        const resolveFn = (value: any) => {
-          resolve?.(value);
-          hide(id);
-        };
-
         setDialogState((state) => {
           if (state[id]?.open) {
             resolve(undefined);
@@ -87,7 +89,7 @@ const DialogProvider = ({
               open: true,
               hash,
               data,
-              resolve: resolveFn,
+              resolve: (value: any) => hide(id, value),
               unmountDelay: unmountDelay ?? defaultUnmountDelayInMs,
             },
           };
