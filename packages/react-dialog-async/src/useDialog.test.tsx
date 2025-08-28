@@ -16,8 +16,14 @@ const TestWrapper = ({ children }: PropsWithChildren) => (
 );
 
 const TestDialog = () => <div>Hello World!</div>;
-const TestDialogWithData = ({ data }: AsyncDialogProps<string>) => (
-  <div>{data}</div>
+const TestDialogWithData = ({
+  data,
+  handleClose,
+}: AsyncDialogProps<string>) => (
+  <div>
+    <button data-testid={'close-btn'} onClick={() => handleClose()}></button>
+    {data}
+  </div>
 );
 
 test('can be called without error', () => {
@@ -127,6 +133,33 @@ test('unmount delay does not delay the promise being resolved', async () => {
   await promise;
 
   expect(value).toBe(true);
+});
+
+test('unmount delay results in the dialog remaining mounted after being closed', async () => {
+  const message = Date.now().toString(16);
+  const TestComponent = () => {
+    const testDialog = useDialog(TestDialogWithData, {
+      unmountDelayInMs: 1000,
+    });
+
+    useEffect(() => {
+      testDialog.open('Hello World!');
+    }, []);
+
+    return null;
+  };
+
+  render(
+    <TestWrapper>
+      <TestComponent />
+    </TestWrapper>,
+  );
+
+  act(() => {
+    screen.getByTestId('close-btn').click();
+  });
+
+  expect(screen.queryByText(message)).toBeDefined();
 });
 
 test('consumer does not rerender when dialog is opened', async () => {

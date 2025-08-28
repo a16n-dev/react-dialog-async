@@ -45,14 +45,13 @@ const DialogProvider = ({
         return {
           ...state,
           [id]: {
+            ...state[id],
             open: false,
-            dialog: state[id].dialog,
-            data: state[id].data,
+            resolve: undefined,
           },
         };
-      } else {
-        return removeKey(state, id);
       }
+      return removeKey(state, id);
     });
   }, []);
 
@@ -67,6 +66,32 @@ const DialogProvider = ({
       return new Promise((resolve) => {
         if (unmountDelayTimeoutRefs.current[id] !== undefined) {
           clearTimeout(unmountDelayTimeoutRefs.current[id]);
+        }
+
+        function resolveFn() {
+          setDialogState((state) => {
+            if (!state[id]) return state;
+
+            if (state[id].unmountDelay) {
+              if (unmountDelayTimeoutRefs.current[id] !== undefined) {
+                clearTimeout(unmountDelayTimeoutRefs.current[id]);
+              }
+
+              unmountDelayTimeoutRefs.current[id] = setTimeout(() => {
+                setDialogState((state2) => removeKey(state2, id));
+              }, state[id].unmountDelay);
+
+              return {
+                ...state,
+                [id]: {
+                  ...state[id],
+                  open: false,
+                  resolve: undefined,
+                },
+              };
+            }
+            return removeKey(state, id);
+          });
         }
 
         setDialogState((state) => {
@@ -84,7 +109,7 @@ const DialogProvider = ({
               data,
               resolve: (value: any) => {
                 resolve?.(value);
-                hide(id);
+                resolveFn();
               },
               unmountDelay: unmountDelay ?? defaultUnmountDelayInMs,
             },
@@ -92,7 +117,7 @@ const DialogProvider = ({
         });
       });
     },
-    [hide, defaultUnmountDelayInMs],
+    [defaultUnmountDelayInMs],
   );
 
   /**
