@@ -18,7 +18,7 @@
     "@vitejs/plugin-react": "^4.4.1",
     "babel-core": "^6.26.3",
     "babel-runtime": "^6.26.0",
-    "eslint": "^9.25.0",
+    "eslint": "^9.35.0",
     "jsdom": "^26.1.0",
     "prettier": "^3.5.3",
     "react": "^19",
