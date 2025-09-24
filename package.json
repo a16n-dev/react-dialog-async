@@ -1,9 +1,8 @@
 {
-  "name": "react-dialog-async-monorepo",
+  "name": "@react-dialog-async/monorepo",
+  "version": "0.0.0",
   "packageManager": "pnpm@9.15.4",
   "scripts": {
-    "build": "pnpm rollup -c packages/react-dialog-async/rollup.config.mjs",
-    "start": "rollup -w -c packages/react-dialog-async/rollup.config.mjs",
     "docs:start": "pnpm -F docs start",
     "release": "pnpm build && npm publish",
     "test": "pnpm -F packages/react-dialog-async test"
