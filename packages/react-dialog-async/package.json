@@ -4,21 +4,28 @@
   "type": "module",
   "version": "3.0.0-beta.0",
   "sideEffects": false,
-  "main": "index.js",
-  "module": "index.esm.js",
+  "main": "./dist/index.cjs",
+  "module": "./dist/index.js",
   "react-native": "index.esm.js",
-  "types": "index.d.ts",
+  "types": "./dist/index.d.cts",
+  "exports": {
+    ".": {
+      "import": "./dist/index.js",
+      "require": "./dist/index.cjs"
+    },
+    "./package.json": "./package.json"
+  },
   "homepage": "https://react-dialog-async.a16n.dev",
   "repository": {
     "type": "git",
     "url": "https://github.com/alexn400/react-dialog-async.git"
   },
+  "license": "MIT",
   "scripts": {
     "build": "tsdown",
     "test": "vitest",
     "check": "tsc --noEmit"
   },
-  "license": "MIT",
   "devDependencies": {
     "@testing-library/dom": "^10.4.0",
     "@testing-library/react": "^16.3.0",
