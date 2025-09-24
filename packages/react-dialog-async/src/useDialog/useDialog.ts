@@ -6,9 +6,9 @@ import {
   useMemo,
   useRef,
 } from 'react';
-import { AsyncDialogComponent } from '../types';
-import { useDialogOptions, useDialogReturn } from './types';
-import DialogContext from '../context/DialogContext';
+import type { AsyncDialogComponent } from '../types.js';
+import type { useDialogOptions, useDialogReturn } from './types.js';
+import DialogContext from '../context/DialogContext.js';
 
 function useDialog<D, R, DE extends D | undefined>(
   component: AsyncDialogComponent<D, R>,

@@ -1,5 +1,5 @@
 import { createContext } from 'react';
-import { AsyncDialogComponent } from '../types';
+import type { AsyncDialogComponent } from '../types.js';
 
 export interface dialogContextState {
   show: (

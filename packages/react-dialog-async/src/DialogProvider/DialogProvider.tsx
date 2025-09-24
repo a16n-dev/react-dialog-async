@@ -1,12 +1,12 @@
 import { useContext, useEffect, useMemo, useRef } from 'react';
 import { useCallback, useState } from 'react';
-import { AsyncDialogComponent } from '../types';
-import { DialogProviderProps } from './types';
-import DialogStateContext, {
-  dialogsStateData,
-} from '../context/DialogStateContext';
-import DialogContext, { dialogContextState } from '../context/DialogContext';
-import useRenderDialogs from '../DialogOutlet/useRenderDialogs';
+import type { DialogProviderProps } from './types.js';
+import type { dialogsStateData } from '../context/DialogStateContext.js';
+import type { AsyncDialogComponent } from '../types.js';
+import type { dialogContextState } from '../context/DialogContext.js';
+import DialogStateContext from '../context/DialogStateContext.js';
+import DialogContext from '../context/DialogContext.js';
+import useRenderDialogs from '../DialogOutlet/useRenderDialogs.js';
 
 const DialogProvider = ({
   defaultUnmountDelayInMs,

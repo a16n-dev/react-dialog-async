@@ -1,6 +1,6 @@
 import { useContext, useEffect } from 'react';
-import useRenderDialogs from './useRenderDialogs';
-import DialogStateContext from '../context/DialogStateContext';
+import DialogStateContext from '../context/DialogStateContext.js';
+import useRenderDialogs from './useRenderDialogs.js';
 
 const DialogOutlet = () => {
   const dialogState = useContext(DialogStateContext);

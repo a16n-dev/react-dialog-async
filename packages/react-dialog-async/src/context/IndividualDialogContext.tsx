@@ -1,5 +1,5 @@
 import { createContext, useContext } from 'react';
-import { AsyncDialogProps } from '../types';
+import type { AsyncDialogProps } from '../types.js';
 
 interface DialogContextValue<D = any, R = any> extends AsyncDialogProps<D, R> {
   isInsideDialogContext: boolean;
