@@ -2,26 +2,45 @@
   "name": "react-dialog-async",
   "description": "A promise-based way to show dialogs in React",
   "type": "module",
-  "version": "2.6.0",
+  "version": "3.0.0-beta.0",
   "sideEffects": false,
-  "main": "index.js",
-  "module": "index.esm.js",
+  "main": "./dist/index.cjs",
+  "module": "./dist/index.js",
   "react-native": "index.esm.js",
-  "types": "index.d.ts",
+  "types": "./dist/index.d.cts",
+  "exports": {
+    ".": {
+      "import": "./dist/index.js",
+      "require": "./dist/index.cjs"
+    },
+    "./package.json": "./package.json"
+  },
   "homepage": "https://react-dialog-async.a16n.dev",
   "repository": {
     "type": "git",
     "url": "https://github.com/alexn400/react-dialog-async.git"
   },
   "license": "MIT",
-  "peerDependencies": {
-    "react": "^16  || ^18 || ^19"
+  "scripts": {
+    "dev": "tsdown --watch",
+    "build": "tsdown",
+    "test": "vitest",
+    "check": "tsc --noEmit",
+    "lint": "eslint . "
   },
-  "files": [
-    "index.js",
-    "index.esm.js",
-    "index.d.ts"
-  ],
+  "devDependencies": {
+    "@testing-library/dom": "^10.4.0",
+    "@testing-library/react": "^16.3.0",
+    "@types/react": "^19",
+    "@types/react-dom": "^19",
+    "react": "^19",
+    "react-dom": "^19",
+    "vitest": "^3.1.2",
+    "@vitejs/plugin-react": "^4.4.1"
+  },
+  "peerDependencies": {
+    "react": "^18 || ^19"
+  },
   "keywords": [
     "react",
     "react-dialog-async",
