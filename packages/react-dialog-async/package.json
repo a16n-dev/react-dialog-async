@@ -24,7 +24,8 @@
   "scripts": {
     "build": "tsdown",
     "test": "vitest",
-    "check": "tsc --noEmit"
+    "check": "tsc --noEmit",
+    "lint": "eslint . "
   },
   "devDependencies": {
     "@testing-library/dom": "^10.4.0",

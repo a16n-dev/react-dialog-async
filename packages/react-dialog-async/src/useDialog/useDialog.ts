@@ -14,7 +14,7 @@ function useDialog<D, R, DE extends D | undefined>(
   component: AsyncDialogComponent<D, R>,
   options?: useDialogOptions<D, DE>,
 ): useDialogReturn<D, R, DE> {
-  let idCount = useRef(0);
+  const idCount = useRef(0);
   const internalId = useId();
 
   const id = useMemo(() => {
