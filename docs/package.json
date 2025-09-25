@@ -1,5 +1,5 @@
 {
-  "name": "docs",
+  "name": "@react-dialog-async/docs",
   "version": "0.0.0",
   "private": true,
   "scripts": {
@@ -12,7 +12,7 @@
     "serve": "docusaurus serve",
     "write-translations": "docusaurus write-translations",
     "write-heading-ids": "docusaurus write-heading-ids",
-    "typecheck": "tsc"
+    "check": "tsc --noEmit"
   },
   "dependencies": {
     "@docusaurus/core": "3.7.0",
