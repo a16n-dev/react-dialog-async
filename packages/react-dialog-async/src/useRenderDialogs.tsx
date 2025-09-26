@@ -20,6 +20,7 @@ const useRenderDialogs = (state: dialogsStateData) => {
       ([id, { dialog: Component, data, hash, open, resolve }]) => {
         const dialogProps = {
           open,
+          isOpen: open,
           data,
           mounted: true as const, // Dialog is always mounted when it's being rendered
           handleClose: (value: any) => resolve?.(value),

@@ -1,7 +1,11 @@
 import type { ComponentType } from 'react';
 
 export interface AsyncDialogProps<Request = void, Response = undefined> {
+  /**
+   * @deprecated - This prop has been renamed to `isOpen`. It will be removed in the next major version
+   */
   open: boolean;
+  isOpen: boolean;
   focused: boolean;
   /**
    * @deprecated - This prop will always be set to true. It will be removed in the next major version
