@@ -2,7 +2,7 @@ import { useContext } from 'react';
 import {
   IndividualDialogStateContext,
   type IndividualDialogStateContextValue,
-} from './IndividualDialogStateContext.js';
+} from '../context/IndividualDialogStateContext.js';
 
 export const useDialogContext = <
   D = any,

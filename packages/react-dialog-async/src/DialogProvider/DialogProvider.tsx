@@ -4,13 +4,13 @@ import type { DialogProviderProps } from './types.js';
 import type { AsyncDialogComponent } from '../types.js';
 import { useRenderDialogs } from '../DialogOutlet/useRenderDialogs.js';
 import {
-  DialogActionsContext,
-  type DialogActionsContextValue,
-} from './DialogActionsContext.js';
-import {
   GlobalDialogStateContext,
   type dialogsStateData,
-} from './GlobalDialogStateContext.js';
+} from '../context/GlobalDialogStateContext.js';
+import {
+  DialogActionsContext,
+  type DialogActionsContextValue,
+} from '../context/DialogActionsContext.js';
 
 export const DialogProvider = ({
   defaultUnmountDelayInMs,

@@ -1,6 +1,6 @@
 import { useMemo } from 'react';
-import { IndividualDialogStateContext } from '../useDialogContext/IndividualDialogStateContext.js';
-import type { dialogsStateData } from '../DialogProvider/GlobalDialogStateContext.js';
+import type { dialogsStateData } from '../context/GlobalDialogStateContext.js';
+import { IndividualDialogStateContext } from '../context/IndividualDialogStateContext.js';
 
 /**
  * Given the current dialog state, outputs an array of `Element`s to be rendered.
