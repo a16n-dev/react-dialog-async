@@ -13,11 +13,10 @@ export type dialogsStateData = Record<
   }
 >;
 
-export type dialogStateContextState = {
+export type GlobalDialogStateContextValue = {
   setIsUsingOutlet: (value: boolean) => void;
   dialogs: dialogsStateData;
 };
 
-export const DialogStateContext = createContext<dialogStateContextState | null>(
-  null,
-);
+export const GlobalDialogStateContext =
+  createContext<GlobalDialogStateContextValue | null>(null);

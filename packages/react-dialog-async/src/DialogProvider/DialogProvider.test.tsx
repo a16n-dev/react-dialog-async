@@ -3,10 +3,10 @@ import { render, screen } from '@testing-library/react';
 import { useContext, useEffect, useId } from 'react';
 import type { AsyncDialogProps } from '../types.js';
 import { DialogProvider } from './DialogProvider.js';
-import { DialogContext, type dialogContextState } from './DialogContext.js';
+import { DialogActionsContext } from './DialogActionsContext.js';
 
-function ctxNotNull(ctx: dialogContextState | null): asserts ctx {
-  if (!ctx) {
+function valueNotNull<T>(v: T | null): asserts v {
+  if (!v) {
     throw new Error(
       'Dialog context not found. You likely forgot to wrap your app in a <DialogProvider/> (https://react-dialog-async.a16n.dev/installation)',
     );
@@ -33,8 +33,8 @@ test('renders children', () => {
 
 test('calling show() mounts the dialog in the DOM', () => {
   const InnerComponent = () => {
-    const ctx = useContext(DialogContext);
-    ctxNotNull(ctx);
+    const ctx = useContext(DialogActionsContext);
+    valueNotNull(ctx);
     const id = useId();
 
     useEffect(() => {
@@ -55,8 +55,8 @@ test('calling show() mounts the dialog in the DOM', () => {
 
 test('calling show() followed by hide() unmounts the dialog in the DOM', () => {
   const InnerComponent = () => {
-    const ctx = useContext(DialogContext);
-    ctxNotNull(ctx);
+    const ctx = useContext(DialogActionsContext);
+    valueNotNull(ctx);
     const id = useId();
 
     useEffect(() => {

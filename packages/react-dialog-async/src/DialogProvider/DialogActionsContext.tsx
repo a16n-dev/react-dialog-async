@@ -1,7 +1,7 @@
 import { createContext } from 'react';
 import type { AsyncDialogComponent } from '../types.js';
 
-export interface dialogContextState {
+export interface DialogActionsContextValue {
   show: (
     dialogId: string,
     hash: number,
@@ -13,4 +13,5 @@ export interface dialogContextState {
   updateData: (dialogId: string, data: unknown) => void;
 }
 
-export const DialogContext = createContext<dialogContextState | null>(null);
+export const DialogActionsContext =
+  createContext<DialogActionsContextValue | null>(null);

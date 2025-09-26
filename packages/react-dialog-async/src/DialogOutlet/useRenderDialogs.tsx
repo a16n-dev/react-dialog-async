@@ -1,6 +1,6 @@
 import { useMemo } from 'react';
-import type { dialogsStateData } from '../useDialogContext/DialogStateContext.js';
-import { IndividualDialogContext } from '../useDialogContext/IndividualDialogContext.js';
+import { IndividualDialogStateContext } from '../useDialogContext/IndividualDialogStateContext.js';
+import type { dialogsStateData } from '../DialogProvider/GlobalDialogStateContext.js';
 
 /**
  * Given the current dialog state, outputs an array of `Element`s to be rendered.
@@ -35,9 +35,9 @@ export const useRenderDialogs = (state: dialogsStateData) => {
         const key = id + hash;
 
         return (
-          <IndividualDialogContext.Provider key={key} value={contextValue}>
+          <IndividualDialogStateContext.Provider key={key} value={contextValue}>
             <Component {...dialogProps} />
-          </IndividualDialogContext.Provider>
+          </IndividualDialogStateContext.Provider>
         );
       },
     );
