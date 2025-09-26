@@ -1,9 +1,9 @@
 import { useContext, useEffect } from 'react';
-import { DialogStateContext } from '../useDialogContext/DialogStateContext.js';
 import { useRenderDialogs } from './useRenderDialogs.js';
+import { GlobalDialogStateContext } from '../DialogProvider/GlobalDialogStateContext.js';
 
 export const DialogOutlet = () => {
-  const dialogState = useContext(DialogStateContext);
+  const dialogState = useContext(GlobalDialogStateContext);
 
   if (!dialogState) {
     throw new Error(

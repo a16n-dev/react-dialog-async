@@ -1,12 +1,12 @@
 import { useContext } from 'react';
 import {
-  type DialogContextValue,
-  IndividualDialogContext,
-} from './IndividualDialogContext.js';
+  IndividualDialogStateContext,
+  type IndividualDialogStateContextValue,
+} from './IndividualDialogStateContext.js';
 
-export const useDialogContext = <D = any, R = any>(): DialogContextValue<
-  D,
-  R
-> => {
-  return useContext(IndividualDialogContext);
+export const useDialogContext = <
+  D = any,
+  R = any,
+>(): IndividualDialogStateContextValue<D, R> => {
+  return useContext(IndividualDialogStateContext);
 };

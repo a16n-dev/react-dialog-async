@@ -8,7 +8,7 @@ import {
 } from 'react';
 import type { AsyncDialogComponent } from '../types.js';
 import type { useDialogOptions, useDialogReturn } from './types.js';
-import { DialogContext } from '../DialogProvider/DialogContext.js';
+import { DialogActionsContext } from '../DialogProvider/DialogActionsContext.js';
 
 export function useDialog<D, R, DE extends D | undefined>(
   component: AsyncDialogComponent<D, R>,
@@ -25,7 +25,7 @@ export function useDialog<D, R, DE extends D | undefined>(
     return internalId;
   }, [internalId, component, options?.customKey]);
 
-  const ctx = useContext(DialogContext);
+  const ctx = useContext(DialogActionsContext);
 
   if (!ctx) {
     throw new Error(
