@@ -1,8 +1,8 @@
 import { useContext, useEffect } from 'react';
-import DialogStateContext from '../context/DialogStateContext.js';
-import useRenderDialogs from './useRenderDialogs.js';
+import { DialogStateContext } from '../useDialogContext/DialogStateContext.js';
+import { useRenderDialogs } from './useRenderDialogs.js';
 
-const DialogOutlet = () => {
+export const DialogOutlet = () => {
   const dialogState = useContext(DialogStateContext);
 
   if (!dialogState) {
@@ -24,5 +24,3 @@ const DialogOutlet = () => {
 
   return <>{dialogComponents}</>;
 };
-
-export default DialogOutlet;

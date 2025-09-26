@@ -8,9 +8,9 @@ import {
 } from 'react';
 import type { AsyncDialogComponent } from '../types.js';
 import type { useDialogOptions, useDialogReturn } from './types.js';
-import DialogContext from '../context/DialogContext.js';
+import { DialogContext } from '../DialogProvider/DialogContext.js';
 
-function useDialog<D, R, DE extends D | undefined>(
+export function useDialog<D, R, DE extends D | undefined>(
   component: AsyncDialogComponent<D, R>,
   options?: useDialogOptions<D, DE>,
 ): useDialogReturn<D, R, DE> {
@@ -70,5 +70,3 @@ function useDialog<D, R, DE extends D | undefined>(
     close: hide,
   };
 }
-
-export default useDialog;

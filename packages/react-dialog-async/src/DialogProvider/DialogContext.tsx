@@ -13,6 +13,4 @@ export interface dialogContextState {
   updateData: (dialogId: string, data: unknown) => void;
 }
 
-const DialogContext = createContext<dialogContextState | null>(null);
-
-export default DialogContext;
+export const DialogContext = createContext<dialogContextState | null>(null);
