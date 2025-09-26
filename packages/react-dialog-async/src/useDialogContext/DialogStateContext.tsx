@@ -18,6 +18,6 @@ export type dialogStateContextState = {
   dialogs: dialogsStateData;
 };
 
-const DialogStateContext = createContext<dialogStateContextState | null>(null);
-
-export default DialogStateContext;
+export const DialogStateContext = createContext<dialogStateContextState | null>(
+  null,
+);

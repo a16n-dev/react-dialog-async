@@ -1,14 +1,13 @@
 import { useContext, useEffect, useMemo, useRef } from 'react';
 import { useCallback, useState } from 'react';
 import type { DialogProviderProps } from './types.js';
-import type { dialogsStateData } from '../context/DialogStateContext.js';
+import type { dialogsStateData } from '../useDialogContext/DialogStateContext.js';
 import type { AsyncDialogComponent } from '../types.js';
-import type { dialogContextState } from '../context/DialogContext.js';
-import DialogStateContext from '../context/DialogStateContext.js';
-import DialogContext from '../context/DialogContext.js';
-import useRenderDialogs from '../DialogOutlet/useRenderDialogs.js';
+import { DialogStateContext } from '../useDialogContext/DialogStateContext.js';
+import { useRenderDialogs } from '../DialogOutlet/useRenderDialogs.js';
+import { DialogContext, type dialogContextState } from './DialogContext.js';
 
-const DialogProvider = ({
+export const DialogProvider = ({
   defaultUnmountDelayInMs,
   children,
 }: DialogProviderProps) => {
@@ -161,8 +160,6 @@ const DialogProvider = ({
     </DialogStateContext.Provider>
   );
 };
-
-export default DialogProvider;
 
 function removeKey<
   S extends string | number | symbol,

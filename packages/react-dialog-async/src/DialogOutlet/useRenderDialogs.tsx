@@ -1,11 +1,11 @@
 import { useMemo } from 'react';
-import type { dialogsStateData } from '../context/DialogStateContext.js';
-import IndividualDialogContext from '../context/IndividualDialogContext.js';
+import type { dialogsStateData } from '../useDialogContext/DialogStateContext.js';
+import { IndividualDialogContext } from '../useDialogContext/IndividualDialogContext.js';
 
 /**
  * Given the current dialog state, outputs an array of `Element`s to be rendered.
  */
-const useRenderDialogs = (state: dialogsStateData) => {
+export const useRenderDialogs = (state: dialogsStateData) => {
   return useMemo(() => {
     const entries = Object.entries(state);
 
@@ -43,5 +43,3 @@ const useRenderDialogs = (state: dialogsStateData) => {
     );
   }, [state]);
 };
-
-export default useRenderDialogs;

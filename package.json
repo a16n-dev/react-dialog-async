@@ -8,9 +8,9 @@
     "check": "pnpm -r check",
     "lint": "pnpm -r lint"
   },
-
   "dependencies": {
     "eslint": "^9.36.0",
+    "eslint-plugin-import": "^2.32.0",
     "jsdom": "^26.1.0",
     "prettier": "^3.5.3",
     "tsdown": "^0.14.2",
