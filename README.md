@@ -9,7 +9,7 @@ React Dialog Async provides a simple hook-based API for managing dialog state in
 * ✅ CSS Framework agnostic - works with any component library or CSS setup
 * ✅ Lightweight with zero dependencies
 * ✅ Written in Typescript
-* ✅ Supports both React and React Native
+* ✅ Supports React Native
 
 [✨ Read the docs here ✨](https://react-dialog-async.a16n.dev)
 

@@ -1,0 +1,35 @@
+---
+title: Getting Started
+---
+import { PackageManagers } from 'starlight-package-managers'
+import { Steps } from '@astrojs/starlight/components';
+
+<Steps>
+<ol>
+<li>
+Install the package using your package manager of choice.
+
+<PackageManagers pkg="react-dialog-async" />
+</li>
+<li>
+Wrap your app with `DialogProvider`, and add a `DialogOutlet`. The `DialogOutlet` should be nested inside any other providers that you want have access to from within dialogs.
+
+``` tsx
+import { DialogProvider, DialogOutlet } from 'react-dialog-async';
+
+export default function Layout() {
+  return (
+    <DialogProvider>
+      <App />
+      <DialogOutlet/>
+    </DialogProvider>
+  );
+}
+```
+</li>
+</ol>
+</Steps>
+
+:::tip
+Not sure where to put the provider? Check out some of the [examples](../category/examples)
+:::
