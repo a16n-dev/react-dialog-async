@@ -22,5 +22,5 @@ export default function Layout({ children }) {
 }
 ```
 
-## Server-side rendering
+## Server-side Rendering
 You should generally not need to worry about server-side rendering of dialogs, as `dialog.open()` should only be called within a `useEffect` or event handler, which do not run on the server.
