@@ -4,6 +4,7 @@ import starlight from '@astrojs/starlight';
 import starlightThemeRapide from 'starlight-theme-rapide';
 import tailwindcss from '@tailwindcss/vite';
 import react from '@astrojs/react';
+import starlightBlog from 'starlight-blog';
 
 // https://astro.build/config
 export default defineConfig({
@@ -12,7 +13,19 @@ export default defineConfig({
   },
   integrations: [
     starlight({
-      plugins: [starlightThemeRapide()],
+      plugins: [
+        starlightBlog({
+          navigation: 'header-start',
+          authors: {
+            a16n: {
+              name: 'Alex Nicholson',
+              title: 'Maintainer',
+              url: 'https://a16n.dev',
+            },
+          },
+        }),
+        starlightThemeRapide(),
+      ],
       title: 'React Dialog Async',
       customCss: ['./src/styles/global.css'],
       social: [
@@ -42,6 +55,7 @@ export default defineConfig({
           items: [
             // Each item here is one entry in the navigation menu.
             { label: 'Typescript', slug: 'concepts/typescript' },
+            { label: 'Multiple Dialogs', slug: 'concepts/multiple-dialogs' },
             { label: 'Animations', slug: 'concepts/animations' },
             { label: 'Performance', slug: 'concepts/performance' },
             { label: 'React Native', slug: 'concepts/react-native' },

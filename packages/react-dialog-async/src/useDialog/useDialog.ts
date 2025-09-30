@@ -41,7 +41,7 @@ export function useDialog<D, R, DE extends D | undefined>(
     };
   }, [id, options?.hideOnHookUnmount]);
 
-  const show = useCallback(
+  const open = useCallback(
     async (data?: D): Promise<R | undefined> => {
       return ctx.show(
         id,
@@ -54,7 +54,7 @@ export function useDialog<D, R, DE extends D | undefined>(
     [id, component, options?.defaultData, options?.unmountDelayInMs],
   );
 
-  const hide = () => {
+  const close = () => {
     return ctx.hide(id);
   };
 
@@ -63,10 +63,8 @@ export function useDialog<D, R, DE extends D | undefined>(
   };
 
   return {
-    show,
-    hide,
     updateData,
-    open: show,
-    close: hide,
+    open,
+    close,
   };
 }
