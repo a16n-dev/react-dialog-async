@@ -6,14 +6,43 @@ import { Aside } from '@astrojs/starlight/components';
 
 React Dialog Async is designed with performance in mind, ensuring that no part of your component tree is re-rendered when a dialog is opened or closed. It also has support for lazy loading.
 
-# Minimising re-renders
+## Minimising Re-renders
 
 Components that use the `useDialog` hook will never re-render in response to a dialog being opened or closed. This is because the state is managed at the DialogProvider level, and the `useDialog` hook intentionally does not expose any state information.
 
 ## Lazy Loading
 
-Dialogs are often a good candidate for lazy loading, as they are often not immediately visible when a page loads. React Dialog Async supports this pattern via the `useDialogLazy()` hook.
+Dialogs are often a good candidate for lazy loading, as they are often not immediately visible when a page loads and therefore do not need to be included in the main bundle. React Dialog Async supports this pattern via the `useDialogLazy()` hook.
 
 <Aside>
 `useDialogLazy()` is intended to be used only when necessary. `useDialog()` should be sufficient for most use cases.
 </Aside>
+
+### Example
+
+Let's say we have an onboarding dialog that gets shown to new users when they first sign up and land on the homepage.
+
+In this case, fetching the code for the dialog is often not necessary because most users will not see it. We also care about the load time of the homepage, so this might be a case to consider lazy loading the onboarding dialog:
+
+```tsx title="Homepage.tsx"
+import { useDialogLazy } from 'react-dialog-async';
+
+// Note a few things here:
+// 1. This is a regular dynamic import, not React.lazy
+// 2. This is defined outside the component
+const OnboardingDialog = () => import('../components/OnboardingDialog');
+
+const Homepage = () => {
+  const onboardingDialog = useDialogLazy(OnboardingDialog);
+
+  // Get information about the current user
+  const user = useUser();
+
+  useEffect(() => {
+    if (user.isNewUser) {
+      onboardingDialog.open();
+    }
+  }, [user])
+
+  return (...)
+}

@@ -7,6 +7,17 @@ React Dialog Async supports React Native out of the box with no additional confi
 ## Portal behaviour
 One of the main challenges with creating custom dialogs in React Native is the lack of an equivalent to `createPortal` from `react-dom`. React Dialog Async solves this in most cases with the `<DialogOutlet/>` component, as it can be placed outside of your main app component, allowing dialogs to be rendered above all other content.
 
+```tsx title="main.tsx" {5}
+const Main = () => {
+  return (
+    <DialogProvider>    
+      <App />
+      <DialogOutlet/> {/* <-- Dialogs will be rendered here */}
+    </DialogProvider>
+  )
+}
+```
+
 ## Example
 
 See the [Expo example](../examples/expo) for a working example with React Native and Expo.

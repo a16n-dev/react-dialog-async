@@ -12,24 +12,45 @@ Install the package using your package manager of choice.
 <PackageManagers pkg="react-dialog-async" />
 </li>
 <li>
-Wrap your app with `DialogProvider`, and add a `DialogOutlet`. The `DialogOutlet` should be nested inside any other providers that you want have access to from within dialogs.
+Wrap your app with `DialogProvider`.
 
-``` tsx
+```diff lang="tsx" title="Layout.tsx"
+import { DialogProvider } from 'react-dialog-async';
+
+export default function Layout() {
+  return (
++    <DialogProvider>
+      <App />
++    </DialogProvider>
+  );
+}
+```
+</li>
+<li>
+Add a `DialogOutlet` to your component tree. This is where dialogs will be rendered, so it should be nested inside all providers.
+
+```diff lang="tsx" title="Layout.tsx"
 import { DialogProvider, DialogOutlet } from 'react-dialog-async';
 
 export default function Layout() {
   return (
     <DialogProvider>
       <App />
-      <DialogOutlet/>
++      <DialogOutlet/>
     </DialogProvider>
   );
 }
+```
+</li>
+<li>
+Create a dialog component, and start using it in your app with the `useDialog` hook.
+
+```tsx
 ```
 </li>
 </ol>
 </Steps>
 
 :::tip
-Not sure where to put the provider? Check out some of the [examples](../category/examples)
+Check out the examples section for working examples with different frameworks and libraries.
 :::
