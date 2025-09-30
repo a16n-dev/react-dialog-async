@@ -41,11 +41,11 @@ export default defineConfig({
           label: 'Concepts',
           items: [
             // Each item here is one entry in the navigation menu.
+            { label: 'Typescript', slug: 'concepts/typescript' },
             { label: 'Animations', slug: 'concepts/animations' },
             { label: 'Performance', slug: 'concepts/performance' },
             { label: 'React Native', slug: 'concepts/react-native' },
             { label: 'Next.js / SSR', slug: 'concepts/next-js-ssr' },
-            { label: 'Typescript', slug: 'concepts/typescript' },
           ],
         },
         {
