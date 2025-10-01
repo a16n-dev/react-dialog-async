@@ -95,6 +95,10 @@ export default defineConfig({
                   label: 'DialogOutlet',
                   slug: 'reference/components/dialog-outlet',
                 },
+                {
+                  label: 'StaticDialog',
+                  slug: 'reference/components/static-dialog',
+                },
               ],
             },
             {

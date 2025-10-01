@@ -1,5 +1,5 @@
 ---
-title: useDialog
+title: useDialogLazy
 ---
 
 ```tsx
