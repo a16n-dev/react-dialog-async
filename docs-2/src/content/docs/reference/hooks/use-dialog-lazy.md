@@ -12,12 +12,25 @@ It must be called within a `<DialogProvider/>`.
 
 ## Usage
 ```tsx 
+const MyDialog = () => import('./MyDialog');
 
+const myDialog = useDialogLazy(MyDialog);
+
+// Preload the dialog component ahead of time (optional)
+myDialog.preload();
+
+const handleClick = async () => {
+  // Same as useDialog
+  const result = await myDialog.open();
+}
 ```
 
 ## Signature
 ```tsx
-
+function useDialogLazy<D, R, DE extends D | undefined>(
+  componentLoader: () => Promise<AsyncDialogComponent<D, R>>,
+  options?: useDialogOptions<D, DE>,
+): useDialogLazyReturn<D, R, DE>
 ```
 
 ## Parameters
