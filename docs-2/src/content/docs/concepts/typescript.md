@@ -16,10 +16,10 @@ type ConfirmationDialogProps = { message: string };
 
 type ConfirmationDialogResult = { confirmed: boolean };
 
-export function ConfirmationDialog({
+export const ConfirmationDialog = ({
   data, 
   handleClose 
-}: AsyncDialogProps<ConfirmationDialogProps, ConfirmationDialogResult>) {
+}: AsyncDialogProps<ConfirmationDialogProps, ConfirmationDialogResult>) => {
   ...
 }
 ```

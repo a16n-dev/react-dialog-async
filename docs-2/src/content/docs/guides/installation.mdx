@@ -12,12 +12,12 @@ Install the package using your package manager of choice.
 <PackageManagers pkg="react-dialog-async" />
 </li>
 <li>
-Wrap your app with `DialogProvider`.
+Wrap your app with `<DialogProvider/>`.
 
 ```diff lang="tsx" title="Layout.tsx"
 import { DialogProvider } from 'react-dialog-async';
 
-export default function Layout() {
+const Layout = () => {
   return (
 +    <DialogProvider>
       <App />
@@ -27,12 +27,12 @@ export default function Layout() {
 ```
 </li>
 <li>
-Add a `DialogOutlet` to your component tree. This is where dialogs will be rendered, so it should be nested inside all providers.
+Add a `<DialogOutlet/>` to your component tree. This is where dialogs will be rendered, so it should be nested inside all providers.
 
 ```diff lang="tsx" title="Layout.tsx"
 import { DialogProvider, DialogOutlet } from 'react-dialog-async';
 
-export default function Layout() {
+const Layout = () => {
   return (
     <DialogProvider>
       <App />
@@ -43,9 +43,34 @@ export default function Layout() {
 ```
 </li>
 <li>
-Create a dialog component, and start using it in your app with the `useDialog` hook.
+Create a dialog component, and start using it in your app with the `useDialog()` hook.
 
-```tsx
+```tsx title="MyDialog.tsx"
+import { AsyncDialogProps } from 'react-dialog-async';
+import { Dialog } from '...'; // Import dialog from UI library of your choice
+
+export const MyDialog = ({ isOpen, handleClose }: AsyncDialogProps) => {
+  return (
+    <Dialog open={isOpen} onClose={() => handleClose()}>
+      <p>{'Hello world!'}</p>
+      <button onClick={() => handleClose()}>Ok</button>
+    </Dialog>
+  );
+}
+```
+
+
+```tsx title="Page.tsx"
+import { useDialog } from 'react-dialog-async';
+import { MyDialog } from './MyDialog';
+
+export const Page = () => {
+  const myDialog = useDialog(MyDialog);
+
+  return (
+    <button onClick={() => myDialog.open()}>Open dialog</button>
+  );
+}
 ```
 </li>
 </ol>

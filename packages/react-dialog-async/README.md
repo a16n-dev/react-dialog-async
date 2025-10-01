@@ -6,6 +6,8 @@
 
 React Dialog Async provides a hook-based API for managing dialog state in React apps, with a focus on performance and developer ergonomics.
 
+[✨ Read the docs here ✨](https://react-dialog-async.a16n.dev)
+
 # Installation
 
 Install the package into your project:
@@ -13,9 +15,33 @@ Install the package into your project:
 pnpm add react-dialog-async
 ```
 
-# Documentation
+## Why use React Dialog Async?
 
-[✨ Read the docs here ✨](https://react-dialog-async.a16n.dev)
+Here's an example of how you might use it to show a confirmation dialog in response to a user action:
+
+```tsx
+import { useDialog } from 'react-dialog-async';
+
+const DeleteItemButton = () => {
+  const dialog = useDialog(ConfirmationDialog);
+
+  const handleDelete = async () => {
+     const result = await dialog.open({
+       message: "Are you sure you want to delete this item?"
+     });
+
+     if(result?.confirmed) {
+       deleteItem();
+     }
+  }
+
+  return (
+    <Button onClick={handleDelete}>
+      Delete item
+    </Button>
+  );
+}
+```
 
 
 # Contributing

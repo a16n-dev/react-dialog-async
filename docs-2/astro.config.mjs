@@ -54,10 +54,15 @@ export default defineConfig({
           label: 'Concepts',
           items: [
             // Each item here is one entry in the navigation menu.
+            {
+              label: 'Creating Dialog Components',
+              slug: 'concepts/creating-dialog-components',
+            },
             { label: 'Typescript', slug: 'concepts/typescript' },
             { label: 'Multiple Dialogs', slug: 'concepts/multiple-dialogs' },
             { label: 'Animations', slug: 'concepts/animations' },
             { label: 'Performance', slug: 'concepts/performance' },
+            { label: 'Static Dialogs', slug: 'concepts/static-dialogs' },
             { label: 'React Native', slug: 'concepts/react-native' },
             { label: 'Next.js / SSR', slug: 'concepts/next-js-ssr' },
           ],

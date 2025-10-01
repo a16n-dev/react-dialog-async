@@ -9,7 +9,7 @@ React Dialog Async has support for Next.js out of the box.
 ```jsx title="app/layout.jsx"
 import { DialogProvider } from 'react-dialog-async';
 
-export default function Layout({ children }) {
+const Layout = ({ children }: PropsWithChildren) => {
   return (
     <html lang="en">
       <body>
@@ -20,6 +20,8 @@ export default function Layout({ children }) {
     </html>
   )
 }
+
+export default Layout
 ```
 
 ## Server-side Rendering

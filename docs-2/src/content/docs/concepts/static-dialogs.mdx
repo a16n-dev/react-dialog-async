@@ -1,0 +1,40 @@
+---
+title: Static Dialogs
+---
+
+If you want to use dialog components created for use with React Dialog Async in JSX instead of `useDialog()`, you can do so using the `<StaticDialog/>` component.
+
+
+`<StaticDialog/>` is a wrapper around your dialog component that provides the necessary props & context to make it work with React Dialog Async, while exposing props that allow you to control the dialog's state.
+
+## Example
+
+```tsx
+import { StaticDialog } from 'react-dialog-async';
+import { ConfirmationDialog } from '...';
+
+const MyComponent = () => {
+
+  const [isOpen, setIsOpen] = useState(false);
+
+  const handleClose = (result?: {confirmed: boolean}) => {
+    setIsOpen(false);
+
+    if(result?.confirmed) {
+      // Do something with the result
+    }
+  }
+
+  return (
+    <>
+      <Button onClick={() => setIsOpen(true)}>Open Dialog</Button>
+      <StaticDialog
+        dialog={ConfirmationDialog}
+        isOpen={isOpen}
+        data={{ message: "Are you sure?" }}
+        onClose={handleClose}
+      />
+    </>
+  )
+}
+```
