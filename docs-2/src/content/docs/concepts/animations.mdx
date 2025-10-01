@@ -5,7 +5,7 @@ title: Animations
 It's a common UI pattern for dialogs to have entry and exit animations. In order to support exit animations,
 React Dialog Async will not unmount the dialog immediately after it is closed.
 
-By default, this delay is set to `500ms`, which should be sufficient for most use cases. Generally exit animations are recommended to be under 150-200ms
+By default, this delay is set to `500ms`, which should be sufficient for most use cases. Generally exit animations are recommended to be under 150-200ms.
 
 :::note
 Note that the promise returned by `dialog.open()` will still resolve immediately after the dialog is closed and is not affected by the delay.

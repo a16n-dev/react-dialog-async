@@ -5,6 +5,11 @@
 @import 'tailwindcss/utilities.css' layer(utilities);
 @import "tw-animate-css";
 
+td code {
+    word-break: normal;
+    overflow-wrap: normal;
+}
+
 @custom-variant dark (&:is(.dark *));
 
 @theme inline {

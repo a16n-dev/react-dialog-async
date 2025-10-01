@@ -10,6 +10,9 @@ import type { AsyncDialogComponent } from '../types.js';
 import type { useDialogOptions, useDialogReturn } from './types.js';
 import { DialogActionsContext } from '../context/DialogActionsContext.js';
 
+/**
+ * @category Hooks
+ */
 export function useDialog<D, R, DE extends D | undefined>(
   component: AsyncDialogComponent<D, R>,
   options?: useDialogOptions<D, DE>,

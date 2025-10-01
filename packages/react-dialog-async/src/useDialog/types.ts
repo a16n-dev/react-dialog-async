@@ -22,7 +22,7 @@ export type useDialogOptions<D, DE extends D | undefined> = {
 
 export type useDialogReturn<D, R, DE extends D | undefined> = {
   /**
-   * opens the dialog, and passes the provided data as props to the dialog
+   * Opens the dialog, and passes the provided data as props to the dialog
    * component. Returns a promise that resolves when the dialog is closed.
    *
    * The promise will resolve to the value that is passed to `handleClose`

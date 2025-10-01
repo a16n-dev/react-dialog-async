@@ -13,8 +13,8 @@ function valueNotNull<T>(v: T | null): asserts v {
   }
 }
 
-const TestDialog = ({ open }: AsyncDialogProps) => {
-  if (!open) return null;
+const TestDialog = ({ isOpen }: AsyncDialogProps) => {
+  if (!isOpen) return null;
 
   return <div>{'Hello World!'}</div>;
 };

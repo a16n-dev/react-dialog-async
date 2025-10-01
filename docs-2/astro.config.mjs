@@ -71,12 +71,36 @@ export default defineConfig({
           label: 'API Reference',
           items: [
             {
-              label: 'Components',
-              items: [],
+              label: 'Hooks',
+              items: [
+                { label: 'useDialog', slug: 'reference/hooks/use-dialog' },
+                {
+                  label: 'useDialogContext',
+                  slug: 'reference/hooks/use-dialog-context',
+                },
+              ],
             },
             {
-              label: 'Hooks',
-              items: [],
+              label: 'Components',
+              items: [
+                {
+                  label: 'DialogProvider',
+                  slug: 'reference/components/dialog-provider',
+                },
+                {
+                  label: 'DialogOutlet',
+                  slug: 'reference/components/dialog-outlet',
+                },
+              ],
+            },
+            {
+              label: 'Types',
+              items: [
+                {
+                  label: 'AsyncDialogProps',
+                  slug: 'reference/types/async-dialog-props',
+                },
+              ],
             },
           ],
         },
