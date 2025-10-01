@@ -75,6 +75,10 @@ export default defineConfig({
               items: [
                 { label: 'useDialog', slug: 'reference/hooks/use-dialog' },
                 {
+                  label: 'useDialogLazy',
+                  slug: 'reference/hooks/use-dialog-lazy',
+                },
+                {
                   label: 'useDialogContext',
                   slug: 'reference/hooks/use-dialog-context',
                 },

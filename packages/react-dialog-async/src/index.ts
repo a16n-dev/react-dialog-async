@@ -1,5 +1,6 @@
 // Hooks
 export { useDialog } from './useDialog/useDialog.js';
+export { useDialogLazy } from './useDialogLazy/useDialogLazy.js';
 export { useDialogContext } from './useDialogContext/useDialogContext.js';
 
 // Components

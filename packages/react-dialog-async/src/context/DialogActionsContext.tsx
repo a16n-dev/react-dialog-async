@@ -11,6 +11,7 @@ export interface DialogActionsContextValue {
   ) => Promise<any>;
   hide: (dialogId: string, data?: any) => void;
   updateData: (dialogId: string, data: unknown) => void;
+  lazyLoaderFn?: (loaderFn: () => Promise<void>) => Promise<void>;
 }
 
 export const DialogActionsContext =
