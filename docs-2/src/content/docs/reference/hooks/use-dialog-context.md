@@ -41,4 +41,4 @@ Extends [`AsyncDialogProps`](/reference/types/async-dialog-props)
 
 ## Source
 
-[View on GitHub](https://github.com/a16n-dev/react-dialog-async/blob/main/packages/react-dialog-async/src/useDialog/useDialog.tsx)
+[View on GitHub](https://github.com/a16n-dev/react-dialog-async/blob/main/packages/react-dialog-async/src/useDialogContext/useDialogContext.tsx)
