@@ -1,7 +1,7 @@
 import { useCallback, useContext, useEffect, useId, useRef } from 'react';
 import type { AsyncDialogComponent } from '../types.js';
-import type { useDialogOptions, useDialogReturn } from './types.js';
 import { DialogActionsContext } from '../context/DialogActionsContext.js';
+import type { useDialogOptions, useDialogReturn } from './types.js';
 
 /**
  * @category Hooks

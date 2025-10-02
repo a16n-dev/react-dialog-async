@@ -1,15 +1,15 @@
 import { useCallback, useContext, useEffect, useId, useRef } from 'react';
-import type { useDialogLazyReturn } from './types.js';
 import type { AsyncDialogComponent } from '../types.js';
 import type { useDialogOptions } from '../useDialog/types.js';
 import { DialogActionsContext } from '../context/DialogActionsContext.js';
+import type { useDialogLazyReturn } from './types.js';
 
 export function useDialogLazy<D, R, DE extends D | undefined>(
   componentLoader: () => Promise<AsyncDialogComponent<D, R>>,
   options?: useDialogOptions<D, DE>,
 ): useDialogLazyReturn<D, R, DE> {
   const id = useId();
-  let idCount = useRef(0);
+  const idCount = useRef(0);
   const componentRef = useRef<AsyncDialogComponent<D, R> | null>(null);
 
   const ctx = useContext(DialogActionsContext);

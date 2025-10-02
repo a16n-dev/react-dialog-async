@@ -1,4 +1,4 @@
-import { act, type PropsWithChildren } from 'react';
+import { type PropsWithChildren, act } from 'react';
 import { expect, test } from 'vitest';
 import { render, renderHook, screen } from '@testing-library/react';
 import { useEffect } from 'react';

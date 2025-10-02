@@ -2,8 +2,8 @@ import { expect, test } from 'vitest';
 import { render, screen } from '@testing-library/react';
 import { useContext, useEffect, useId } from 'react';
 import type { AsyncDialogProps } from '../types.js';
-import { DialogProvider } from './DialogProvider.js';
 import { DialogActionsContext } from '../context/DialogActionsContext.js';
+import { DialogProvider } from './DialogProvider.js';
 
 function valueNotNull<T>(v: T | null): asserts v {
   if (!v) {
