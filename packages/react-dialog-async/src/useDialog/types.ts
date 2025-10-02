@@ -10,10 +10,9 @@ export type useDialogOptions<D, DE extends D | undefined> = {
   unmountDelayInMs?: number;
   /**
    * By default, the dialog will be hidden if the hook is unmounted. Set this to
-   * false if you want the dialog to remain open even when the hook is unmounted.
-   * @default true
+   * true if you want the dialog to persist even when the hook is unmounted.
    */
-  hideOnHookUnmount?: boolean;
+  persistOnUnmount?: boolean;
 };
 
 export type useDialogReturn<D, R, DE extends D | undefined> = {

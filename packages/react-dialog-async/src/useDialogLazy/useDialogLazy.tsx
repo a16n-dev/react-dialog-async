@@ -1,11 +1,4 @@
-import {
-  useCallback,
-  useContext,
-  useEffect,
-  useId,
-  useMemo,
-  useRef,
-} from 'react';
+import { useCallback, useContext, useEffect, useId, useRef } from 'react';
 import type { useDialogLazyReturn } from './types.js';
 import type { AsyncDialogComponent } from '../types.js';
 import type { useDialogOptions } from '../useDialog/types.js';
@@ -15,17 +8,9 @@ export function useDialogLazy<D, R, DE extends D | undefined>(
   componentLoader: () => Promise<AsyncDialogComponent<D, R>>,
   options?: useDialogOptions<D, DE>,
 ): useDialogLazyReturn<D, R, DE> {
-  const internalId = useId();
+  const id = useId();
   let idCount = useRef(0);
   const componentRef = useRef<AsyncDialogComponent<D, R> | null>(null);
-
-  const id = useMemo(() => {
-    if (options?.customKey !== undefined) {
-      return options.customKey;
-    }
-
-    return internalId;
-  }, [internalId, options?.customKey]);
 
   const ctx = useContext(DialogActionsContext);
 
@@ -48,11 +33,11 @@ export function useDialogLazy<D, R, DE extends D | undefined>(
 
   useEffect(() => {
     return () => {
-      if (options?.hideOnHookUnmount !== false) {
+      if (options?.persistOnUnmount !== true) {
         ctx.hide(id);
       }
     };
-  }, [id, options?.hideOnHookUnmount]);
+  }, [id, options?.persistOnUnmount]);
 
   const open = useCallback(
     async (data?: D): Promise<R | undefined> => {

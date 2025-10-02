@@ -1,11 +1,4 @@
-import {
-  useCallback,
-  useContext,
-  useEffect,
-  useId,
-  useMemo,
-  useRef,
-} from 'react';
+import { useCallback, useContext, useEffect, useId, useRef } from 'react';
 import type { AsyncDialogComponent } from '../types.js';
 import type { useDialogOptions, useDialogReturn } from './types.js';
 import { DialogActionsContext } from '../context/DialogActionsContext.js';
@@ -18,15 +11,7 @@ export function useDialog<D, R, DE extends D | undefined>(
   options?: useDialogOptions<D, DE>,
 ): useDialogReturn<D, R, DE> {
   const idCount = useRef(0);
-  const internalId = useId();
-
-  const id = useMemo(() => {
-    if (options?.customKey !== undefined) {
-      return options.customKey;
-    }
-
-    return internalId;
-  }, [internalId, component, options?.customKey]);
+  const id = useId();
 
   const ctx = useContext(DialogActionsContext);
 
@@ -38,11 +23,11 @@ export function useDialog<D, R, DE extends D | undefined>(
 
   useEffect(() => {
     return () => {
-      if (options?.hideOnHookUnmount !== false) {
+      if (options?.persistOnUnmount !== true) {
         ctx.hide(id);
       }
     };
-  }, [id, options?.hideOnHookUnmount]);
+  }, [id, options?.persistOnUnmount]);
 
   const open = useCallback(
     async (data?: D): Promise<R | undefined> => {
