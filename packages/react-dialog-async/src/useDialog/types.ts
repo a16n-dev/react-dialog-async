@@ -4,40 +4,20 @@ export type useDialogOptions<D, DE extends D | undefined> = {
    */
   defaultData?: DE;
   /**
-   * A custom key to register this dialog against
-   */
-  customKey?: string;
-  /**
    * If specified, the dialog will remain mounted for this many milliseconds.
    * Useful for allowing a close animation to play before unmounting the dialog.
    */
   unmountDelayInMs?: number;
   /**
    * By default, the dialog will be hidden if the hook is unmounted. Set this to
-   * false if you want the dialog to remain open even when the hook is unmounted.
-   * @default true
+   * true if you want the dialog to persist even when the hook is unmounted.
    */
-  hideOnHookUnmount?: boolean;
+  persistOnUnmount?: boolean;
 };
 
 export type useDialogReturn<D, R, DE extends D | undefined> = {
   /**
-   * @Deprecated - use `dialog.open()` instead. Read more here: https://react-dialog-async.a16n.dev/blog/2025/08/19/deprecating-show-hide
-   */
-  show: DE extends undefined
-    ? (data: D) => Promise<R | undefined>
-    : (data?: D) => Promise<R | undefined>;
-  /**
-   * @Deprecated - use `dialog.close()` instead. Read more here: https://react-dialog-async.a16n.dev/blog/2025/08/19/deprecating-show-hide
-   */
-  hide: () => void;
-  /**
-   * Updates the data being passed to the dialog. This should only be called
-   * when the dialog is already open, and you need to change the data on the fly
-   */
-  updateData: (data: D) => void;
-  /**
-   * opens the dialog, and passes the provided data as props to the dialog
+   * Opens the dialog, and passes the provided data as props to the dialog
    * component. Returns a promise that resolves when the dialog is closed.
    *
    * The promise will resolve to the value that is passed to `handleClose`
@@ -51,4 +31,9 @@ export type useDialogReturn<D, R, DE extends D | undefined> = {
    * lead to poor user experience
    */
   close: () => void;
+  /**
+   * Updates the data being passed to the dialog. This should only be called
+   * when the dialog is already open, and you need to change the data on the fly
+   */
+  updateData: (data: D) => void;
 };

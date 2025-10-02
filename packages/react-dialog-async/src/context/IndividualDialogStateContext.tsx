@@ -7,9 +7,8 @@ export interface IndividualDialogStateContextValue<D = any, R = any>
 }
 
 const defaultDialogContextValue: IndividualDialogStateContextValue = {
-  open: false,
-  focused: false,
-  mounted: true,
+  isOpen: false,
+  isFocused: false,
   handleClose: () => {},
   data: undefined,
   isInsideDialogContext: false,

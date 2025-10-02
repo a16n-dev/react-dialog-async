@@ -1,0 +1,102 @@
+---
+title: Migrating to V3
+---
+
+Introducing React Dialog Async V3! This new major version includes an improved API, new features for more flexible use,
+and much more polished documentation.
+
+## Why V3?
+React Dialog Async started out as a small library for personal use, first published over 4 years ago. At the time I was focused
+on a small set of features for solving my own personal use case. Over time it's grown to support a wider range of use cases, but
+the core API has remained largely unchanged since day one.
+
+Over time as the library has matured, I've started to disagree with some of the original decisions I made. I've held off making
+any breaking changes, but I feel that now is the right time to pay down some technical debt, and bundle all of the breaking changes
+together into a newer, more polished version of the library.
+
+[//]: # (# New Features)
+
+[//]: # ()
+[//]: # (## Static Dialogs)
+
+[//]: # ()
+[//]: # (## Lazy Loading)
+
+## Breaking Changes
+
+### `show` and `hide` methods removed from `useDialog()`
+
+The methods returned by `useDialog()` have changed. `show` and `hide` were deprecated in `2.4.0`, and have been removed in `3.0.0` in favour of `open` and `close`.
+
+```diff lang="tsx"
+
+const myDialog = useDialog(MyDialog);
+
+-await myDialog.show(...);
++await myDialog.open(...);
+
+-await myDialog.hide();
++await myDialog.close();
+
+```
+
+### Updated Options for `useDialog()`
+
+* `customKey` has been removed. This option was not used internally, and was a legacy option from early versions of the library.
+
+* `hideOnHookUnmount` has been renamed to `persistOnUnmount`. This should be more intuitive, as setting this option to `true` will persist the dialog when the hook unmounts.
+
+```diff lang="tsx"
+
+const myDialog = useDialog(MyDialog, {
+- customKey: 'my-dialog',
+
+- hideOnHookUnmount: false
++ persistOnUnmount: true
+});
+
+```
+
+### `<DialogOutlet/>` is now required
+
+In previous versions of the library, `<DialogOutlet/>` was optional, and if it was not required, dialogs would be rendered as children of the `<DialogProvider/>`.
+
+In V3, this is not longer the case, and `<DialogOutlet/>` is now required for dialogs to render. If one is not found, an error will be thrown when attempting to open a dialog.
+
+```diff lang="tsx"
+
+<DialogProvider>
+  <App />
++ <DialogOutlet />
+</DialogProvider>
+```
+
+### `mounted` prop removed from dialog components
+The `mounted` prop passed to dialog components has been removed. This prop was always set to `true`, which made it effectively useless.
+
+```diff lang="tsx"
+- export const MyDialog = ({ mounted }: AsyncDialogProps) => {
++ export const MyDialog = ({ }: AsyncDialogProps) => {
+// ...
+}
+```
+
+### `open` and `focused` props renamed to `isOpen` and `isFocused`
+The `open` and `focused` props passed to dialog components have been renamed to `isOpen` and `isFocused` respectively. This is to make it more clear that these props are booleans, and to differentiate them from the `open()` method returned by `useDialog()`.
+
+```diff lang="tsx"
+- export const MyDialog = ({ open, focused }: AsyncDialogProps) => {
++ export const MyDialog = ({ isOpen, isFocused }: AsyncDialogProps) => {
+// ...
+}
+```
+
+### defaultUnmountDelayInMs now defaults to 300ms
+
+The `defaultUnmountDelayInMs` option for `<DialogProvider/>` now defaults to `300`. This is to provide a better out-of-the-box experience, as most dialogs will have some form of exit animation.
+
+If you want to retain the previous behaviour, explicitly set this option to `0`.
+```diff lang="tsx"
+<DialogProvider
++ defaultUnmountDelayInMs={0}
+/>

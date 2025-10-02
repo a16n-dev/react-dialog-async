@@ -19,11 +19,11 @@ export const useRenderDialogs = (state: dialogsStateData) => {
     return entries.map(
       ([id, { dialog: Component, data, hash, open, resolve }]) => {
         const dialogProps = {
-          open,
+          isOpen: open,
           data,
           mounted: true as const, // Dialog is always mounted when it's being rendered
           handleClose: (value: any) => resolve?.(value),
-          focused: id === lastOpenDialog, // Focus the last dialog in the list
+          isFocused: id === lastOpenDialog, // Focus the last dialog in the list
         };
 
         const contextValue = {

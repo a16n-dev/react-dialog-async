@@ -5,16 +5,12 @@ export interface AsyncDialogProps<Request = void, Response = undefined> {
    * Boolean indicating if the dialog is open or not
    *
    */
-  open: boolean;
+  isOpen: boolean;
   /**
    * Boolean indicating if this dialog is the focused dialog. Useful for applying different visual states when
    * multiple dialogs are open at once
    */
-  focused: boolean;
-  /**
-   * @deprecated - This prop will always be set to true. It will be removed in the next major version
-   */
-  mounted: true;
+  isFocused: boolean;
   /**
    * Call this function to close the dialog
    * @param data - This value will be used to resolve the promise that was returned when opening the dialog

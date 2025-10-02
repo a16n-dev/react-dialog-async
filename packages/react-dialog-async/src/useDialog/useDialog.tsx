@@ -1,29 +1,17 @@
-import {
-  useCallback,
-  useContext,
-  useEffect,
-  useId,
-  useMemo,
-  useRef,
-} from 'react';
+import { useCallback, useContext, useEffect, useId, useRef } from 'react';
 import type { AsyncDialogComponent } from '../types.js';
-import type { useDialogOptions, useDialogReturn } from './types.js';
 import { DialogActionsContext } from '../context/DialogActionsContext.js';
+import type { useDialogOptions, useDialogReturn } from './types.js';
 
+/**
+ * @category Hooks
+ */
 export function useDialog<D, R, DE extends D | undefined>(
   component: AsyncDialogComponent<D, R>,
   options?: useDialogOptions<D, DE>,
 ): useDialogReturn<D, R, DE> {
   const idCount = useRef(0);
-  const internalId = useId();
-
-  const id = useMemo(() => {
-    if (options?.customKey !== undefined) {
-      return options.customKey;
-    }
-
-    return internalId;
-  }, [internalId, component, options?.customKey]);
+  const id = useId();
 
   const ctx = useContext(DialogActionsContext);
 
@@ -35,13 +23,13 @@ export function useDialog<D, R, DE extends D | undefined>(
 
   useEffect(() => {
     return () => {
-      if (options?.hideOnHookUnmount !== false) {
+      if (options?.persistOnUnmount !== true) {
         ctx.hide(id);
       }
     };
-  }, [id, options?.hideOnHookUnmount]);
+  }, [id, options?.persistOnUnmount]);
 
-  const show = useCallback(
+  const open = useCallback(
     async (data?: D): Promise<R | undefined> => {
       return ctx.show(
         id,
@@ -54,7 +42,7 @@ export function useDialog<D, R, DE extends D | undefined>(
     [id, component, options?.defaultData, options?.unmountDelayInMs],
   );
 
-  const hide = () => {
+  const close = () => {
     return ctx.hide(id);
   };
 
@@ -63,10 +51,8 @@ export function useDialog<D, R, DE extends D | undefined>(
   };
 
   return {
-    show,
-    hide,
     updateData,
-    open: show,
-    close: hide,
+    open,
+    close,
   };
 }

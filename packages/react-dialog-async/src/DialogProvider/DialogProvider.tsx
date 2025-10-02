@@ -1,6 +1,11 @@
-import { useContext, useEffect, useMemo, useRef } from 'react';
-import { useCallback, useState } from 'react';
-import type { DialogProviderProps } from './types.js';
+import {
+  useContext,
+  useEffect,
+  useMemo,
+  useRef,
+  useCallback,
+  useState,
+} from 'react';
 import type { AsyncDialogComponent } from '../types.js';
 import { useRenderDialogs } from '../DialogOutlet/useRenderDialogs.js';
 import {
@@ -11,9 +16,10 @@ import {
   DialogActionsContext,
   type DialogActionsContextValue,
 } from '../context/DialogActionsContext.js';
+import type { DialogProviderProps } from './types.js';
 
 export const DialogProvider = ({
-  defaultUnmountDelayInMs,
+  defaultUnmountDelayInMs = 300,
   children,
 }: DialogProviderProps) => {
   // This ref tracks timers for unmount dialogs after they're closed

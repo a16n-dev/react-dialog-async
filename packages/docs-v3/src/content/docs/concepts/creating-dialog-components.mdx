@@ -1,0 +1,40 @@
+---
+title: Creating Dialog Components
+---
+import { Aside } from '@astrojs/starlight/components';
+
+React Dialog Async is a utility library for managing dialog state, and therefore requires you to provide your own dialog components.
+
+<Aside title={"Why doesn't React Dialog Async ship with starter components?"}>
+  We expect most projects to already have a dialog component that fits their needs.
+
+  We also believe complex dialog functionality such as focus management and accessibility is best solved by dedicated UI libraries.
+</Aside>
+
+## Recommended UI Libraries
+
+If you do not already have a dialog component, you may want to consider one of these libraries:
+
+React:
+- [Radix UI](https://www.radix-ui.com/primitives/docs/components/dialog)
+- [Material UI](https://mui.com/material-ui/react-dialog/)
+
+React Native:
+- [react-native-bottom-sheet](https://gorhom.dev/react-native-bottom-sheet/)
+
+## Creating your First Dialog Component
+Dialogs for React Dialog Async are just regular react components with specific props. These props are defined by the `AsyncDialogProps` type.
+
+```tsx title="ConfirmationDialog.tsx" "AsyncDialogProps"
+import { AsyncDialogProps } from 'react-dialog-async';
+
+export const ConfirmationDialog = ({ data, isOpen, handleClose }: AsyncDialogProps) => {
+  return ...
+}
+```
+
+The important props from `AsyncDialogProps` that you'll likely use are:
+
+* `isOpen`: a boolean that indicates if the dialog is open or closed. Use this to hide/show your component accordingly.
+* `handleClose`: a function that closes the dialog. Call this when you want to close the dialog, for example when the user clicks a close button or outside the dialog.
+* `data`: data passed to the dialog when it was opened.

@@ -1,0 +1,29 @@
+---
+title: Multiple Dialogs
+---
+
+React Dialog Async supports multiple dialogs being shown at once. The order the dialogs are stacked is determined by the order they are opened - that is to say, the most recently opened dialog will be on top.
+
+## Focus State
+In some cases, you may want to know if a given dialog is the topmost dialog. React Dialog Async calls this dialog the *focused* dialog. Only one dialog can be focused at a time.
+
+You can check the focus state of a dialog with the `isFocused` prop, or via
+the `isFocused` value returned by the `useDialogContext()` hook.
+
+```tsx
+export const MyDialog = ({ isFocused }: AsyncDialogProps) => {
+
+  if (!isFocused) {
+    // Return something different when the dialog isn't focused
+    return (...)
+  }
+
+
+  return <Dialog>(...)</Dialog>
+}
+```
+
+## Preventing Multiple Dialogs
+
+There is currently no support for preventing multiple dialogs from being opened at once. If this is something you would like to see supported, please raise an issue over on [GitHub](https://github.com/a16n-dev/react-dialog-async/issues).
+
