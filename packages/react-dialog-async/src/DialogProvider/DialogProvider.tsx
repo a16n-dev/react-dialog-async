@@ -13,7 +13,7 @@ import {
 } from '../context/DialogActionsContext.js';
 
 export const DialogProvider = ({
-  defaultUnmountDelayInMs,
+  defaultUnmountDelayInMs = 300,
   children,
 }: DialogProviderProps) => {
   // This ref tracks timers for unmount dialogs after they're closed

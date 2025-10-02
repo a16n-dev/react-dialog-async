@@ -26,7 +26,7 @@ function DialogProvider(props: DialogProviderProps): JSX.Element
 | Prop | Type                                            | Default | Description |
 |-|-|---------|-----------|
 | `children` | `React.ReactNode` | -       | Children |
-| `defaultUnmountDelayInMs` | `number` | `500`   | Default delay in milliseconds to wait before unmounting a dialog after it is closed |
+| `defaultUnmountDelayInMs` | `number` | `300`   | Default delay in milliseconds to wait before unmounting a dialog after it is closed |
 
 ## Source
 
