@@ -1,0 +1,31 @@
+---
+title: React Native
+---
+import { Aside } from '@astrojs/starlight/components';
+
+React Dialog Async supports React Native out of the box with no additional configuration, as it does not have any dependency on `react-dom`. 
+
+## Native Dialog Components
+
+See the [Recommended UI Libraries section](/concepts/creating-dialog-components#recommended-ui-libraries) for suggestions on dialog components for React Native.
+
+## Portal Behaviour
+One of the main challenges with creating custom dialogs in React Native is the lack of an equivalent to `createPortal` from `react-dom`. React Dialog Async solves this in most cases with the `<DialogOutlet/>` component, as it can be placed outside of your main app component, allowing dialogs to be rendered above all other content.
+
+```tsx title="main.tsx" {5}
+const Main = () => {
+  return (
+    <DialogProvider>    
+      <App />
+      <DialogOutlet/> {/* <-- Dialogs will be rendered here */}
+    </DialogProvider>
+  )
+}
+```
+
+<Aside type={"caution"} title={"Portal Behaviour with <StaticDialog/>"}>
+  Note that dialogs rendered with `<StaticDialog/>` **do not** use `<DialogOutlet/>`, and will be rendered in place.
+
+  In this case you may need to provide your own portal behaviour, for example by using a library such as [@gorhom/portal](https://github.com/gorhom/react-native-portal).
+</Aside>
+

@@ -1,19 +1,25 @@
-import React, { useContext, useEffect, useMemo, useRef } from 'react';
-import { PropsWithChildren, useCallback, useState } from 'react';
-import DialogContext, { dialogContextState } from '../DialogContext';
-import { DialogComponent } from '../types';
-import DialogStateContext, { dialogsStateData } from '../DialogStateContext';
-import useRenderDialogs from '../useRenderDialogs';
+import {
+  useContext,
+  useEffect,
+  useMemo,
+  useRef,
+  useCallback,
+  useState,
+} from 'react';
+import type { AsyncDialogComponent } from '../types.js';
+import { useRenderDialogs } from '../DialogOutlet/useRenderDialogs.js';
+import {
+  GlobalDialogStateContext,
+  type dialogsStateData,
+} from '../context/GlobalDialogStateContext.js';
+import {
+  DialogActionsContext,
+  type DialogActionsContextValue,
+} from '../context/DialogActionsContext.js';
+import type { DialogProviderProps } from './types.js';
 
-interface DialogProviderProps extends PropsWithChildren {
-  /**
-   * The default delay in milliseconds to wait before unmounting a dialog after it's closed.
-   */
-  defaultUnmountDelayInMs?: number;
-}
-
-const DialogProvider = ({
-  defaultUnmountDelayInMs,
+export const DialogProvider = ({
+  defaultUnmountDelayInMs = 300,
   children,
 }: DialogProviderProps) => {
   // This ref tracks timers for unmount dialogs after they're closed
@@ -59,7 +65,7 @@ const DialogProvider = ({
     (
       id: string,
       hash: number,
-      dialog: DialogComponent<any, any>,
+      dialog: AsyncDialogComponent<any, any>,
       data: unknown,
       unmountDelay?: number,
     ): Promise<unknown> => {
@@ -145,7 +151,7 @@ const DialogProvider = ({
    * To prevent unnecessary re-renders, be careful to ensure that this state has
    * no transitive dependencies to `dialogState`
    */
-  const ctx: dialogContextState = useMemo(
+  const ctx: DialogActionsContextValue = useMemo(
     () => ({
       show,
       hide,
@@ -155,18 +161,16 @@ const DialogProvider = ({
   );
 
   return (
-    <DialogStateContext.Provider
+    <GlobalDialogStateContext.Provider
       value={{ dialogs: dialogState, setIsUsingOutlet: setUsingOutlet }}
     >
-      <DialogContext.Provider value={ctx}>
+      <DialogActionsContext.Provider value={ctx}>
         {children}
         {!usingOutlet && <InternalDialogOutlet />}
-      </DialogContext.Provider>
-    </DialogStateContext.Provider>
+      </DialogActionsContext.Provider>
+    </GlobalDialogStateContext.Provider>
   );
 };
-
-export default DialogProvider;
 
 function removeKey<
   S extends string | number | symbol,
@@ -177,7 +181,7 @@ function removeKey<
 }
 
 const InternalDialogOutlet = () => {
-  const dialogState = useContext(DialogStateContext);
+  const dialogState = useContext(GlobalDialogStateContext);
 
   if (!dialogState) {
     throw new Error(

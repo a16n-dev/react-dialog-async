@@ -1,21 +1,20 @@
-import React from 'react';
 import { expect, test } from 'vitest';
 import { render, screen } from '@testing-library/react';
-import DialogProvider from './DialogProvider';
 import { useContext, useEffect, useId } from 'react';
-import DialogContext, { dialogContextState } from '../DialogContext';
-import { AsyncDialogProps } from '../types';
+import type { AsyncDialogProps } from '../types.js';
+import { DialogActionsContext } from '../context/DialogActionsContext.js';
+import { DialogProvider } from './DialogProvider.js';
 
-function ctxNotNull(ctx: dialogContextState | null): asserts ctx {
-  if (!ctx) {
+function valueNotNull<T>(v: T | null): asserts v {
+  if (!v) {
     throw new Error(
       'Dialog context not found. You likely forgot to wrap your app in a <DialogProvider/> (https://react-dialog-async.a16n.dev/installation)',
     );
   }
 }
 
-const TestDialog = ({ open }: AsyncDialogProps) => {
-  if (!open) return null;
+const TestDialog = ({ isOpen }: AsyncDialogProps) => {
+  if (!isOpen) return null;
 
   return <div>{'Hello World!'}</div>;
 };
@@ -34,8 +33,8 @@ test('renders children', () => {
 
 test('calling show() mounts the dialog in the DOM', () => {
   const InnerComponent = () => {
-    const ctx = useContext(DialogContext);
-    ctxNotNull(ctx);
+    const ctx = useContext(DialogActionsContext);
+    valueNotNull(ctx);
     const id = useId();
 
     useEffect(() => {
@@ -56,8 +55,8 @@ test('calling show() mounts the dialog in the DOM', () => {
 
 test('calling show() followed by hide() unmounts the dialog in the DOM', () => {
   const InnerComponent = () => {
-    const ctx = useContext(DialogContext);
-    ctxNotNull(ctx);
+    const ctx = useContext(DialogActionsContext);
+    valueNotNull(ctx);
     const id = useId();
 
     useEffect(() => {
