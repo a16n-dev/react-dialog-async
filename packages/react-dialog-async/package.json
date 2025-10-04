@@ -1,8 +1,8 @@
 {
   "name": "react-dialog-async",
-  "description": "A promise-based way to show dialogs in React",
+  "description": "A a hook-based API for managing dialog state in React apps, with a focus on performance and developer ergonomics",
   "type": "module",
-  "version": "3.0.0-beta.1",
+  "version": "3.0.0-beta.2",
   "sideEffects": false,
   "main": "./dist/index.cjs",
   "module": "./dist/index.js",

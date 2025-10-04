@@ -51,12 +51,15 @@ jobs:
         run: pnpm i
 
       - name: Build project
+        working-directory: packages/react-dialog-async
         run: pnpm build
 
       - name: Run tests
+        working-directory: packages/react-dialog-async
         run: pnpm test
 
       - name: Publish the dist folder to npm
-        run: cd dist && npm publish
+        working-directory: packages/react-dialog-async
+        run: npm publish --tag beta
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
