@@ -2,7 +2,7 @@
   "name": "react-dialog-async",
   "description": "Ergonomic & performant dialog hooks for React & React Native",
   "type": "module",
-  "version": "3.0.0-beta.2",
+  "version": "3.0.0",
   "sideEffects": false,
   "main": "./dist/index.cjs",
   "module": "./dist/index.js",

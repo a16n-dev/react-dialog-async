@@ -60,6 +60,6 @@ jobs:
 
       - name: Publish the dist folder to npm
         working-directory: packages/react-dialog-async
-        run: npm publish --tag beta
+        run: npm publish
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
