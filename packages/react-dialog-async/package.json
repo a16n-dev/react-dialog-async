@@ -1,6 +1,6 @@
 {
   "name": "react-dialog-async",
-  "description": "A a hook-based API for managing dialog state in React apps, with a focus on performance and developer ergonomics",
+  "description": "Ergonomic & performant dialog hooks for React & React Native",
   "type": "module",
   "version": "3.0.0-beta.2",
   "sideEffects": false,
