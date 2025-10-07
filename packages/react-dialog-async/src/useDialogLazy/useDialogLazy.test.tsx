@@ -39,15 +39,12 @@ test('Passing a dynamic import in the loader function automatically loads the de
     },
   );
 
-  const openPromise = result.current.open();
+  void result.current.open();
 
-  // Wait a bit for the dynamic import to resolve
   await new Promise((resolve) => setTimeout(resolve, 100));
 
   const dialog = document.querySelector('div');
 
   expect(dialog).toBeTruthy();
   expect(dialog?.textContent).toBe('Hello World!');
-
-  await openPromise;
 });
