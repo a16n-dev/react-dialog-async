@@ -5,7 +5,9 @@ import { DialogActionsContext } from '../context/DialogActionsContext.js';
 import type { useDialogLazyReturn } from './types.js';
 
 export function useDialogLazy<D, R, DE extends D | undefined>(
-  componentLoader: () => Promise<AsyncDialogComponent<D, R>>,
+  componentLoader: () => Promise<
+    AsyncDialogComponent<D, R> | { default: AsyncDialogComponent<D, R> }
+  >,
   options?: useDialogOptions<D, DE>,
 ): useDialogLazyReturn<D, R, DE> {
   const id = useId();
@@ -25,7 +27,10 @@ export function useDialogLazy<D, R, DE extends D | undefined>(
       // Call the lazy loader function with a callback to load the component
       void ctx.lazyLoaderFn(async () => {
         if (!componentRef.current) {
-          componentRef.current = await componentLoader();
+          const loaderResult = await componentLoader();
+
+          componentRef.current =
+            'default' in loaderResult ? loaderResult.default : loaderResult;
         }
       });
     }
@@ -42,7 +47,10 @@ export function useDialogLazy<D, R, DE extends D | undefined>(
   const open = useCallback(
     async (data?: D): Promise<R | undefined> => {
       if (!componentRef.current) {
-        componentRef.current = await componentLoader();
+        const loaderResult = await componentLoader();
+
+        componentRef.current =
+          'default' in loaderResult ? loaderResult.default : loaderResult;
       }
 
       return ctx.show(
@@ -66,7 +74,10 @@ export function useDialogLazy<D, R, DE extends D | undefined>(
 
   const preload = async () => {
     if (!componentRef.current) {
-      componentRef.current = await componentLoader();
+      const loaderResult = await componentLoader();
+
+      componentRef.current =
+        'default' in loaderResult ? loaderResult.default : loaderResult;
     }
   };
 
