@@ -1,3 +1,5 @@
+'use client';
+
 import { useContext, useEffect } from 'react';
 import { GlobalDialogStateContext } from '../context/GlobalDialogStateContext.js';
 import { useRenderDialogs } from './useRenderDialogs.js';
