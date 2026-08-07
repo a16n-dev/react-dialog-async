@@ -22,6 +22,9 @@ import type { DialogProviderProps } from './types.js';
 
 export const DialogProvider = ({
   defaultUnmountDelayInMs = 300,
+  suspenseFallback,
+  // Providing a fallback is taken as opting in to suspense
+  suspense = suspenseFallback !== undefined,
   children,
 }: DialogProviderProps) => {
   // This ref tracks timers for unmount dialogs after they're closed
@@ -158,13 +161,19 @@ export const DialogProvider = ({
       show,
       hide,
       updateData,
+      suspense,
     }),
-    [show, hide, updateData],
+    [show, hide, updateData, suspense],
   );
 
   return (
     <GlobalDialogStateContext.Provider
-      value={{ dialogs: dialogState, setIsUsingOutlet: setUsingOutlet }}
+      value={{
+        dialogs: dialogState,
+        setIsUsingOutlet: setUsingOutlet,
+        suspenseFallback,
+        suspense,
+      }}
     >
       <DialogActionsContext.Provider value={ctx}>
         {children}
@@ -191,7 +200,11 @@ const InternalDialogOutlet = () => {
     );
   }
 
-  const dialogComponents = useRenderDialogs(dialogState.dialogs);
+  const dialogComponents = useRenderDialogs(
+    dialogState.dialogs,
+    dialogState.suspense,
+    dialogState.suspenseFallback,
+  );
 
   if (process.env.NODE_ENV !== 'production' && dialogComponents.length > 0) {
     console.warn(

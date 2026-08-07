@@ -62,6 +62,7 @@ export default defineConfig({
             { label: 'Multiple Dialogs', slug: 'concepts/multiple-dialogs' },
             { label: 'Animations', slug: 'concepts/animations' },
             { label: 'Performance', slug: 'concepts/performance' },
+            { label: 'Suspense', slug: 'concepts/suspense' },
             { label: 'Static Dialogs', slug: 'concepts/static-dialogs' },
             { label: 'React Native', slug: 'concepts/react-native' },
             { label: 'Next.js / SSR', slug: 'concepts/next-js-ssr' },

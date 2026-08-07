@@ -1,0 +1,9 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`dialogs are not wrapped in a boundary unless suspense is configured 1`] = `
+<DocumentFragment>
+  <div>
+    Hello World!
+  </div>
+</DocumentFragment>
+`;
