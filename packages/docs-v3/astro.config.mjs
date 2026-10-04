@@ -8,6 +8,7 @@ import starlightBlog from 'starlight-blog';
 
 // https://astro.build/config
 export default defineConfig({
+  site: 'https://react-dialog-async.a16n.dev',
   vite: {
     plugins: [tailwindcss()],
   },
