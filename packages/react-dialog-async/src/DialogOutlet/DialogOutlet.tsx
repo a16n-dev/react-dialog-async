@@ -22,7 +22,11 @@ export const DialogOutlet = () => {
     };
   }, []);
 
-  const dialogComponents = useRenderDialogs(dialogState.dialogs);
+  const dialogComponents = useRenderDialogs(
+    dialogState.dialogs,
+    dialogState.suspense,
+    dialogState.suspenseFallback,
+  );
 
   return <>{dialogComponents}</>;
 };

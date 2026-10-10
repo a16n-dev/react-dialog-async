@@ -56,6 +56,10 @@ Extends [`useDialogReturn`](/reference/hooks/use-dialog#usedialogreturn)
 |-----------|-----------------------|---------------------------------------------------------------------------------------|
 | `preload` | `() => Promise<void>` | Preloads the dialog, so that it will be immediately available when `open()` is called |
 
+## Suspense
+
+When suspense is enabled on the `<DialogProvider/>`, the component is loaded through `React.lazy` and the dialog is shown immediately, rather than `open()` waiting for the component to be fetched. See [Suspense](/concepts/suspense).
+
 ## Source
 
 [View on GitHub](https://github.com/a16n-dev/react-dialog-async/blob/main/packages/react-dialog-async/src/useDialogLazy/useDialogLazy.tsx)

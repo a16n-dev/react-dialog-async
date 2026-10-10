@@ -27,6 +27,8 @@ function DialogProvider(props: DialogProviderProps): JSX.Element
 |-|-|---------|-----------|
 | `children` | `React.ReactNode` | -       | Children |
 | `defaultUnmountDelayInMs` | `number` | `300`   | Default delay in milliseconds to wait before unmounting a dialog after it is closed |
+| `suspense` | `boolean` | `true` if `suspenseFallback` is set | Renders every dialog inside its own `<Suspense/>` boundary. See [Suspense](/concepts/suspense) |
+| `suspenseFallback` | `React.ReactNode` | -       | Rendered in place of a dialog while that dialog is suspended. Setting this enables `suspense` |
 
 ## Source
 

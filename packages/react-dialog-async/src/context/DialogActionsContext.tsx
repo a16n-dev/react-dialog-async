@@ -11,6 +11,11 @@ export interface DialogActionsContextValue {
   ) => Promise<any>;
   hide: (dialogId: string, data?: any) => void;
   updateData: (dialogId: string, data: unknown) => void;
+  /**
+   * Whether dialogs are rendered inside a `<Suspense/>` boundary, as configured
+   * on the `<DialogProvider/>`.
+   */
+  suspense: boolean;
   lazyLoaderFn?: (loaderFn: () => Promise<void>) => Promise<void>;
 }
 

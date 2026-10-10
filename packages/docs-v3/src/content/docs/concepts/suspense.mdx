@@ -1,0 +1,76 @@
+---
+title: Suspense
+---
+
+import { Aside } from '@astrojs/starlight/components';
+
+Dialogs are often the part of an app that needs to wait on something - a lazily loaded chunk, or data that is only fetched once the dialog is opened. React models this with [Suspense](https://react.dev/reference/react/Suspense), and React Dialog Async can render each of your dialogs inside its own boundary.
+
+## The problem
+
+By default, dialogs are rendered without a boundary of their own. If a dialog suspends, that suspension propagates up to the nearest `<Suspense/>` boundary above the `<DialogOutlet/>` - which is usually somewhere near the root of your app. The result is that opening a dialog replaces your whole page with the app-level fallback until the dialog is ready.
+
+## Enabling suspense
+
+Suspense is configured once, globally, on the `<DialogProvider/>`. Setting `suspenseFallback` enables it:
+
+```tsx title="App.tsx"
+<DialogProvider suspenseFallback={<LoadingSpinner />}>
+  <App />
+  <DialogOutlet />
+</DialogProvider>
+```
+
+Every dialog is now rendered inside its own boundary, so a suspending dialog shows the fallback in place of itself, and the rest of your app is left alone.
+
+If you'd rather render nothing at all while a dialog is loading, enable suspense without a fallback:
+
+```tsx title="App.tsx"
+<DialogProvider suspense>
+```
+
+<Aside>
+The fallback is rendered inside the dialog's context, so it can call `useDialogContext()` - useful if you want the fallback to render inside your own dialog chrome.
+</Aside>
+
+## Suspending on data
+
+With suspense enabled, a dialog can read a promise with `use()` and the fallback will be shown until it resolves:
+
+```tsx title="UserDialog.tsx"
+import { use } from 'react';
+import type { AsyncDialogProps } from 'react-dialog-async';
+
+const UserDialog = ({ data, handleClose }: AsyncDialogProps<Promise<User>>) => {
+  const user = use(data);
+
+  return (
+    <Dialog onClose={() => handleClose()}>
+      <h2>{user.name}</h2>
+    </Dialog>
+  );
+};
+```
+
+```tsx title="UserList.tsx"
+const userDialog = useDialog(UserDialog);
+
+// The dialog opens immediately, showing the fallback until the user loads
+const handleClick = (id: string) => userDialog.open(fetchUser(id));
+```
+
+## Suspense and `useDialogLazy`
+
+Enabling suspense also changes how [`useDialogLazy`](/reference/hooks/use-dialog-lazy) loads its component.
+
+Without suspense, `open()` waits for the component to be fetched before the dialog is shown - so there is a delay between the user clicking and anything appearing on screen. With suspense enabled, the component is loaded through `React.lazy`, so the dialog is shown straight away and the fallback covers the load.
+
+```tsx title="Homepage.tsx"
+const onboardingDialog = useDialogLazy(() => import('./OnboardingDialog'));
+```
+
+Calling `preload()` still warms the module cache ahead of time, so a preloaded dialog opens without the fallback ever being shown.
+
+<Aside type="caution">
+When suspense is enabled, a failed dynamic import throws while rendering rather than rejecting the promise returned by `open()`. Render an [error boundary](https://react.dev/reference/react/Component#catching-rendering-errors-with-an-error-boundary) above your `<DialogOutlet/>` if you need to handle that case.
+</Aside>
