@@ -39,9 +39,9 @@ import { DialogProvider } from 'react-dialog-async';
 
 const Layout = () => {
   return (
-    <DialogProvider> // [!code ++]
+    <DialogProvider> {/* [!code ++] */}
       <App />
-    </DialogProvider> // [!code ++]
+    </DialogProvider> {/* [!code ++] */}
   );
 }
 ```
@@ -61,7 +61,7 @@ const Layout = () => {
   return (
     <DialogProvider>
       <App />
-      <DialogOutlet/> // [!code ++]
+      <DialogOutlet/> {/* [!code ++] */}
     </DialogProvider>
   );
 }
