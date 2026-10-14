@@ -107,6 +107,9 @@ export default defineConfig({
 
   themeConfig: {
     // https://vitepress.dev/reference/default-theme-config
+    // Fixed-colour variants of favicon.svg, so the logo follows the site's
+    // appearance toggle rather than the OS colour scheme.
+    logo: { light: '/logo-light.svg', dark: '/logo-dark.svg', alt: 'a16n' },
     nav: [
       { text: 'Guide', link: '/guides/introduction', activeMatch: '/(guides|concepts)/' },
       { text: 'Reference', link: '/reference/hooks/use-dialog', activeMatch: '/reference/' },
