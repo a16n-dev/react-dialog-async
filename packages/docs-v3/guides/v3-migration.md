@@ -47,7 +47,7 @@ In V3, this is not longer the case, and `<DialogOutlet/>` is now required for di
 ```tsx
 <DialogProvider>
   <App />
-  <DialogOutlet /> // [!code ++]
+  <DialogOutlet /> {/* [!code ++] */}
 </DialogProvider>
 ```
 
