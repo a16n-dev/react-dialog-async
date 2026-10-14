@@ -13,9 +13,6 @@ hero:
       text: Get started
       link: /guides/installation
     - theme: alt
-      text: Migrating to V3
-      link: /guides/v3-migration
-    - theme: alt
       text: Blog
       link: /blog/
 
