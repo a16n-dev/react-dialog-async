@@ -1,0 +1,235 @@
+/*
+ * Hazel theme (https://hazel.a16n.dev/tokens) mapped onto VitePress's
+ * default-theme variables. Raw palette lives in --hz-*; everything below
+ * that references it, so a palette change only touches the two blocks here.
+ */
+
+/* Light variant. */
+:root {
+  --hz-deep2: #fffcfd;
+  --hz-deep1: #fef8f9;
+  --hz-bg: #faf2f3;
+  --hz-dim5: #f2e9eb;
+  --hz-dim4: #eadfe1;
+  --hz-dim3: #cfc4c6;
+  --hz-dim2: #94898b;
+  --hz-dim1: #796e70;
+  --hz-muted: #5a4f51;
+  --hz-text: #2e2325;
+  --hz-red: #d04a69;
+  --hz-orange: #d06247;
+  --hz-yellow: #d99507;
+  --hz-green: #5c993a;
+  --hz-green-hover: #4e8231;
+  --hz-blue: #309592;
+  --hz-purple: #6e6bd1;
+  --hz-soft: 14%;
+  --hz-glow-strength: 22%;
+  --hz-shadow: 0 24px 64px rgb(46 35 37 / 0.12), 0 2px 8px rgb(46 35 37 / 0.08);
+  --hz-backdrop: rgb(46 35 37 / 0.3);
+}
+
+/* Dark variant (the default; see `appearance` in config.ts). */
+.dark {
+  --hz-deep2: #151011;
+  --hz-deep1: #1d1718;
+  --hz-bg: #282021;
+  --hz-dim5: #31292a;
+  --hz-dim4: #3b3234;
+  --hz-dim3: #564d4e;
+  --hz-dim2: #73696b;
+  --hz-dim1: #8d8385;
+  --hz-muted: #c4b6b9;
+  --hz-text: #fff0f4;
+  --hz-red: #fd6883;
+  --hz-orange: #f38d70;
+  --hz-yellow: #f9cc6c;
+  --hz-green: #adda78;
+  --hz-green-hover: #b9e08c;
+  --hz-blue: #85dacc;
+  --hz-purple: #a8a9eb;
+  --hz-soft: 16%;
+  --hz-glow-strength: 14%;
+  --hz-shadow: 0 24px 64px rgb(0 0 0 / 0.4), 0 2px 8px rgb(0 0 0 / 0.2);
+  --hz-backdrop: rgb(0 0 0 / 0.5);
+}
+
+:root,
+.dark {
+  /* Surfaces & text */
+  --vp-c-bg: var(--hz-bg);
+  --vp-c-bg-alt: var(--hz-deep1);
+  --vp-c-bg-elv: var(--hz-dim5);
+  --vp-c-bg-soft: var(--hz-dim5);
+  --vp-c-border: var(--hz-dim3);
+  --vp-c-divider: var(--hz-dim4);
+  --vp-c-gutter: var(--hz-dim4);
+  --vp-c-text-1: var(--hz-text);
+  --vp-c-text-2: var(--hz-muted);
+  --vp-c-text-3: var(--hz-dim1);
+  --vp-c-neutral: var(--hz-text);
+  --vp-c-neutral-inverse: var(--hz-bg);
+
+  /* Palette (VitePress derives tip/note/warning/danger/etc. from these) */
+  --vp-c-gray-1: var(--hz-dim3);
+  --vp-c-gray-2: var(--hz-dim4);
+  --vp-c-gray-3: var(--hz-dim5);
+  --vp-c-gray-soft: color-mix(in srgb, var(--hz-dim1) var(--hz-soft), transparent);
+  --vp-c-indigo-1: var(--hz-green);
+  --vp-c-indigo-2: var(--hz-green-hover);
+  --vp-c-indigo-3: var(--hz-green);
+  --vp-c-indigo-soft: color-mix(in srgb, var(--hz-green) var(--hz-soft), transparent);
+  --vp-c-purple-1: var(--hz-purple);
+  --vp-c-purple-2: var(--hz-purple);
+  --vp-c-purple-3: var(--hz-purple);
+  --vp-c-purple-soft: color-mix(in srgb, var(--hz-purple) var(--hz-soft), transparent);
+  --vp-c-green-1: var(--hz-green);
+  --vp-c-green-2: var(--hz-green-hover);
+  --vp-c-green-3: var(--hz-green);
+  --vp-c-green-soft: color-mix(in srgb, var(--hz-green) var(--hz-soft), transparent);
+  --vp-c-yellow-1: var(--hz-orange);
+  --vp-c-yellow-2: var(--hz-orange);
+  --vp-c-yellow-3: var(--hz-orange);
+  --vp-c-yellow-soft: color-mix(in srgb, var(--hz-orange) var(--hz-soft), transparent);
+  --vp-c-red-1: var(--hz-red);
+  --vp-c-red-2: var(--hz-red);
+  --vp-c-red-3: var(--hz-red);
+  --vp-c-red-soft: color-mix(in srgb, var(--hz-red) var(--hz-soft), transparent);
+
+  /* Brand = Hazel green */
+  --vp-c-brand-1: var(--hz-green);
+  --vp-c-brand-2: var(--hz-green-hover);
+  --vp-c-brand-3: var(--hz-green);
+  --vp-c-brand-soft: color-mix(in srgb, var(--hz-green) var(--hz-soft), transparent);
+  --vp-c-default-1: var(--hz-dim3);
+  --vp-c-default-2: var(--hz-dim4);
+  --vp-c-default-3: var(--hz-dim4);
+  --vp-c-default-soft: var(--hz-dim5);
+
+  /* Buttons: Hazel buttons are outlined, turning green on hover. */
+  --vp-button-brand-border: var(--hz-green);
+  --vp-button-brand-text: var(--hz-bg);
+  --vp-button-brand-bg: var(--hz-green);
+  --vp-button-brand-hover-border: var(--hz-green-hover);
+  --vp-button-brand-hover-text: var(--hz-bg);
+  --vp-button-brand-hover-bg: var(--hz-green-hover);
+  --vp-button-brand-active-border: var(--hz-green);
+  --vp-button-brand-active-text: var(--hz-bg);
+  --vp-button-brand-active-bg: var(--hz-green);
+  --vp-button-alt-border: var(--hz-dim4);
+  --vp-button-alt-text: var(--hz-text);
+  --vp-button-alt-bg: transparent;
+  --vp-button-alt-hover-border: var(--hz-green);
+  --vp-button-alt-hover-text: var(--hz-green);
+  --vp-button-alt-hover-bg: transparent;
+  --vp-button-alt-active-border: var(--hz-green);
+  --vp-button-alt-active-text: var(--hz-green);
+  --vp-button-alt-active-bg: transparent;
+
+  /* Chrome */
+  --vp-nav-bg-color: var(--hz-bg);
+  --vp-local-nav-bg-color: var(--hz-bg);
+  --vp-sidebar-bg-color: var(--hz-deep1);
+  --vp-backdrop-bg-color: var(--hz-backdrop);
+  --vp-shadow-3: var(--hz-shadow);
+  --vp-shadow-4: var(--hz-shadow);
+  --vp-shadow-5: var(--hz-shadow);
+  --vp-input-bg-color: var(--hz-bg);
+  --vp-input-border-color: var(--hz-dim4);
+  --vp-local-search-bg: var(--hz-bg);
+  --vp-local-search-result-bg: var(--hz-dim5);
+  --vp-local-search-result-border: var(--hz-dim4);
+  --vp-local-search-result-selected-bg: var(--hz-dim5);
+  --vp-local-search-result-selected-border: var(--hz-green);
+  --vp-local-search-highlight-bg: var(--hz-green);
+  --vp-local-search-highlight-text: var(--hz-bg);
+
+  /* Code */
+  --vp-code-color: var(--hz-text);
+  --vp-code-bg: var(--hz-dim4);
+  --vp-code-block-bg: var(--hz-deep1);
+  --vp-code-block-divider-color: var(--hz-dim4);
+  --vp-code-tab-bg: var(--hz-deep1);
+  --vp-code-tab-divider: var(--hz-dim4);
+  --vp-code-line-highlight-color: color-mix(in srgb, var(--hz-text) 6%, transparent);
+  --vp-code-line-number-color: var(--hz-dim2);
+  --vp-code-copy-code-bg: var(--hz-dim5);
+  --vp-code-copy-code-hover-bg: var(--hz-dim4);
+  --vp-code-copy-code-border-color: var(--hz-dim4);
+  --vp-code-copy-code-hover-border-color: var(--hz-green);
+
+  /* Home hero: plain title, like Hazel's own h1. */
+  --vp-home-hero-name-color: var(--hz-text);
+  --vp-home-hero-name-background: none;
+}
+
+:root {
+  --vp-font-family-base: 'Fira Sans', ui-sans-serif, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  --vp-font-family-mono: 'Fira Code', ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+}
+
+/* Hazel uses blue for links in running text; brand green stays for UI. */
+.vp-doc a {
+  color: var(--hz-blue);
+  text-underline-offset: 3px;
+}
+.vp-doc a:hover {
+  color: var(--hz-green);
+}
+
+/* Hazel's slowly cycling glow behind the home hero. */
+@property --hz-glow {
+  syntax: '<color>';
+  inherits: false;
+  initial-value: transparent;
+}
+
+.VPHome {
+  position: relative;
+  isolation: isolate;
+}
+.VPHome::before {
+  content: '';
+  position: absolute;
+  inset: 0 0 auto;
+  height: 560px;
+  background: radial-gradient(
+    ellipse 45% 100% at 50% 0,
+    color-mix(in srgb, var(--hz-glow) var(--hz-glow-strength), transparent),
+    transparent
+  );
+  pointer-events: none;
+  z-index: -1;
+  animation: hz-glow 32s linear infinite;
+}
+
+@keyframes hz-glow {
+  0%,
+  100% {
+    --hz-glow: var(--hz-red);
+  }
+  17% {
+    --hz-glow: var(--hz-orange);
+  }
+  33% {
+    --hz-glow: var(--hz-yellow);
+  }
+  50% {
+    --hz-glow: var(--hz-green);
+  }
+  67% {
+    --hz-glow: var(--hz-blue);
+  }
+  83% {
+    --hz-glow: var(--hz-purple);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .VPHome::before {
+    animation: none;
+  }
+  .VPHome::before {
+    --hz-glow: var(--hz-green);
+  }
+}

@@ -3,7 +3,8 @@
   "version": "0.0.0",
   "packageManager": "pnpm@9.15.4",
   "scripts": {
-    "docs:start": "pnpm -F docs-v2 start",
+    "docs:start": "pnpm -F docs-v3 start",
+    "docs:build": "pnpm -F docs-v3 build",
     "test": "pnpm -r test",
     "check": "pnpm -r check",
     "lint": "pnpm -r lint"

@@ -1,7 +1,6 @@
 # build output
-dist/
-# generated types
-.astro/
+.vitepress/dist/
+.vitepress/cache/
 
 # dependencies
 node_modules/
@@ -12,13 +11,11 @@ yarn-debug.log*
 yarn-error.log*
 pnpm-debug.log*
 
-
-# environment variables
-.env
-.env.production
-
 # macOS-specific files
 .DS_Store
+
+# cloudflare
+.wrangler/
 
 # cloudflare
 .wrangler/
