@@ -107,8 +107,6 @@ export default defineConfig({
 
   themeConfig: {
     // https://vitepress.dev/reference/default-theme-config
-    logo: '/rda-logo.png',
-
     nav: [
       { text: 'Guide', link: '/guides/introduction', activeMatch: '/(guides|concepts)/' },
       { text: 'Reference', link: '/reference/hooks/use-dialog', activeMatch: '/reference/' },

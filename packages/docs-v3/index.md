@@ -8,9 +8,6 @@ description: Ergonomic & performant dialog API for React & React Native
 hero:
   name: React Dialog Async
   tagline: Ergonomic & performant dialog hooks for React & React Native
-  image:
-    src: /rda-logo.png
-    alt: React Dialog Async
   actions:
     - theme: brand
       text: Get started
