@@ -2,3 +2,4 @@ tsconfig.json
 tsconfig.test.json
 vitest.config.ts
 src
+.claude

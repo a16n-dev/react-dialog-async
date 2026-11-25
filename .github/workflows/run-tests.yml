@@ -22,11 +22,14 @@ jobs:
         uses: actions/setup-node@v4
         with:
           cache: 'pnpm'
-          node-version: 18
+          node-version: 22
           registry-url: https://registry.npmjs.org
 
       - name: Install dependencies
         run: pnpm i
+
+      - name: Build
+        run: pnpm -F react-dialog-async build
 
       - name: Lint
         run: pnpm lint
