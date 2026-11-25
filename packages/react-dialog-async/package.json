@@ -26,7 +26,8 @@
     "build": "tsdown",
     "test": "vitest",
     "check": "tsc --noEmit",
-    "lint": "eslint . "
+    "lint": "eslint . ",
+    "prepack": "node -e \"require('node:fs').copyFileSync('../../README.md', 'README.md')\""
   },
   "devDependencies": {
     "@testing-library/dom": "^10.4.0",

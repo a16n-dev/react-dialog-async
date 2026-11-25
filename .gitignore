@@ -6,3 +6,6 @@ dist/
 
 .docusaurus
 
+
+# Copied from the root README by the package prepack script
+packages/react-dialog-async/README.md
