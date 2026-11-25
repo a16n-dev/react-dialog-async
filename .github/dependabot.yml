@@ -11,6 +11,8 @@ updates:
       interval: "weekly"
     groups:
       minor-and-patch:
+        patterns:
+          - "*"
         update-types:
           - "minor"
           - "patch"
