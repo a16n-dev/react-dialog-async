@@ -32,12 +32,14 @@
   "devDependencies": {
     "@testing-library/dom": "^10.4.2",
     "@testing-library/react": "^16.3.3",
+    "@types/node": "^22",
     "@types/react": "^19.3.1",
     "@types/react-dom": "^19.3.0",
-    "@vitejs/plugin-react": "^4.7.0",
+    "@vitejs/plugin-react": "^6.3.0",
     "react": "^19.3.1",
     "react-dom": "^19.3.1",
-    "vitest": "^3.2.7"
+    "vite": "^8.3.8",
+    "vitest": "^5.1.1"
   },
   "peerDependencies": {
     "react": "^18 || ^19"
