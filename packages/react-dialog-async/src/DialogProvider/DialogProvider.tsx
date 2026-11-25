@@ -26,6 +26,10 @@ export const DialogProvider = ({
 }: DialogProviderProps) => {
   // This ref tracks timers for unmount dialogs after they're closed
   const unmountDelayTimeoutRefs = useRef<{ [key: string]: any }>({});
+  // Set once the provider unmounts. useDialog hides its dialog in its own
+  // unmount cleanup, which React runs after this provider's cleanup has
+  // cleared the timers above, so a timer started then would never be cleared.
+  const isUnmountedRef = useRef(false);
 
   const [dialogState, setDialogState] = useState<dialogsStateData>({});
   const [usingOutlet, setUsingOutlet] = useState(false);
@@ -41,7 +45,7 @@ export const DialogProvider = ({
 
       state[id].resolve?.(data);
 
-      if (state[id].unmountDelay) {
+      if (state[id].unmountDelay && !isUnmountedRef.current) {
         if (unmountDelayTimeoutRefs.current[id] !== undefined) {
           clearTimeout(unmountDelayTimeoutRefs.current[id]);
         }
@@ -80,7 +84,7 @@ export const DialogProvider = ({
           setDialogState((state) => {
             if (!state[id]) return state;
 
-            if (state[id].unmountDelay) {
+            if (state[id].unmountDelay && !isUnmountedRef.current) {
               if (unmountDelayTimeoutRefs.current[id] !== undefined) {
                 clearTimeout(unmountDelayTimeoutRefs.current[id]);
               }
@@ -144,7 +148,9 @@ export const DialogProvider = ({
   }, []);
 
   useEffect(() => {
+    isUnmountedRef.current = false;
     return () => {
+      isUnmountedRef.current = true;
       Object.values(unmountDelayTimeoutRefs.current).forEach(clearTimeout);
     };
   }, []);

@@ -1,5 +1,5 @@
 import { type PropsWithChildren, act } from 'react';
-import { expect, test } from 'vitest';
+import { expect, test, vi } from 'vitest';
 import { render, renderHook, screen } from '@testing-library/react';
 import { useEffect } from 'react';
 import { DialogProvider } from '../DialogProvider/DialogProvider.js';
@@ -185,4 +185,46 @@ test('consumer does not rerender when dialog is opened', async () => {
 
   // Expect only the initial render
   expect(renderCount).toBe(1);
+});
+
+test('unmounting the provider with a dialog open leaves no unmount delay timer behind', async () => {
+  const TestComponent = () => {
+    const testDialog = useDialog(TestDialog);
+
+    return <button onClick={() => testDialog.open()}>Open dialog</button>;
+  };
+
+  const result = render(
+    <TestWrapper>
+      <TestComponent />
+    </TestWrapper>,
+  );
+
+  await act(async () => {
+    screen.getByText('Open dialog').click();
+  });
+  expect(screen.getByText('Hello World!')).toBeDefined();
+
+  // The app goes on rendering while the dialog is open. Once the provider has
+  // no update pending, React runs hide()'s state update eagerly - even on a
+  // provider that is unmounting - which is what starts the timer.
+  const tree = (
+    <TestWrapper>
+      <TestComponent />
+    </TestWrapper>
+  );
+  result.rerender(tree);
+  result.rerender(tree);
+
+  vi.useFakeTimers();
+  try {
+    // useDialog hides its dialog as it unmounts, which runs after the provider's
+    // own cleanup has cleared the unmount delay timers. A timer started then is
+    // never cleared, and fires setState on a provider that has gone.
+    result.unmount();
+
+    expect(vi.getTimerCount()).toBe(0);
+  } finally {
+    vi.useRealTimers();
+  }
 });
